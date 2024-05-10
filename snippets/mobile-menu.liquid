@@ -1,0 +1,76 @@
+{% if context == 'top_bar_menu' %}
+  {% for link in linklists[menu].links %}
+    <li>
+      {% if link.url == '' or link.url == '/' or link.url == '#' %}
+        <a data-no-instant href="{{ link.url }}" class="parent-link--false">
+          {{ link.title }}
+        </a>
+      {% else %}
+        <a data-no-instant href="{{ link.url }}" class="parent-link--true">
+          {{ link.title }}
+        </a>
+      {% endif %}
+    </li>
+  {% endfor %}
+{% else %}
+  <template data-nav-parent-template>
+    <li class="sublink">
+      <a href="#" data-no-instant class="parent-link--true"><div class="mobile-menu-item-title" data-nav-title></div><span class="right icon-down-arrow"></span></a>
+      <ul class="mobile-mega-menu" data-meganav-target-container>
+      </ul>
+    </li>
+  </template>
+  {% for link in linklists[menu].links %}
+    {% if linklists[link.handle] == empty %}
+      <li data-mobile-dropdown-rel="{{ link.handle }}" data-meganav-mobile-target="{{ link.title | handle }}">
+        {% if link.url == '' or link.url == '/' or link.url == '#' %}
+          <a data-nav-title data-no-instant href="{{ link.url }}" class="parent-link--false">
+            {{ link.title }}
+          </a>
+        {% else %}
+          <a data-nav-title data-no-instant href="{{ link.url }}" class="parent-link--true">
+            {{ link.title }}
+          </a>
+        {% endif %}
+      </li>
+    {% else %}
+      <li data-mobile-dropdown-rel="{{ link.handle }}" class="sublink" data-meganav-mobile-target="{{ link.title | handle }}">
+        {% if link.url == '' or link.url == '/' or link.url == '#' %}
+          <a data-no-instant href="{{ link.url }}" class="parent-link--false">
+            <div class="mobile-menu-item-title" data-nav-title>{{ link.title }}</div>
+            <span class="right icon-down-arrow"></span>
+          </a>
+        {% else %}
+          <a data-no-instant href="{{ link.url }}" class="parent-link--true">
+            <div class="mobile-menu-item-title" data-nav-title>{{ link.title }}</div>
+            <span class="right icon-down-arrow"></span>
+          </a>
+        {% endif %}
+        <ul>
+          {% for link in linklists[link.handle].links %}
+            {% if linklists[link.handle] == empty %}
+              <li><a href="{{ link.url }}">{{ link.title }}</a></li>
+            {% else %}
+              <li class="sublink">
+                {% if link.url == '' or link.url == '/' or link.url == '#' %}
+                  <a data-no-instant href="{{ link.url }}" class="parent-link--false">
+                    {{ link.title }} <span class="right icon-down-arrow"></span>
+                  </a>
+                {% else %}
+                  <a data-no-instant href="{{ link.url }}" class="parent-link--true">
+                    {{ link.title }} <span class="right icon-down-arrow"></span>
+                  </a>
+                {% endif %}
+                <ul>
+                  {% for link in linklists[link.handle].links %}
+                    <li><a href="{{ link.url }}">{{ link.title }}</a></li>
+                  {% endfor %}
+                </ul>
+              </li>
+            {% endif %}
+          {% endfor %}
+        </ul>
+      </li>
+    {% endif %}
+  {% endfor %}
+{% endif %}

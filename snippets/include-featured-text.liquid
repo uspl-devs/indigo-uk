@@ -1,0 +1,82 @@
+{% comment %}
+** Rich text and image - dynamic **
+- Draggable section
+{% endcomment %}
+
+{% comment %} Assign object as block or section {% endcomment %}
+{% if type == 'block' %}
+  {%- assign object = block -%}
+{% else %}
+  {%- assign object = section -%}
+{% endif %}
+
+{%- assign id = object.id -%}
+
+{% comment %} Content settings {% endcomment %}
+{%- assign image = object.settings.image -%}
+{%- assign mobile_image = object.settings.mobile_image -%}
+{%- assign title = object.settings.title -%}
+{%- assign content = object.settings.content -%}
+{%- assign button_label = object.settings.button_label -%}
+{%- assign button_link = object.settings.button_link -%}
+{% comment %} End content settings {% endcomment %}
+
+{% comment %} Advanced {% endcomment %}
+{%- assign css_class = object.settings.css_class -%}
+{%- assign custom_css = object.settings.custom_css -%}
+
+{% comment %} Section specific CSS {% endcomment %}
+{% style %}
+  {% render 'css-loop',
+          css: custom_css,
+          id: id
+  %}
+{% endstyle %}
+
+<section class="section {{ css_class }}">
+  <div class="container">
+    <div class="one-whole column">
+      <div class="rich-text__content {{ object.settings.text_alignment }}">
+        {% if image %}
+          {% if mobile_image %}
+            <div class="is-hidden-mobile-only">
+          {% endif %}
+          {% render 'image-element',
+                  image: image.src,
+                  alt: image.alt,
+                  stretch_width: true
+          %}
+          {% if mobile_image %}
+            </div>
+            <div class="is-hidden-desktop-only">
+              {% render 'image-element',
+                      image: mobile_image,
+                      alt: mobile_image.alt,
+                      stretch_width: true
+              %}
+            </div>
+          {% endif %}
+        {% endif %}
+
+        {% if title != blank %}
+          <h2 class="rich-text__heading title">
+            {{ title }}
+          </h2>
+          <div class="feature_divider"></div>
+        {% endif %}
+
+        <div class="rich-text__text {{ object.settings.text_size }}">
+          {% if content != blank %}
+            {{ content }}
+          {% endif %}
+
+          {% if button_label != blank %}
+            <a href="{{ button_link }}" class="global-button">
+              {{ button_label }}
+            </a>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

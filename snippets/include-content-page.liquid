@@ -1,0 +1,43 @@
+{% comment %}
+** Page - dynamic **
+- Draggable section
+{% endcomment %}
+
+{% comment %} Assign object as block or section {% endcomment %}
+{% if type == 'block' %}
+  {%- assign object = block -%}
+{% else %}
+  {%- assign object = section -%}
+{% endif %}
+
+{%- assign id = object.id -%}
+
+{% comment %} Content settings {% endcomment %}
+{%- assign content_page = pages[object.settings.content_page] -%}
+{% comment %} End content settings {% endcomment %}
+
+{% comment %} Advanced {% endcomment %}
+{%- assign css_class = object.settings.css_class -%}
+{%- assign custom_css = object.settings.custom_css -%}
+
+{% comment %} Section specific CSS {% endcomment %}
+{% style %}
+  {% render 'css-loop',
+          css: custom_css,
+          id: id
+  %}
+{% endstyle %}
+
+<div class="{{ css_class }} featured_content">
+  <section class="section has-padding-top">
+    <div class="container">
+      {% if content_page != blank %}
+        {% render 'page-multi-column', content: content_page.content %}
+      {% else %}
+        <div class="one-whole column">
+          <p class="center">{{ 'homepage.onboarding.no_content' | t }}</p>
+        </div>
+      {% endif %}
+    </div>
+  </section>
+</div>

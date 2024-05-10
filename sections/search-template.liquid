@@ -1,0 +1,601 @@
+<script
+  type="application/json"
+  data-section-type="search-template"
+  data-section-id="{{ section.id }}"
+>
+</script>
+
+{%- if search.results_count > 0 -%}
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "ItemList",
+      "itemListElement": [
+        {%- for item in search.results limit: section.settings.pagination_limit -%}
+          {
+            "@type": "ListItem",
+            "position": "{{ forloop.index | json }}",
+            "url": "{{ shop.url }}{{ item.url }}",
+            "name": "{{ item.title | strip_html | escape }}"
+          } {%- unless forloop.last -%},{%- endunless -%}
+        {%- endfor -%}
+      ]
+    }
+  </script>
+{%- endif -%}
+
+{% liquid
+  assign banner_title = 'general.search.title' | t
+
+  assign has_faceted_filtering_block = false
+  assign faceted_filtering_blocks_count = section.blocks | where: "type", "faceted_filtering" | size
+  if faceted_filtering_blocks_count > 0
+    assign has_faceted_filtering_block = true
+  endif
+%}
+
+{% paginate search.results by section.settings.pagination_limit %}
+  {% if section.settings.image != blank %}
+    {%
+      render 'template-banner',
+      image: section.settings.image,
+      mobile_image: section.settings.mobile_image,
+      background_style: section.settings.caption_content_background,
+      wide_display: section.settings.wide_display,
+      banner_title: banner_title,
+      show_caption: true
+    %}
+  {% endif %}
+
+  <section class="section">
+    <div class="container content">
+      <div class="one-whole column">
+        <div class="breadcrumb-collection">
+          {% if section.settings.search_breadcrumb %}
+            <script type="application/ld+json">
+              {
+                "@context": "https://schema.org",
+                "@type": "BreadcrumbList",
+                "itemListElement": [
+                  {
+                    "@type": "ListItem",
+                    "position": 1,
+                    "item": {
+                      "@id": "{{ shop.url }}",
+                      "name": "{{ 'general.breadcrumbs.home' | t }}"
+                  }
+                },
+                {
+                  "@type": "ListItem",
+                  "position": 2,
+                  "item": {
+                    "@id": "{{ routes.search_url }}",
+                    "name": "{{ 'general.search.title' | t }}"
+                  }
+                }
+              ]
+            }
+          </script>
+
+          <div class="breadcrumb_text">
+            <a href="{{ routes.root_url }}" title="{{ shop.name | escape }}" class="breadcrumb_link">
+              <span>{{ 'general.breadcrumbs.home' | t }}</span>
+            </a>
+
+            <span class="breadcrumb-divider">/</span>
+
+            <a href="{{ routes.search_url }}" class="breadcrumb_link">
+              <span>{{ 'general.search.title' | t }}</span>
+            </a>
+
+            {% if paginate.pages != 0 and settings.pagination_type == 'basic_pagination' %}
+              <span class="breadcrumb-divider">/</span> {{ 'general.breadcrumbs.page' | t: current_page: paginate.current_page, pages: paginate.pages }}
+            {% endif %}
+          </div>
+        {% endif %}
+        </div>
+      </div>
+
+      {% if section.settings.image == blank %}
+        <div class="one-whole column">
+          <h1>{{ 'general.search.title' | t }}</h1>
+          <div class="feature-divider"></div>
+        </div>
+      {% endif %}
+
+      <div class="one-whole column">
+        <div class="search__header text-align--center">
+          <h3 class="search__header-title">
+            {% if search.performed %}
+              {% capture results %}
+                {{- 'general.search.results_count' | t: count: search.results_count -}}
+              {% endcapture %}
+              {% if search.results_count > 0 %}
+                {{- 'general.search.results_text' | t: results: results, search_terms: search.terms -}}
+              {% else %}
+                {{- 'general.search.no_results_text' | t: results: results, search_terms: search.terms -}}
+              {% endif %}
+            {% else %}
+              {{- 'general.search.description' | t -}}
+            {% endif %}
+          </h3>
+
+          {%
+            render 'search-form',
+            context: 'search',
+          %}
+        </div>
+      </div>
+
+      {% comment %} Check to see if sidebar should be enabled {% endcomment %}
+      {% if section.blocks.size > 0 %}
+        {% assign sidebar = true %}
+      {% else %}
+        {% assign sidebar = false %}
+      {% endif %}
+
+      <div
+        class="
+          content-wrapper
+          is-flex
+          is-flex-wrap
+        "
+      >
+        {%
+          render 'sidebar',
+          results: search,
+          has_faceted_filtering_block: has_faceted_filtering_block,
+        %}
+
+        <div
+          class="
+            has-sidebar-option
+            sidebar-enabled--{{ sidebar }}
+          "
+        >
+          <div class="container">
+            {% if search.performed %}
+              {% liquid
+                # Iterate over results to check if there are non-product items
+
+                assign non_products = false
+                for item in search.results
+                  if item.object_type != 'product'
+                    assign non_products = true
+                    break
+                  endif
+                endfor
+              %}
+
+              {% if non_products == true %}
+                <div class="one-whole column">
+                  <div
+                    class="
+                      product-list
+                      product-list--search
+                    "
+                    {% if settings.pagination_type == 'load_more_button' %}
+                      data-load-more--grid
+                    {% endif %}
+                  >
+                    {% for item in search.results %}
+                      <div
+                        class="
+                          product_row
+                          is-flex
+                          is-flex-wrap
+                          equal-columns--outside-trim
+                        "
+                        {% if settings.pagination_type == 'load_more_button' %}
+                          data-load-more--grid-item
+                        {% endif %}
+                      >
+                        {% assign featured_image = false %}
+
+                        {% if item.object_type == 'article' and item.image %}
+                          {% assign featured_image = true %}
+
+                          <div class="one-fourth column">
+                            <a href="{{ item.url }}" title="{{ item.title | escape }}">
+                              {%
+                                render 'image-element',
+                                image: item.image,
+                                alt: item.title,
+                                object_fit: settings.align_height,
+                                max_height: settings.collection_height,
+                              %}
+                            </a>
+                          </div>
+                        {% elsif item.featured_image %}
+                          {% assign featured_image = true %}
+
+                          <div class="one-fourth column">
+                            <a href="{{ item.url }}" title="{{ item.title | escape }}">
+                              {%
+                                render 'image-element',
+                                image: item.featured_image,
+                                alt: item.title,
+                                object_fit: settings.align_height,
+                                max_height: settings.collection_height,
+                              %}
+                            </a>
+                          </div>
+                        {% endif %}
+
+                        <div
+                          class="
+                            {% if featured_image %}
+                              three-fourths
+                              columns
+                            {% else %}
+                              one-whole
+                              column
+                            {% endif %}
+                            align_left
+                          "
+                        >
+                          <h5 class="sub_title">
+                            <a href="{{ item.url }}" title="{{ item.title | escape }}">
+                              {{- item.title -}}
+                            </a>
+                          </h5>
+
+                          {% if item.price %}
+                            <div class="info">
+                              {% unless settings.display_price == false and item.available == false %}
+                                <span class="price">
+                                  {% if item.compare_at_price_max > item.price %}
+                                    <span class="was_price">
+                                      <span class="money">
+                                        {%
+                                          render 'price-element',
+                                          price: item.compare_at_price_max,
+                                        %}
+                                      </span>
+                                    </span>
+                                  {% endif %}
+
+                                  {% if item.price_varies %}
+                                    {% if item.compare_at_price_max > item.price %}
+                                      <br />
+                                    {% endif %}
+
+                                    <small>
+                                      <em>{{ 'products.general.from' | t }}</em>
+                                    </small>
+                                  {% endif %}
+
+                                  <span class="money">
+                                    {%
+                                      render 'price-element',
+                                      price: item.price_min,
+                                    %}
+                                  </span>
+                                </span>
+                              {% endunless %}
+
+                              {% if item.available == false %}
+                                <span class="sold-out-text">
+                                  {{- 'products.product.sold_out' | t -}}
+                                </span>
+                              {% endif %}
+                            </div>
+                          {% endif %}
+
+                          {% if item.object_type == 'article' %}
+                            <p class="blog_meta">
+                              {% if section.settings.blog_author %}
+                                <span>
+                                  {{ 'blogs.article.by_author' | t: author: item.author }}
+                                </span>
+                              {% endif %}
+
+                              {% if section.settings.blog_date %}
+                                <span>
+                                  {{ item.published_at | date: format: "month_day_year" }}
+                                </span>
+                              {% endif %}
+                            </p>
+                          {% endif %}
+
+                          {% if item.excerpt %}
+                            <div class="excerpt">
+                              {{- item.excerpt -}}
+                            </div>
+
+                            {% if section.settings.read_more_link %}
+                              <p>
+                                <a href="{{ item.url }}" title="{{ item.title | escape }}">
+                                  {{ 'blogs.general.continue_reading_html' | t }}
+                                  <span class="icon-right-arrow"></span>
+                                </a>
+                              </p>
+                            {% endif %}
+                          {% else %}
+                            <p>
+                              {{ item.content | strip_html | truncatewords: 40 | replace: 'Description', '' | replace: 'Specs', '' | replace: 'Shipping', '' | replace: 'Size', '' }}
+                            </p>
+                          {% endif %}
+                        </div>
+                      </div>
+                    {% endfor %}
+
+                    {% if settings.pagination_type != 'basic_pagination' %}
+                      {% if paginate.next.url %}
+                        <span class="js-load-more load-more">
+                          <a
+                            class="
+                              global-button
+                              global-button--text
+                            "
+                            href="{{ paginate.next.url }}"
+                            data-no-instant
+                            data-load-more
+                          >
+                            {{- 'general.search.load_more' | t -}}
+                          </a>
+                        </span>
+                      {% endif %}
+                    {% endif %}
+                  </div>
+
+                  {%- render 'loading-icon' -%}
+                </div>
+              {% else %}
+                <div class="one-whole column">
+                  {% assign products = search.results %}
+
+                  {%
+                    render 'product-loop',
+                    products: products,
+                    skip_product: product,
+                    products_per_row: section.settings.products_per_row,
+                    sidebar: sidebar,
+                    paginate: paginate,
+                  %}
+                </div>
+              {% endif %}
+            {% endif %}
+
+            {% unless settings.pagination_type != 'basic_pagination' %}
+              {%
+                render 'pagination',
+                paginate: paginate,
+              %}
+            {% endunless %}
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+{% endpaginate %}
+
+{% schema %}
+{
+  "name": "Search",
+  "class": "shopify-section--search-template under-menu",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Banner"
+    },
+    {
+      "type": "checkbox",
+      "id": "wide_display",
+      "label": "Wide display",
+      "default": true
+    },
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Banner image",
+      "info": "1600 x 1000px recommended"
+    },
+    {
+      "type": "image_picker",
+      "id": "mobile_image",
+      "label": "Mobile banner image",
+      "info": "Display a different image on mobile screens. This only appears when the desktop image is set."
+    },
+    {
+      "type": "select",
+      "id": "caption_content_background",
+      "label": "Text contrast technique",
+      "default": "original",
+      "info": "Improve legibility by applying a contrast technique to your banner’s text.",
+      "options": [
+        {
+          "value": "original",
+          "label": "None"
+        },
+        {
+          "value": "darken_bg",
+          "label": "Darken banner image"
+        },
+        {
+          "value": "text_box",
+          "label": "Solid box"
+        },
+        {
+          "value": "translucent_text_box",
+          "label": "Translucent box"
+        }
+      ]
+    },
+    {
+      "type": "header",
+      "content": "Layout"
+    },
+    {
+      "type": "checkbox",
+      "id": "search_breadcrumb",
+      "label": "Show breadcrumb",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "search_term",
+      "label": "Placeholder text",
+      "default": "Search..."
+    },
+    {
+      "type": "range",
+      "id": "products_per_row",
+      "label": "Products per row",
+      "min": 2,
+      "max": 5,
+      "step": 1,
+      "default": 3
+    },
+    {
+      "type": "range",
+      "id": "pagination_limit",
+      "label": "Products per page",
+      "min": 2,
+      "max": 50,
+      "step": 1,
+      "default": 48
+    },
+    {
+      "type": "header",
+      "content": "Blog results"
+    },
+    {
+      "type": "checkbox",
+      "id": "blog_author",
+      "label": "Show author"
+    },
+    {
+      "type": "checkbox",
+      "id": "read_more_link",
+      "label": "Show continue reading link",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "blog_date",
+      "label": "Show date",
+      "default": true
+    },
+    {
+      "type": "header",
+      "content": "Sidebar"
+    },
+    {
+      "type": "paragraph",
+      "content": "Create search sidebar by adding content blocks."
+    },
+    {
+      "type": "checkbox",
+      "id": "toggle",
+      "label": "Collapse sidebar content",
+      "default": false
+    }
+  ],
+  "blocks": [
+    {
+      "type": "filter_by_collection",
+      "name": "Collection list",
+      "limit": 1
+    },
+    {
+      "type": "faceted_filtering",
+      "name": "Faceted filtering",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "paragraph",
+          "content": "[Learn how](https://help.shopify.com/en/manual/online-store/themes/os20/customize/filters) to configure filters."
+        },
+        {
+          "type": "paragraph",
+          "content": "Using this block will hide any tag filter, tag list, type list, and vendor list blocks."
+        },
+        {
+          "type": "checkbox",
+          "id": "show_filter_product_count",
+          "label": "Show product counts",
+          "default": true
+        }
+      ]
+    },
+    {
+      "type": "menu",
+      "name": "Menu",
+      "settings": [
+        {
+          "type": "link_list",
+          "id": "custom_menu_linklist",
+          "label": "Menu"
+        }
+      ]
+    },
+    {
+      "type": "page",
+      "name": "Page",
+      "settings": [
+        {
+          "type": "page",
+          "id": "content_page",
+          "label": "Page"
+        }
+      ]
+    },
+    {
+      "type": "recently_viewed",
+      "name": "Recently viewed products",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "paragraph",
+          "content": "To test the recently viewed products, view your online store outside of the Editor and visit multiple product pages. [Learn more](https:\/\/help.outofthesandbox.com\/hc\/en-us\/articles\/115008765228)"
+        },
+        {
+          "type": "text",
+          "id": "sidebar_rv_title",
+          "label": "Title",
+          "default": "Recently Viewed"
+        },
+        {
+          "type": "range",
+          "id": "sidebar_rv_per",
+          "label": "Products limit",
+          "min": 1,
+          "max": 4,
+          "step": 1,
+          "default": 3
+        }
+      ]
+    },
+    {
+      "type": "text",
+      "name": "Text",
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Heading",
+          "default": "Heading"
+        },
+        {
+          "type": "richtext",
+          "id": "text",
+          "label": "Text",
+          "default": "<p>Text area can be used for special announcements or general information.</p>"
+        }
+      ]
+    },
+    {
+      "type": "filter_by_type",
+      "name": "Type list",
+      "limit": 1
+    },
+    {
+      "type": "filter_by_vendor",
+      "name": "Vendor list",
+      "limit": 1
+    }
+  ]
+}
+
+{% endschema %}

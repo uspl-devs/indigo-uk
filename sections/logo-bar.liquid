@@ -1,0 +1,155 @@
+<script
+  type="application/json"
+  data-section-type="logo-list"
+  data-section-id="{{ section.id }}"
+>
+</script>
+
+{% style %}
+  {%
+    render 'css-loop',
+    css: section.settings.custom_css,
+    id: section.id,
+  %}
+{% endstyle %}
+
+<section class="section {{ section.settings.css_class }}">
+  <div class="container">
+    <div class="one-whole column">
+      {% if section.settings.title != blank %}
+        <h2 class="title center">
+          {{ section.settings.title | escape }}
+        </h2>
+        <div class="feature-divider"></div>
+      {% endif %}
+    </div>
+
+    <div class="one-whole column">
+      <div
+        class="
+          logo-list
+          logo-list--{{ section.settings.layout }}
+        "
+        {% if section.settings.layout == 'slider' %}
+          data-logo-slider
+        {% endif %}
+      >
+        {% for block in section.blocks %}
+          <div class="logo-list__item" {{ block.shopify_attributes }}>
+            {% if block.settings.link != blank %}
+              <a class="logo-list__item-link" href="{{ block.settings.link }}">
+            {% endif %}
+
+            {% if block.settings.image != blank %}
+              {%
+                render 'image-element',
+                image: block.settings.image,
+                alt: block.settings.image.alt,
+                focal_point: block.settings.image.presentation.focal_point,
+              %}
+            {% else %}
+              {{ 'image' | placeholder_svg_tag: 'placeholder-svg' }}
+            {% endif %}
+
+            {% if block.settings.link != blank %}
+              </a>
+            {% endif %}
+          </div>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Logo list",
+  "class": "shopify-section--logo-list",
+  "max_blocks": 20,
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Heading",
+      "default": "Logo list"
+    },
+    {
+      "type": "radio",
+      "id": "layout",
+      "label": "Layout",
+      "default": "grid",
+      "options": [
+        {
+          "value": "slider",
+          "label": "Slider"
+        },
+        {
+          "value": "grid",
+          "label": "Grid"
+        }
+      ]
+    },
+    {
+      "type": "header",
+      "content": "Advanced"
+    },
+    {
+      "type": "paragraph",
+      "content": "[Learn more](https://help.outofthesandbox.com/hc/en-us/articles/360022329373)"
+    },
+    {
+      "type": "text",
+      "id": "css_class",
+      "label": "CSS Class"
+    },
+    {
+      "type": "textarea",
+      "id": "custom_css",
+      "label": "Custom CSS"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "logo_image",
+      "name": "Logo",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image",
+          "info": "400 x 300px recommended"
+        },
+        {
+          "type": "url",
+          "id": "link",
+          "label": "Link"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Logo list",
+      "category": "Image",
+      "blocks": [
+        {
+          "type": "logo_image"
+        },
+        {
+          "type": "logo_image"
+        },
+        {
+          "type": "logo_image"
+        },
+        {
+          "type": "logo_image"
+        }
+      ]
+    }
+  ],
+  "disabled_on": {
+    "groups": [ "*" ]
+  }
+}
+
+{% endschema %}

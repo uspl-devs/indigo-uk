@@ -1,0 +1,140 @@
+{% comment %}
+** Image with text overlay - dynamic **
+- Draggable section
+{% endcomment %}
+
+{% comment %} Assign object as block or section {% endcomment %}
+{% if type == 'block' %}
+  {%- assign object = block -%}
+  {%- assign object_selector = '.block__' | append: object.id -%}
+{% else %}
+  {%- assign object = section -%}
+  {%- assign object_selector = '#shopify-section-' | append: object.id -%}
+{% endif %}
+
+{%- assign id = object.id -%}
+
+{% comment %} Content settings {% endcomment %}
+{%- assign image = object.settings.image -%}
+{%- assign mobile_image = object.settings.mobile_image -%}
+{%- assign pretext = object.settings.pretext -%}
+{%- assign title = object.settings.title | escape -%}
+{%- assign subtitle = object.settings.subtitle -%}
+{%- assign background_style = object.settings.caption_content_background -%}
+{%- assign button1 = object.settings.button1 -%}
+{%- assign button1_link = object.settings.button1_link -%}
+{%- assign button1_style = object.settings.button1_style -%}
+{%- assign button2_style = object.settings.button2_style -%}
+{%- assign button2 = object.settings.button2 -%}
+{%- assign button2_link = object.settings.button2_link -%}
+{% comment %} End content settings {% endcomment %}
+
+{% comment %} Mobile crop {% endcomment %}
+{%- assign mobile_crop = 'mobile-banner--crop-' | append: object.settings.mobile_image_crop -%}
+
+{% comment %} Is the color set to transparent? {% endcomment %}
+{%- assign mobile_text_alpha = object.settings.mobile_text_color | default: 'rgba(0,0,0,0)' | color_extract: 'alpha' -%}
+
+{% comment %} Advanced {% endcomment %}
+{%- assign css_class = object.settings.css_class -%}
+{%- assign custom_css = object.settings.custom_css -%}
+
+{% comment %} Section specific CSS {% endcomment %}
+<style>
+  {% render 'css-loop',
+          css: custom_css,
+          id: id
+  %}
+
+  {% if object.settings.mobile_text_below_image and mobile_text_alpha != 0 %}
+    @media only screen and (max-width: 480px) {
+      {{ object_selector }} .pretext,
+      {{ object_selector }} .headline,
+      {{ object_selector }} .subtitle {
+        color: {{ object.settings.mobile_text_color }};
+      }
+    }
+  {% endif %}
+</style>
+
+<section id="banner-{{ object.id }}" class="section {{ css_class }} {% if object.settings.wide_display == false %}is-width-standard{% else %}is-width-wide has-no-side-gutter{% endif %} full-width--{{ object.settings.wide_display }} caption-background-{{ background_style }} caption--below-{{ object.settings.mobile_text_below_image }}">
+  <div class="container">
+    <div class="one-whole column banner">
+    {% if mobile_image %}
+      <div class="is-hidden-mobile-only">
+    {% endif %}
+    {% if image %}
+      {% render 'image-element',
+              image: image,
+              alt: image.alt,
+              stretch_width: true,
+              additional_classes: mobile_crop
+      %}
+      {% if background_style == 'darken_bg' %}
+        <div class="darken-bg"></div>
+      {% endif %}
+    {% else %}
+      {{ 'lifestyle-1' | placeholder_svg_tag: 'placeholder-svg placeholder-svg--banner' }}
+    {% endif %}
+    {% if mobile_image %}
+      </div>
+      <div class="is-hidden-desktop-only">
+        {% render 'image-element',
+                image: mobile_image,
+                alt: mobile_image.alt,
+                stretch_width: true,
+                additional_classes: mobile_crop
+        %}
+        {% if background_style == 'darken_bg' %}
+          <div class="darken-bg"></div>
+        {% endif %}
+      </div>
+    {% endif %}
+    {% unless button1_link != blank and button2_link != blank %}
+      {% if button1_link != blank and button1 == blank %}
+        <a href="{{ button1_link }}" class="banner-full-link">
+          {{ button1 }}
+        </a>
+      {% endif %}
+      {% if button2_link != blank and button2 == blank %}
+        <a href="{{ button2_link }}" class="banner-full-link">
+          {{ button2 }}
+        </a>
+      {% endif %}
+    {% endunless %}
+    {% unless pretext == blank and title == blank and subtitle == blank and button1 == blank and button2 == blank %}
+      <div class="position-{{ object.settings.text_position }} caption js-caption">
+        <div class="caption-content align-{{ object.settings.text_align }}">
+          {% if pretext != blank %}
+            <div class="pretext">
+              {{ pretext }}
+            </div>
+          {% endif %}
+          {% if title != blank %}
+            <h1 class="headline">
+              {{ title }}
+            </h1>
+          {% endif %}
+          {% if subtitle != blank %}
+            <div class="subtitle">
+              {{ subtitle }}
+            </div>
+          {% endif %}
+          {%
+            render 'banner-buttons',
+            button1_text: button1,
+            button1_style: button1_style,
+            button1_link: button1_link,
+            button2_text: button2,
+            button2_style: button2_style,
+            button2_link: button2_link,
+            mobile_text_below_image: object.settings.mobile_text_below_image,
+            mobile_text_color: object.settings.mobile_text_color,
+            object_selector: object_selector,
+          %}
+        </div>
+      </div>
+    {% endunless %}
+    </div>
+  </div>
+</section>

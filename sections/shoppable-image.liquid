@@ -1,0 +1,1039 @@
+{% comment %} Advanced {% endcomment %}
+{% assign css_class = section.settings.css_class %}
+{% assign custom_css = section.settings.custom_css %}
+
+{% comment %} Section specific CSS {% endcomment %}
+{% style %}
+  {%
+    render 'css-loop',
+    css: custom_css,
+    id: section.id
+  %}
+{% endstyle %}
+
+{% comment %}
+  If this section is the first section in the editor, it will only show up under the menu if the heading is blank.
+{% endcomment %}
+
+{% assign heading = section.settings.title %}
+
+{% comment %} Is the color set to transparent? {% endcomment %}
+{% assign section_background_alpha = settings.shoppable_image_background | default: 'rgba(0,0,0,0)' | color_extract: 'alpha' %}
+
+{% if section_background_alpha != 0 %}
+  {% assign section_background_color = settings.shoppable_image_background %}
+{% else %}
+  {% assign section_background_color = settings.shop_bg_color %}
+{% endif %}
+
+<div
+  class="section-with-heading-wrapper {{ css_class }}"
+  style="
+    --shoppable-image-background-color: {{ section_background_color }};
+  "
+>
+  {% if heading != blank %}
+    <section class="section">
+      <div class="container">
+        <div class="one-whole column center">
+          <h2 class="title">{{ heading | escape }}</h2>
+          <div class="feature-divider"></div>
+        </div>
+      </div>
+    </section>
+  {% endif %}
+  <section
+    class="
+      section
+      {% if section.settings.wide_display == true %}
+        is-width-wide
+        has-no-side-gutter
+      {% endif %}
+    "
+    data-shoppable-image-section
+  >
+    <div class="container">
+      <div class="one-whole column">
+        <div
+          class="
+            shoppable-image-wrapper
+            transparentBackground--{{ settings.slideshow_button_style }}
+            slideshow-transition--{{ section.settings.slideshow_animation }}
+            slideshow-navigation-buttons--{{ settings.slideshow_nav_buttons }}
+            {% if section.settings.slideshow_text_animation != '' %}
+              text-animation--true
+            {% else %}
+              text-animation--false
+            {% endif %}
+            {% if heading == blank %}
+              full-width--{{ section.settings.wide_display }}
+            {% endif %}
+          "
+          style="
+            --shoppable-image-shop-text-color: {{ settings.regular_color }};
+            --shoppable-image-shop-border-color: {{ settings.border_color }};
+            --shoppable-image-hover-bg-color: {{ settings.product_hover_bg_color | color_modify: 'alpha', 0.7 }};
+          "
+          data-shoppable-image-wrapper
+          data-slider-id="shoppable-image-slider-{{ section.id }}"
+          data-slideshow-speed="{{ section.settings.slideshow_speed }}"
+          data-slideshow-transition="{{ section.settings.slideshow_animation }}"
+          data-slideshow-text-animation="{{ section.settings.slideshow_text_animation }}"
+        >
+          {% for block in section.blocks %}
+            {% comment %} Is the color set to transparent? {% endcomment %}
+            {% assign hotspot_alpha = block.settings.hotspot_color | default: 'rgba(0,0,0,0)' | color_extract: 'alpha' %}
+            {% assign cta_bg_alpha = block.settings.cta_bg_color | default: 'rgba(0,0,0,0)' | color_extract: 'alpha' %}
+
+            <div
+              class="gallery-cell block--{{ block.id }}"
+              style="
+                {% if cta_bg_alpha != 0 %}
+                  --shoppable-image-cta-bg-color: {{ block.settings.cta_bg_color }};
+                {% endif %}
+              "
+              data-block-id="{{ block.id }}"
+              data-shoppable-image-block
+              {{ block.shopify_attributes }}
+            >
+              <div
+                class="
+                  shoppable-image
+                  {% if block.settings.product_1 != nil or block.settings.product_2 != nil or block.settings.product_3 != nil or block.settings.product_4 != nil %}
+                    shoppable-image--active-products
+                  {% endif %}
+                  shoppable-image--card-styling-{{ block.settings.card_styling }}
+                  shoppable-image--outline-{{ block.settings.elements_outline }}
+                "
+                style="
+                  {% if hotspot_alpha != 0 %}
+                    --shoppable-image-hotspot-color: {{ block.settings.hotspot_color }};
+                    --shoppable-image-hotspot-color-light: {{ block.settings.hotspot_color.red }}, {{ block.settings.hotspot_color.green }}, {{ block.settings.hotspot_color.blue }};
+                  {% endif %}
+                "
+                data-shoppable-image
+              >
+                {% if block.settings.image %}
+                  {%
+                    render 'image-element',
+                    image: block.settings.image,
+                    alt: block.settings.image.alt,
+                    focal_point: block.settings.image.presentation.focal_point,
+                  %}
+                {% else %}
+                  {% capture i %}{% cycle "1", "2" %}{% endcapture %}
+                  {{ 'lifestyle-' | append: i | placeholder_svg_tag: 'placeholder-svg placeholder-svg--shoppable-image' }}
+                {% endif %}
+
+                {% for i in (1..4) %}
+                  {% assign productName = 'product_' | append: i %}
+                  {% assign xAxisName = 'x_axis_' | append: i %}
+                  {% assign yAxisName = 'y_axis_' | append: i %}
+                  {% assign buttonLabelName = 'button_label_' | append: i %}
+
+                  {% assign product = block.settings[productName] %}
+                  {% assign x_axis = block.settings[xAxisName] %}
+                  {% assign y_axis = block.settings[yAxisName] %}
+                  {% assign button_label = block.settings[buttonLabelName] %}
+
+                  {% if product == nil %}
+                    {% assign onboarding = true %}
+                  {% else %}
+                    {% assign onboarding = false %}
+                  {% endif %}
+
+                  <style>
+                    .shoppable-image .hotspot--{{ block.id }}--{{ i }} {
+                      {% if y_axis >= 50 %}
+                        top: {{ 100 | minus: y_axis }}%;
+                      {% else %}
+                        bottom: {{ y_axis }}%;
+                      {% endif %}
+                      {% if x_axis >= 50 %}
+                        right: {{ 100 | minus: x_axis }}%;
+                      {% else %}
+                        left: {{ x_axis }}%;
+                      {% endif %}
+                      {% if x_axis < 50 and y_axis < 50 %}
+                        transform: translate(-{{ x_axis }}%, {{ y_axis }}%);
+                      {% endif %}
+                      {% if x_axis >= 50 and y_axis >= 50 %}
+                        transform: translate({{ 100 | minus: x_axis }}%, {{ -100 | plus: y_axis }}%);
+                      {% endif %}
+                      {% if x_axis >= 50 and y_axis < 50 %}
+                        transform: translate({{ 100 | minus: x_axis }}%, {{ y_axis }}%);
+                      {% endif %}
+                      {% if x_axis < 50 and y_axis >= 50 %}
+                        transform: translate(-{{ x_axis }}%, {{ -100 | plus: y_axis }}%);
+                      {% endif %}
+                    }
+
+                    .hotspot--{{ block.id }}--{{ i }} .shoppable-image__bottom-bar__product-thumbnail-overlay {
+                      opacity: 1;
+                    }
+
+                    .hotspot--{{ block.id }}--{{ i }} .has-active-state .shoppable-image__bottom-bar__product-thumbnail-overlay {
+                      opacity: 0;
+                    }
+                  </style>
+                  <button
+                    type="button"
+                    aria-label="Product hotspot"
+                    class="
+                      hotspot__wrapper
+                      hotspot__wrapper--onboarding-{{ onboarding }}
+                      hotspot--{{ block.id }}--{{ i }}
+                    "
+                    data-hotspot
+                    data-hotspot-id="hotspot--{{ block.id }}--{{ i }}"
+                    data-interactive-element
+                  >
+                    <span
+                      class="hotspot__identifier"
+                      title="
+                        {%- if product != nil -%}
+                          {{- product.title | escape -}}
+                        {%- else -%}
+                          {{- 'homepage.onboarding.hotspot_identifier' | t: identifier: i -}}
+                        {%- endif -%}
+                      "
+                    >
+                    </span>
+
+                    <div class="hotspot">
+                      <div class="hotspot__inner-circle"></div>
+                      <div class="hotspot__content-wrapper hotspot__content-wrapper--{{ block.id }}--{{ i }}" data-content-wrapper>
+                        <div class="hotspot__content" data-content>
+                          {% unless onboarding %}
+                            <a class="hotspot__content-overlay-link" href="{{ product.url }}"></a>
+                          {% endunless %}
+                          <div class="hotspot__product-image">
+                            {% if onboarding %}
+                              {{ 'product-' | append: i | placeholder_svg_tag: 'placeholder-svg placeholder-svg--product' }}
+                            {% else %}
+                              {%
+                                render 'image-element',
+                                image: product.featured_media,
+                                alt: product.featured_media.alt,
+                                object_fit: settings.align_height,
+                                max_height: settings.collection_height,
+                              %}
+                            {% endif %}
+                          </div>
+
+                          {% if onboarding %}
+                            <h3 class="hotspot__product-title title">{{ 'homepage.onboarding.product_title' | t }}</h3>
+                          {% else %}
+                            <h3 class="hotspot__product-title title">
+                              {{- product.title | escape -}}
+                            </h3>
+                          {% endif %}
+
+                          {% if settings.display_vendor %}
+                            <span class="hotspot__product-vendor">
+                              {{ product.vendor }}
+                            </span>
+                          {% endif %}
+
+                          {% if onboarding %}
+                            <p class="modal_price">
+                              <span class="current_price">
+                                <span class="money">$49.00</span>
+                              </span>
+                            </p>
+                          {% else %}
+                            {% if collection_handles contains 'coming-soon' %}
+                              <span class="coming-soon">{{ 'collections.general.coming_soon' | t }}</span>
+                            {% else %}
+                              <span class="price {% if product.compare_at_price_max > product.price %}sale{% endif %}">
+                                {% unless product.available == false and settings.display_price == false %}
+                                  <span class="current_price">
+                                    {% if product.price_varies %}
+                                      <small class="from"><em>{{ 'products.general.from' | t }}</em></small>
+                                    {% endif %}
+                                    {% if product.price_min > 0 %}
+                                      <span class="money">{% render 'price-element', price: product.price_min %}</span>
+                                    {% else %}
+                                      {% if settings.free_price_text != blank %}
+                                        <span class="free">{{ settings.free_price_text }}</span>
+                                      {% else %}
+                                        <span class="money">{% render 'price-element', price: product.price_min %}</span>
+                                      {% endif %}
+                                    {% endif %}
+                                  </span>
+                                  <span class="was_price">
+                                    {% if product.price < product.compare_at_price %}
+                                      <span class="money">{% render 'price-element', price: product.compare_at_price %}</span>
+                                    {% endif %}
+                                  </span>
+                                {% endunless %}
+                                <div class="sold_out">
+                                  {% unless product.available %}
+                                    {{ settings.sold_out_text }}
+                                  {% endunless %}
+                                </div>
+                              </span>
+                            {% endif %}
+                          {% endif %}
+
+                          <div class="hotspot__product-rating">
+                            {% if settings.show_star_ratings and product.metafields.reviews.rating.value != blank %}
+                              <div class="product-rating">
+                                {%
+                                  render 'rating-stars',
+                                  value: product.metafields.reviews.rating.value.rating,
+                                  scale_max: product.metafields.reviews.rating.value.scale_max,
+                                %}
+                                <p class="rating__text">
+                                  <span aria-hidden="true">{{ product.metafields.reviews.rating.value }} / {{ product.metafields.reviews.rating.value.scale_max }}</span>
+                                </p>
+                              </div>
+                            {% endif %}
+                          </div>
+
+                          {% if button_label != blank or section.settings.quick_view %}
+                            <div class="hotspot__content--active-wrapper is-hidden-mobile-only">
+                              <div class="hotspot__content--active">
+                                {% if section.settings.quick_view %}
+                                  {%
+                                    render 'quick-shop-button',
+                                    product: product,
+                                    label: button_label,
+                                    type: 'anchor-tag',
+                                  %}
+                                {% else %}
+                                  <a
+                                    href="{{ product.url }}"
+                                    class="
+                                      global-button
+                                      global-button--product-grid-text-hover
+                                    "
+                                  >
+                                    {{ button_label | escape }}
+                                  </a>
+                                {% endif %}
+                              </div>
+                            </div>
+                          {% endif %}
+                        </div>
+                      </div>
+                    </div>
+                  </button>
+                {% endfor %}
+              </div>
+
+              {% if section.settings.bottom_bar and section.settings.product_thumbnails or section.settings.cta %}
+                <div
+                  class="
+                    shoppable-image__bottom-bar
+                    {% if block.settings.product_1 != nil or block.settings.product_2 != nil or block.settings.product_3 != nil or block.settings.product_4 != nil %}
+                      shoppable-image__bottom-bar--active-products
+                    {% endif %}
+                    shoppable-image__bottom-bar-image-style--{{ section.settings.bottom_bar_image_style }}
+                  "
+                >
+                  {% for i in (1..4) %}
+                    {% assign productName = 'product_' | append: i %}
+                    {% assign product = block.settings[productName] %}
+                    {% assign imageName = 'image_alignment_' | append: i %}
+                    {% assign imageAlignment = block.settings[imageName] %}
+
+                    {% if product == nil %}
+                      {% assign onboarding = true %}
+                    {% else %}
+                      {% assign onboarding = false %}
+                    {% endif %}
+
+                    {% if section.settings.product_thumbnails %}
+                      <div
+                        class="
+                          shoppable-image__bottom-bar__product-thumbnail
+                          shoppable-image__bottom-bar__product-thumbnail--onboarding-{{ onboarding }}
+                          shoppable-image__bottom-bar__product-thumbnail--{{ block.id }}--{{ i }}
+                          shoppable-image__bottom-bar__image-alignment--{{ imageAlignment }}
+                        "
+                        data-hotspot-id="hotspot--{{ block.id }}--{{ i }}"
+                        data-bottom-bar-thumbnail
+                        data-interactive-element
+                      >
+                      <style>
+                        .shoppable-image__bottom-bar__product-thumbnail--{{ block.id }}--{{ i }}.shoppable-image__bottom-bar__image-alignment--top-left img {
+                          object-position: left top;
+                        }
+
+                        .shoppable-image__bottom-bar__product-thumbnail--{{ block.id }}--{{ i }}.shoppable-image__bottom-bar__image-alignment--top-right img {
+                          object-position: right top;
+                        }
+
+                        .shoppable-image__bottom-bar__product-thumbnail--{{ block.id }}--{{ i }}.shoppable-image__bottom-bar__image-alignment--top-center img {
+                          object-position: center top;
+                        }
+
+                        .shoppable-image__bottom-bar__product-thumbnail--{{ block.id }}--{{ i }}.shoppable-image__bottom-bar__image-alignment--center-left img {
+                          object-position: left center;
+                        }
+
+                        .shoppable-image__bottom-bar__product-thumbnail--{{ block.id }}--{{ i }}.shoppable-image__bottom-bar__image-alignment--center-right img {
+                          object-position: right center;
+                        }
+
+                        .shoppable-image__bottom-bar__product-thumbnail--{{ block.id }}--{{ i }}.shoppable-image__bottom-bar__image-alignment--bottom-left img {
+                          object-position: left bottom;
+                        }
+
+                        .shoppable-image__bottom-bar__product-thumbnail--{{ block.id }}--{{ i }}.shoppable-image__bottom-bar__image-alignment--bottom-right img {
+                          object-position: right bottom;
+                        }
+
+                        .shoppable-image__bottom-bar__product-thumbnail--{{ block.id }}--{{ i }}.shoppable-image__bottom-bar__image-alignment--bottom-center img {
+                          object-position: center bottom;
+                        }
+                      </style>
+                        <div class="shoppable-image__bottom-bar__product-thumbnail-overlay"></div>
+                        {% if product.featured_media %}
+                        <div class="image__container">
+                          {%
+                            render 'image-element',
+                            image: product.featured_media,
+                            alt: product.featured_media.alt,
+                          %}
+                        </div>
+                        {% else %}
+                          {{ 'product-' | append: i | placeholder_svg_tag: 'placeholder-svg placeholder-svg--product' }}
+                        {% endif %}
+                      </div>
+                    {% endif %}
+                  {% endfor %}
+                  {% if section.settings.cta and block.settings.call_to_action != blank or block.settings.button_label != blank %}
+                    <div
+                      class="
+                        shoppable-image__bottom-bar__call-to-action
+                        is-align-{{ block.settings.text_align }}
+                        text-align-{{ block.settings.text_align }}
+                      "
+                    >
+                      <div
+                        class="shoppable-image__bottom-bar__call-to-action-container"
+                        data-slideshow-caption-text
+                      >
+                        {% if block.settings.call_to_action != blank %}
+                          <h4 class="shoppable-image__call-to-action-heading title">
+                            {{ block.settings.call_to_action }}
+                          </h4>
+                        {% endif %}
+
+                        {% if block.settings.subtitle != blank %}
+                          <div class="subtitle">
+                            {{ block.settings.subtitle }}
+                          </div>
+                        {% endif %}
+
+                        {%
+                          render 'banner-buttons',
+                          button1_text: block.settings.button_label,
+                          button1_style: block.settings.button_style,
+                          button1_link: block.settings.button_link,
+                        %}
+                      </div>
+                    </div>
+                  {% endif %}
+                </div>
+              {% endif %}
+            </div>
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+
+{% schema %}
+{
+  "name": "Shoppable image",
+  "class": "shopify-section--shoppable-image under-menu",
+  "settings": [
+    {
+      "type": "header",
+      "content": "General"
+    },
+    {
+      "type": "paragraph",
+      "content": "To optimize the look of this section, using images with the same dimensions is recommended."
+    },
+    {
+      "type": "checkbox",
+      "id": "wide_display",
+      "label": "Wide display",
+      "default": true
+    },
+    {
+      "type": "select",
+      "id": "slideshow_text_animation",
+      "label": "Text animation",
+      "default": "fadeInDown",
+      "options": [
+        {
+          "value": "fadeIn",
+          "label": "Fade in"
+        },
+        {
+          "value": "fadeInUp",
+          "label": "Fade up"
+        },
+        {
+          "value": "fadeInDown",
+          "label": "Fade down"
+        },
+        {
+          "value": "",
+          "label": "None"
+        }
+      ]
+    },
+    {
+      "type": "select",
+      "id": "slideshow_animation",
+      "label": "Transition",
+      "default": "fade",
+      "options": [
+        {
+          "value": "fade",
+          "label": "Fade"
+        },
+        {
+          "value": "slide",
+          "label": "Slide"
+        }
+      ]
+    },
+    {
+      "type": "range",
+      "id": "slideshow_speed",
+      "label": "Change slides every",
+      "min": 0,
+      "max": 12,
+      "step": 1,
+      "default": 0,
+      "unit": "sec",
+      "info": "Set to 0 to disable autoplay."
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Heading",
+      "default": "Shoppable image"
+    },
+    {
+      "type": "checkbox",
+      "id": "quick_view",
+      "label": "Enable quick shop",
+      "default": false
+    },
+    {
+      "type": "header",
+      "content": "Bottom bar"
+    },
+    {
+      "type": "checkbox",
+      "id": "bottom_bar",
+      "label": "Enable bottom bar",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "product_thumbnails",
+      "label": "Show product thumbnails",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "cta",
+      "label": "Show call-to-action",
+      "default": true
+    },
+    {
+      "type": "select",
+      "id": "bottom_bar_image_style",
+      "label": "Product thumbnail styling",
+      "options": [
+        {
+          "value": "full-width",
+          "label": "Full width"
+        },
+        {
+          "value": "natural",
+          "label": "Natural"
+        }
+      ],
+      "default": "natural"
+    },
+    {
+      "type": "header",
+      "content": "Advanced"
+    },
+    {
+      "type": "paragraph",
+      "content": "[Learn more](https://help.outofthesandbox.com/hc/en-us/articles/360022329373)"
+    },
+    {
+      "type": "text",
+      "id": "css_class",
+      "label": "CSS Class"
+    },
+    {
+      "type": "textarea",
+      "id": "custom_css",
+      "label": "Custom CSS"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "shoppable-image",
+      "name": "Shoppable image",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image",
+          "info": "1800 x 840px recommended"
+        },
+        {
+          "type": "select",
+          "id": "card_styling",
+          "label": "Card styling",
+          "default": "square",
+          "options": [
+            {
+              "value": "square",
+              "label": "Square"
+            },
+            {
+              "value": "rounded",
+              "label": "Rounded"
+            }
+          ]
+        },
+        {
+          "type": "checkbox",
+          "id": "elements_outline",
+          "label": "Show card and hotspot outline",
+          "default": true
+        },
+        {
+          "type": "header",
+          "content": "Colors"
+        },
+        {
+          "type": "color",
+          "id": "hotspot_color",
+          "label": "Hotspot"
+        },
+        {
+          "type": "header",
+          "content": "Product 1"
+        },
+        {
+          "type": "product",
+          "id": "product_1",
+          "label": "Product"
+        },
+        {
+          "type": "select",
+          "id": "image_alignment_1",
+          "label": "Product thumbnail focal point",
+          "options": [
+            {
+              "value": "top-left",
+              "label": "Top left"
+            },
+            {
+              "value": "top-center",
+              "label": "Top center"
+            },
+            {
+              "value": "top-right",
+              "label": "Top right"
+            },
+            {
+              "value": "center-left",
+              "label": "Center left"
+            },
+            {
+              "value": "center-center",
+              "label": "Center center"
+            },
+            {
+              "value": "center-right",
+              "label": "Center right"
+            },
+            {
+              "value": "bottom-left",
+              "label": "Bottom left"
+            },
+            {
+              "value": "bottom-center",
+              "label": "Bottom center"
+            },
+            {
+              "value": "bottom-right",
+              "label": "Bottom right"
+            }
+          ],
+          "default": "center-center"
+        },
+        {
+          "type": "range",
+          "id": "x_axis_1",
+          "label": "Horizontal position",
+          "min": 5,
+          "max": 95,
+          "step": 1,
+          "unit": "%",
+          "default": 50
+        },
+        {
+          "type": "range",
+          "id": "y_axis_1",
+          "label": "Vertical position",
+          "min": 5,
+          "max": 95,
+          "step": 1,
+          "unit": "%",
+          "default": 50
+        },
+        {
+          "type": "text",
+          "id": "button_label_1",
+          "label": "Button label",
+          "default": "View product",
+          "info": "Shows when hovering over card"
+        },
+        {
+          "type": "header",
+          "content": "Product 2"
+        },
+        {
+          "type": "product",
+          "id": "product_2",
+          "label": "Product"
+        },
+        {
+          "type": "select",
+          "id": "image_alignment_2",
+          "label": "Product thumbnail focal point",
+          "options": [
+            {
+              "value": "top-left",
+              "label": "Top left"
+            },
+            {
+              "value": "top-center",
+              "label": "Top center"
+            },
+            {
+              "value": "top-right",
+              "label": "Top right"
+            },
+            {
+              "value": "center-left",
+              "label": "Center left"
+            },
+            {
+              "value": "center-center",
+              "label": "Center center"
+            },
+            {
+              "value": "center-right",
+              "label": "Center right"
+            },
+            {
+              "value": "bottom-left",
+              "label": "Bottom left"
+            },
+            {
+              "value": "bottom-center",
+              "label": "Bottom center"
+            },
+            {
+              "value": "bottom-right",
+              "label": "Bottom right"
+            }
+          ],
+          "default": "center-center"
+        },
+        {
+          "type": "range",
+          "id": "x_axis_2",
+          "label": "Horizontal position",
+          "min": 5,
+          "max": 95,
+          "step": 1,
+          "unit": "%",
+          "default": 25
+        },
+        {
+          "type": "range",
+          "id": "y_axis_2",
+          "label": "Vertical position",
+          "min": 5,
+          "max": 95,
+          "step": 1,
+          "unit": "%",
+          "default": 25
+        },
+        {
+          "type": "text",
+          "id": "button_label_2",
+          "label": "Button label",
+          "default": "View product",
+          "info": "Shows when hovering over card"
+        },
+        {
+          "type": "header",
+          "content": "Product 3"
+        },
+        {
+          "type": "product",
+          "id": "product_3",
+          "label": "Product"
+        },
+        {
+          "type": "select",
+          "id": "image_alignment_3",
+          "label": "Product thumbnail focal point",
+          "options": [
+            {
+              "value": "top-left",
+              "label": "Top left"
+            },
+            {
+              "value": "top-center",
+              "label": "Top center"
+            },
+            {
+              "value": "top-right",
+              "label": "Top right"
+            },
+            {
+              "value": "center-left",
+              "label": "Center left"
+            },
+            {
+              "value": "center-center",
+              "label": "Center center"
+            },
+            {
+              "value": "center-right",
+              "label": "Center right"
+            },
+            {
+              "value": "bottom-left",
+              "label": "Bottom left"
+            },
+            {
+              "value": "bottom-center",
+              "label": "Bottom center"
+            },
+            {
+              "value": "bottom-right",
+              "label": "Bottom right"
+            }
+          ],
+          "default": "center-center"
+        },
+        {
+          "type": "range",
+          "id": "x_axis_3",
+          "label": "Horizontal position",
+          "min": 5,
+          "max": 95,
+          "step": 1,
+          "unit": "%",
+          "default": 75
+        },
+        {
+          "type": "range",
+          "id": "y_axis_3",
+          "label": "Vertical position",
+          "min": 5,
+          "max": 95,
+          "step": 1,
+          "unit": "%",
+          "default": 75
+        },
+        {
+          "type": "text",
+          "id": "button_label_3",
+          "label": "Button label",
+          "default": "View product",
+          "info": "Shows when hovering over card"
+        },
+        {
+          "type": "header",
+          "content": "Product 4"
+        },
+        {
+          "type": "product",
+          "id": "product_4",
+          "label": "Product"
+        },
+        {
+          "type": "select",
+          "id": "image_alignment_4",
+          "label": "Product thumbnail focal point",
+          "options": [
+            {
+              "value": "top-left",
+              "label": "Top left"
+            },
+            {
+              "value": "top-center",
+              "label": "Top center"
+            },
+            {
+              "value": "top-right",
+              "label": "Top right"
+            },
+            {
+              "value": "center-left",
+              "label": "Center left"
+            },
+            {
+              "value": "center-center",
+              "label": "Center center"
+            },
+            {
+              "value": "center-right",
+              "label": "Center right"
+            },
+            {
+              "value": "bottom-left",
+              "label": "Bottom left"
+            },
+            {
+              "value": "bottom-center",
+              "label": "Bottom center"
+            },
+            {
+              "value": "bottom-right",
+              "label": "Bottom right"
+            }
+          ],
+          "default": "center-center"
+        },
+        {
+          "type": "range",
+          "id": "x_axis_4",
+          "label": "Horizontal position",
+          "min": 5,
+          "max": 95,
+          "step": 1,
+          "unit": "%",
+          "default": 20
+        },
+        {
+          "type": "range",
+          "id": "y_axis_4",
+          "label": "Vertical position",
+          "min": 5,
+          "max": 95,
+          "step": 1,
+          "unit": "%",
+          "default": 80
+        },
+        {
+          "type": "text",
+          "id": "button_label_4",
+          "label": "Button label",
+          "default": "View product",
+          "info": "Shows when hovering over card"
+        },
+        {
+          "type": "header",
+          "content": "Call-to-action"
+        },
+        {
+          "type": "text",
+          "id": "call_to_action",
+          "label": "Heading",
+          "default": "Your call-to-action"
+        },
+        {
+          "type": "richtext",
+          "id": "subtitle",
+          "label": "Subheading"
+        },
+        {
+          "type": "text_alignment",
+          "id": "text_align",
+          "label": "Text alignment",
+          "default": "center"
+        },
+        {
+          "type": "text",
+          "id": "button_label",
+          "label": "Button label",
+          "default": "View collection"
+        },
+        {
+          "type": "url",
+          "id": "button_link",
+          "label": "Button link"
+        },
+        {
+          "type": "select",
+          "id": "button_style",
+          "label": "Button color",
+          "options": [
+            {
+              "value": "global-button--primary",
+              "label": "Primary button"
+            },
+            {
+              "value": "global-button--banner",
+              "label": "Primary button (outline)"
+            },
+            {
+              "value": "global-button--banner-highlighted",
+              "label": "Primary button (solid)"
+            },
+            {
+              "value": "global-button--banner-text",
+              "label": "Primary text button (outline)"
+            },
+            {
+              "value": "global-button--banner-text-highlighted",
+              "label": "Primary text button (solid)"
+            }
+          ],
+          "default": "global-button--banner-text-highlighted"
+        },
+        {
+          "type": "color",
+          "id": "cta_bg_color",
+          "label": "Call-to-action background",
+          "default": "#f2f2f2"
+        }
+      ],
+      "limit": 3
+    }
+  ],
+  "presets": [
+    {
+      "name": "Shoppable image",
+      "category": "Image",
+      "settings": {},
+      "blocks": [
+        {
+          "type": "shoppable-image",
+          "settings": {}
+        }
+      ]
+    }
+  ],
+  "disabled_on": {
+    "groups": [ "*" ]
+  }
+}
+
+{% endschema %}

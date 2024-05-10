@@ -1,0 +1,200 @@
+{% comment %}
+  @param menu [Linklist]
+    Menu to render
+  @param style [String]
+    Menu style to render. One of `wide` or `vertical`.
+  @param additional_class [Optional]
+    Additional classes for the component
+{% endcomment %}
+
+<nav
+  class="nav-desktop {{ additional_class }}"
+  data-nav
+  data-nav-desktop
+  aria-label="{{ 'navigation.header.main_nav' | t }}"
+>
+  <template data-nav-parent-template>
+    <li
+      class="
+        nav-desktop__tier-1-item
+        nav-desktop__tier-1-item--widemenu-parent
+      "
+      data-nav-desktop-parent
+    >
+      <details data-nav-desktop-details>
+        <summary
+          data-href
+          class="
+            nav-desktop__tier-1-link
+            nav-desktop__tier-1-link--parent
+          "
+          data-nav-desktop-link
+          aria-expanded="false"
+          {% comment %}Update aria-controls{% endcomment %}
+          aria-controls="nav-tier-2-{{ forloop.index }}"
+          role="button"
+        >
+          <span data-nav-title></span>
+          <span class="icon-down-arrow"></span>
+        </summary>
+        <div
+          class="
+            nav-desktop__tier-2
+            nav-desktop__tier-2--full-width-menu
+          "
+          tabindex="-1"
+          data-nav-desktop-tier-2
+          data-nav-desktop-submenu
+          data-nav-desktop-full-width-menu
+          data-meganav-target-container
+          >
+      </details>
+    </li>
+  </template>
+  <ul
+    class="nav-desktop__tier-1"
+    data-nav-desktop-tier-1
+  >
+    {% for link_tier_1 in linklists[menu].links %}
+      {% assign has_tier_2 = false %}
+      {% if link_tier_1.links.size > 0 %}
+        {% assign has_tier_2 = true %}
+      {% endif %}
+
+      <li
+        class="
+          nav-desktop__tier-1-item
+          {% if has_tier_2  %}
+            {% if style == 'wide' %}
+              nav-desktop__tier-1-item--widemenu-parent
+            {% else %}
+              nav-desktop__tier-1-item--dropdown-parent
+            {% endif %}
+          {% endif %}
+        "
+        {% if has_tier_2 %}data-nav-desktop-parent{% endif %}
+        data-meganav-desktop-target="{{ link_tier_1.title | handle }}"
+      >
+        {% if has_tier_2 %}
+        <details data-nav-desktop-details>
+          <summary data-href="{{ link_tier_1.url }}"
+        {% else %}
+          <a href="{{ link_tier_1.url }}"
+        {% endif %}
+          class="
+            nav-desktop__tier-1-link
+            {% if has_tier_2 %}nav-desktop__tier-1-link--parent{% endif %}
+            {% if link_tier_1.active %}nav-desktop__tier-1-link--active{% endif %}
+          "
+          data-nav-desktop-link
+          {% if has_tier_2 %}
+            aria-expanded="false"
+            aria-controls="nav-tier-2-{{ forloop.index }}"
+            role="button"
+          {% endif %}
+        >
+          <span data-nav-title>{{ link_tier_1.title | escape }}</span>
+          {% if has_tier_2 %}<span class="icon-down-arrow"></span>{% endif %}
+        {% if has_tier_2 %}
+          </summary>
+        {% else %}
+          </a>
+        {% endif %}
+
+        {% if has_tier_2 %}
+          {% if style == 'wide' %}
+            <div
+          {% else %}
+            <ul
+          {% endif %}
+            id="nav-tier-2-{{ forloop.index }}"
+            class="
+              nav-desktop__tier-2
+              {% if has_tier_2 %}
+                {% if style == 'wide' %}
+                  nav-desktop__tier-2--full-width-menu
+                {% else %}
+                  nav-desktop__tier-2--dropdown
+                {% endif %}
+              {% endif %}
+            "
+            tabindex="-1"
+            data-nav-desktop-tier-2
+            data-nav-desktop-submenu
+            {% if style == 'wide' %}data-nav-desktop-full-width-menu{% endif %}
+          >
+            {% if style == 'wide' %}
+              {%
+                render 'navigation-widemenu',
+                menu: link_tier_1,
+              %}
+            {% else %}
+              {% for link_tier_2 in link_tier_1.links %}
+                {% assign has_tier_3 = false %}
+                {% if link_tier_2.links.size > 0 %}
+                  {% assign has_tier_3 = true %}
+                {% endif %}
+                <li
+                  class="nav-desktop__tier-2-item"
+                  {% if has_tier_3 %}data-nav-desktop-parent{% endif %}
+                >
+                  {% if has_tier_3 %}
+                    <details data-nav-desktop-details>
+                      <summary data-href="{{ link_tier_2.url }}"
+                  {% else %}
+                    <a href="{{ link_tier_2.url }}"
+                  {% endif %}
+                    class="
+                      nav-desktop__tier-2-link
+                      {% if has_tier_3 %}nav-desktop__tier-2-link--parent{% endif %}
+                    "
+                    data-nav-desktop-link
+                    {% if has_tier_3 %}
+                      aria-expanded="false"
+                      aria-controls="nav-tier-3-{{ forloop.index }}"
+                      role="button"
+                    {% endif %}
+                  >
+                    <span>{{ link_tier_2.title | escape }}</span>
+                    {% if has_tier_3%}<span class="nav-desktop__tier-2-link-icon icon-down-arrow"></span>{% endif %}
+                  {% if has_tier_3 %}
+                    </summary>
+                  {% else %}
+                    </a>
+                  {% endif %}
+
+                  {% if has_tier_3 %}
+                    <ul
+                      id="nav-tier-3-{{ forloop.index }}"
+                      class="nav-desktop__tier-3"
+                      tabindex="-1"
+                      data-nav-desktop-tier-3
+                      data-nav-desktop-submenu
+                    >
+                      {% for link_tier_3 in link_tier_2.links %}
+                        <li class="nav-desktop__tier-3-item">
+                          <a
+                            href="{{ link_tier_3.url }}"
+                            class="nav-desktop__tier-3-link"
+                          >
+                            <span>{{ link_tier_3.title | escape }}</span>
+                          </a>
+                        </li>
+                      {% endfor %}
+                    </ul>
+                    </details>
+                  {% endif %}
+                </li>
+              {% endfor %}
+            {% endif %}
+          {% if style == 'wide' %}
+            </div>
+          {% else %}
+            </ul>
+          {% endif %}
+        </details>
+        {% endif %}
+      </li>
+    {% endfor %}
+  </ul>
+</nav>

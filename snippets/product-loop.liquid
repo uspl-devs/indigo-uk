@@ -1,0 +1,81 @@
+{% if settings.pagination_type == 'load_more_button' %}
+  {% assign paginationType = 'data-load-more--grid' %}
+{% endif %}
+
+{%- liquid
+  assign lazyload = true
+  assign row_count_threshold = 2
+  assign product_lazyload_threshold = products_per_row | times: row_count_threshold
+-%}
+
+<div
+  class="
+    product-list
+    product-list--collection
+    is-flex
+    is-flex-wrap
+    equal-columns--outside-trim
+  "
+  itemtype="http://schema.org/ItemList"
+  {{ paginationType }}
+>
+  {% assign for_limit = limit %}
+
+  {% for product in products limit: limit %}
+    {% comment %} if product display is in the loop of products increase limit by one {% endcomment %}
+    {% if product.id == skip_product.id  %}
+      {% assign for_limit = limit | plus: 1 %}
+    {% endif %}
+  {% endfor %}
+
+  {% for product in products limit: for_limit %}
+    {% comment %} Skip product if we're on its product page {% endcomment %}
+    {% if product.id != skip_product.id %}
+      {%- liquid
+        if section.index0 < 2 and forloop.index0 < product_lazyload_threshold
+          assign lazyload = false
+        endif
+      -%}
+      {%
+        render 'product-thumbnail',
+        product: product,
+        collection: collection,
+        products_per_row: products_per_row,
+        sidebar: sidebar,
+        lazyload: lazyload,
+      %}
+    {% endif %}
+  {% endfor %}
+
+  {% if template contains 'collection' %}
+    {% if settings.pagination_type != 'basic_pagination' %}
+      {% if paginate.next.url %}
+        <span class="js-load-more load-more">
+          <a href="{{ paginate.next.url }}" data-no-instant data-load-more class="global-button global-button--text">
+            {% if template contains 'collection' %}
+              {{ 'collections.general.load_more' | t }}
+            {% elsif template contains 'search' %}
+              {{ 'general.search.load_more' | t }}
+            {% endif %}
+          </a>
+        </span>
+      {% endif %}
+    {% endif %}
+  {% elsif template contains 'search' %}
+    {% if settings.pagination_type != 'basic_pagination' %}
+      {% if paginate.next.url %}
+        <span class="js-load-more load-more">
+          <a href="{{ paginate.next.url }}" data-no-instant data-load-more class="global-button global-button--text">
+            {% if template contains 'collection' %}
+              {{ 'collections.general.load_more' | t }}
+            {% elsif template contains 'search' %}
+              {{ 'general.search.load_more' | t }}
+            {% endif %}
+          </a>
+        </span>
+      {% endif %}
+    {% endif %}
+  {% endif %}
+</div>
+
+{%- render 'loading-icon' -%}

@@ -1,0 +1,159 @@
+<script
+  type="application/json"
+  data-section-type="recently-viewed"
+  data-section-id="{{ section.id }}"
+>
+</script>
+
+{% assign loop_limit = section.settings.rv_max_display | minus: 1 %}
+
+{% comment %} Section specific CSS {% endcomment %}
+{% style %}
+  {%
+    render 'css-loop',
+    css: section.settings.custom_css,
+    id: section.id,
+  %}
+{% endstyle %}
+
+<div
+  class="
+    js-recently-viewed
+    hidden
+    recently-viewed__section
+    {{ section.settings.css_class }}
+  "
+  data-visible-products="{{ section.settings.rv_max_display }}"
+>
+  <section class="section">
+    <div class="container">
+      <div class="one-whole column">
+        {% if section.settings.rv_title != blank %}
+          <div class="recently-viewed-products__title">
+            <h2 class="title center">{{ section.settings.rv_title | escape }}</h2>
+            <div class="feature-divider"></div>
+          </div>
+        {% endif %}
+      </div>
+
+      <div class="one-whole column">
+        <div
+          class="
+            rv-main
+            js-rv-grid
+            product-list
+            product-list--collection
+            is-flex
+            is-flex-wrap
+            equal-columns--outside-trim
+          "
+          data-products-per-slide="{{ section.settings.rv_per }}"
+          data-products-limit="{{ section.settings.rv_max_display }}"
+        >
+          {% for rvProducts in (0..loop_limit) %}
+            <div
+              class="
+                {%
+                  render 'column-width',
+                  value: section.settings.rv_per,
+                %}
+                column
+                thumbnail
+                thumbnail-hover-enabled--{{ settings.thumbnail_hover_enabled }}
+                {% if settings.mobile_products_per_row == '1' %}
+                  medium-down--one-half
+                  small-down--one-whole
+                {% else %}
+                  medium-down--one-half
+                {% endif %}
+                {% if settings.quick_shop_enabled %}
+                  quick-shop-style--{{ settings.quick_shop_style }}
+                  product__details
+                {% endif %}
+                rv-box-element
+                rv-box-{{ rvProducts }}
+                rv-element
+              "
+            >
+              {% comment %} Products are dynamically inserted {% endcomment %}
+            </div>
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+
+{% schema %}
+{
+  "name": "Recently viewed products",
+  "class": "shopify-section--recently-viewed-products",
+  "settings": [
+    {
+      "type": "paragraph",
+      "content": "To test the recently viewed products, view your online store outside of the Editor and visit multiple product pages. [Learn more](https:\/\/help.outofthesandbox.com\/hc\/en-us\/articles\/115008765228)"
+    },
+    {
+      "type": "text",
+      "id": "rv_title",
+      "label": "Heading",
+      "default": "Recently viewed products"
+    },
+    {
+      "type": "range",
+      "id": "rv_max_display",
+      "label": "Products limit",
+      "min": 3,
+      "max": 12,
+      "step": 1,
+      "default": 6
+    },
+    {
+      "type": "range",
+      "id": "rv_per",
+      "label": "Products per row",
+      "min": 3,
+      "max": 5,
+      "step": 1,
+      "default": 4
+    },
+    {
+      "type": "header",
+      "content": "Advanced"
+    },
+    {
+      "type": "paragraph",
+      "content": "[Learn more](https://help.outofthesandbox.com/hc/en-us/articles/360022329373)"
+    },
+    {
+      "type": "text",
+      "id": "css_class",
+      "label": "CSS Class"
+    },
+    {
+      "type": "textarea",
+      "id": "custom_css",
+      "label": "Custom CSS"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Recently viewed products",
+      "category": "Product"
+    }
+  ],
+  "templates": [
+    "404",
+    "article",
+    "blog",
+    "cart",
+    "collection",
+    "list-collections",
+    "index",
+    "page",
+    "product",
+    "search"
+  ]
+}
+
+{% endschema %}

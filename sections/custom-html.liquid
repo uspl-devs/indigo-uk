@@ -1,0 +1,79 @@
+<script
+  type="application/json"
+  data-section-type="custom-html"
+  data-section-id="{{ section.id }}"
+>
+</script>
+
+{% comment %} Section specific CSS {% endcomment %}
+{% style %}
+  {%
+    render 'css-loop',
+    css: section.settings.custom_css,
+    id: section.id,
+  %}
+{% endstyle %}
+
+<section class="section {{ section.settings.css_class }}">
+  <div class="container">
+    <div
+      class="
+        one-whole
+        column
+        custom-html-container
+      "
+    >
+      {% if section.settings.custom_html != blank %}
+        <div class="rte">
+          {{ section.settings.custom_html }}
+        </div>
+      {% else %}
+        <p class="center">
+          {{ 'homepage.onboarding.no_content' | t }}
+        </p>
+      {% endif %}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Custom HTML",
+  "class": "shopify-section--custom-html",
+  "settings": [
+    {
+      "type": "textarea",
+      "id": "custom_html",
+      "label": "Custom html"
+    },
+    {
+      "type": "header",
+      "content": "Advanced"
+    },
+    {
+      "type": "paragraph",
+      "content": "[Learn more](https://help.outofthesandbox.com/hc/en-us/articles/360022329373)"
+    },
+    {
+      "type": "text",
+      "id": "css_class",
+      "label": "CSS Class"
+    },
+    {
+      "type": "textarea",
+      "id": "custom_css",
+      "label": "Custom CSS"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Custom HTML",
+      "category": "Content"
+    }
+  ],
+  "disabled_on": {
+    "groups": [ "*" ]
+  }
+}
+
+{% endschema %}

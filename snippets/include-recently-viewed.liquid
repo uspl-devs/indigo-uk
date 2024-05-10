@@ -1,0 +1,140 @@
+{% comment %}
+** Recently viewed - dynamic **
+- Draggable section
+{% endcomment %}
+
+{% comment %} Assign object as block or section {% endcomment %}
+{% if type == 'block' %}
+  {%- assign object = block -%}
+{% else %}
+  {%- assign object = section -%}
+{% endif %}
+
+{%- assign id = object.id -%}
+
+{% comment %} Content settings {% endcomment %}
+{%- assign rv_title = object.settings.rv_title -%}
+{% comment %} End content settings {% endcomment %}
+
+{% comment %} Advanced {% endcomment %}
+{%- assign css_class = object.settings.css_class -%}
+{%- assign custom_css = object.settings.custom_css -%}
+
+{% comment %} Section specific CSS {% endcomment %}
+{% style %}
+  {%
+    render 'css-loop',
+    css: custom_css,
+    id: id
+  %}
+{% endstyle %}
+
+{% capture recently_viewed_products %}
+  <div class="
+        {{ css_class }}
+        js-recently-viewed
+        hidden
+        recently-viewed__section
+      "
+      data-visible-products="{{ object.settings.rv_max_display }}"
+  >
+    {% if rv_title != blank %}
+      {% if type == 'block' %}
+        <section class="section">
+          <div class="container">
+      {% endif %}
+      <div class="one-whole column">
+        <div class="recently-viewed-products__title">
+          <h2 class="title center">{{ rv_title }}</h2>
+          <div class="feature_divider"></div>
+        </div>
+      </div>
+      {% if type == 'block' %}
+          </div>
+        </section>
+      {% endif %}
+    {% endif %}
+
+    {%- assign loop_limit = object.settings.rv_max_display | minus: 1 -%}
+
+    {% if object.settings.rv_products_style == 'slider' %}
+      <div class="
+            rv-main
+            js-rv-slider
+            slider-gallery
+            products-slider
+            products-length-{{ object.settings.rv_per }}
+          "
+          data-products-per-slide="{{ object.settings.rv_per }}"
+          data-products-limit="{{ object.settings.rv_max_display }}"
+      >
+        {% for rvProducts in (0..loop_limit) %}
+          <div class="
+                gallery-cell
+                thumbnail
+                rv-box-element
+                rv-box-{{ rvProducts }}
+                rv-element
+              "
+          >
+            {% comment %} Products are dynamically inserted {% endcomment %}
+          </div>
+        {% endfor %}
+      </div>
+    {% else %}
+      {% if type == 'block' %}
+        <section class="section">
+          <div class="container">
+      {% endif %}
+      <div class="one-whole column">
+        <div class="
+              rv-main
+              js-rv-grid
+              product-list
+              collection-matrix
+              is-flex
+              is-flex-wrap
+              equal-columns--outside-trim
+            "
+            data-products-per-slide="{{ object.settings.rv_per }}"
+            data-products-limit="{{ object.settings.rv_max_display }}"
+          >
+          {% for rvProducts in (0..loop_limit) %}
+            <div class="
+                  thumbnail
+                  rv-box-element
+                  rv-box-{{ rvProducts }}
+                  rv-element
+                  {%
+                    render 'column-width',
+                    value: object.settings.rv_per
+                  %}
+                  column {% if settings.mobile_products_per_row == '1' %}medium-down--one-whole{% else %}medium-down--one-half{% endif %}
+                "
+            >
+              {% comment %} Products are dynamically inserted {% endcomment %}
+            </div>
+          {% endfor %}
+        </div>
+      </div>
+      {% if type == 'block' %}
+          </div>
+        </section>
+      {% endif %}
+    {% endif %}
+  </div>
+{% endcapture %}
+
+{% if context == 'home-page' %}
+  {% if object.settings.rv_products_style == 'grid' %}
+    <section class="section">
+      <div class="container">
+        {{ recently_viewed_products }}
+      </div>
+    </section>
+  {% else %}
+    {{ recently_viewed_products }}
+  {% endif %}
+{% else %}
+  {{ recently_viewed_products }}
+{% endif %}

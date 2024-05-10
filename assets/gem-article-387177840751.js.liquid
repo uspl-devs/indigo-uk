@@ -1,0 +1,222 @@
+{% comment %}
+	GEMPAGE BUILDER (https://apps.shopify.com/gempage)
+
+	You SHOULD NOT modify source code in this page because
+	It is automatically generated from GEMPAGE BUILDER
+	Try to edit page with the live editor.
+{% endcomment %}
+jQuery(function() {
+  var $module = jQuery('#m-1588678552559');
+  var mode = jQuery('.gryffeditor').hasClass('editing') ? 'dev' : 'production';
+  $module.css({
+    'height': 'auto'
+  });
+  jQuery(window).resize(function(){
+    $module.css('height', 'auto');
+  });
+  $module.children('.module').removeClass('full-height');
+
+  var image = $module.children('.module').data('image') || '';
+  if ($module.children('.module').data('speed') || $module.children('.module').data('speed') == 0) {
+    var speed = parseFloat($module.children('.module').data('speed'));
+  } else {
+    var speed = 0.2;
+  }
+  if($module.data('gfv3parallax') != undefined) {
+    $module.removeData('gfv3parallax');
+  }
+  $module.gfV3Parallax({
+    'image': image,
+    'speed': speed,
+    'mode': mode
+  });
+  if(mode == 'dev') {
+    var moduleId = "1588678552559";
+    var moduleIdSlug = moduleId.toString().replace(/-/g, '');
+    if (moduleIdSlug == "1588678552559") {
+      window.getParallax1588678552559 = function() {
+        return $module.data('gfv3parallax');
+      }
+    }
+  }
+});jQuery(function() {
+  try {
+    var $module = jQuery('#m-1588676072442').children('.module');   
+    var navspeed = $module.data('navspeed'),
+      autoplaytimeout = $module.data('autoplaytimeout'),
+      autoplayhoverpause = $module.data('autoplayhoverpause'),
+      navlg = $module.data('navlg'),
+      navmd = $module.data('navmd'),
+      navsm = $module.data('navsm'),
+      navxs = $module.data('navxs'),
+      collg = $module.data('collg'),
+      colmd = $module.data('colmd'),
+      colsm = $module.data('colsm'),
+      colxs = $module.data('colxs'),
+      dotslg = $module.data('dotslg'),
+      dotsmd = $module.data('dotsmd'),
+      dotssm = $module.data('dotssm'),
+      dotsxs = $module.data('dotsxs'),
+      marginlg = parseInt($module.data('marginlg')),
+      marginmd = parseInt($module.data('marginmd')),
+      marginsm = parseInt($module.data('marginsm')),
+      marginxs = parseInt($module.data('marginxs'));
+
+    var mode = jQuery('.gryffeditor').hasClass('editing') ? 'dev' : 'production';
+    if(mode == 'production') {
+      var autoplay = $module.data('autoplay'), 
+          loop = $module.data('loop');
+    } else {
+      var autoplay = 0, 
+          loop = 0;
+    }
+
+    var initCarousel = function() {
+      $module.owlCarousel({
+        mouseDrag: false,
+        autoplayHoverPause: autoplayhoverpause,
+        autoplay: autoplay,
+        autoplayTimeout: autoplaytimeout,
+        loop: loop,
+        navSpeed: navspeed,
+        autoWidth: !1,
+        responsiveClass:true,
+        responsive:{
+          0:{
+              items:colxs,
+              nav: navxs,
+              dots:dotsxs,
+              margin: marginxs
+          },
+          768:{
+              items:colsm,
+              nav: navsm,
+              dots:dotssm,
+              margin: marginsm
+          },
+          992:{
+              items:colmd,
+              nav: navmd,
+              dots:dotsmd,
+              margin: marginmd
+          },
+          1200:{
+              items:collg,
+              nav: navlg,
+              dots:dotslg,
+              margin: marginlg
+          }
+        }
+      });
+    }
+    
+    // Fix nested carousel bug	
+    if ($module.parent().parent().closest('.module-wrap[data-label="Carousel"]').length > 0) {	
+        setTimeout(function() {	
+            initCarousel();	
+        }, 300)	
+    } else {	
+        initCarousel();	
+    }
+  } catch(err) {}
+});
+        jQuery(function() {
+            var $module = jQuery('#m-1588676072552').children('.module');
+        
+            var token_test = '2269641474.1677ed0.63eaaf968720481a866e9263fc8639e1';
+            var token = $module.data('token') != '' ? $module.data('token') : token_test;
+            var num_photos = parseInt($module.data('photos')) > 1 ? parseInt($module.data('photos')) : 1;
+            var num_columns = parseInt($module.data('columns')) > 1 ? parseInt($module.data('columns')) : num_photos;
+            var padding = parseInt($module.data('padding')) > 0 ? parseInt($module.data('padding')) : 0;
+
+            var instaTag = jQuery.trim($module.data('hashtag')) != '' ? jQuery.trim($module.data('hashtag')) : '';
+
+            if(instaTag != '') {
+                var instaUrl = 'https://api.instagram.com/v1/tags/' + instaTag + '/media/recent';
+            } else {
+                var instaUrl = 'https://api.instagram.com/v1/users/self/media/recent';
+            }
+
+            jQuery.ajax({
+                url: instaUrl,
+                dataType: 'jsonp',
+                type: 'GET',
+                data: {
+                    access_token: token, 
+                    count: num_photos
+                },
+                success: function(data) {
+                    var html = '';
+                    if(data.data != undefined) {
+                        for(var i = 0; i < data.data.length; i++) {
+                            if(i % num_columns == 0) {
+                                html += '<div class="gf_clearfix"></div>';
+                            }
+                            html += '<li><a href="' + data.data[i].link + '" target="_blank" style="padding: ' + padding + 'px;">';
+                                html+= '<img src="'+ data.data[i]['images'].standard_resolution.url + '" alt="' + data.data[i].caption + '" />';
+                            html += '</a></li>';
+                        }
+                        $module.html(html).hide();
+                        $module.find('li').css('width', (100/num_columns)+'%');
+
+                        $module.closest('.module-wrap').css('marginLeft', padding * -1);
+                        $module.closest('.module-wrap').css('marginRight', padding * -1);
+                    }
+                    $module.fadeIn();
+                },
+                error: function(data){  
+                    console.log(data);
+                }
+            });
+        });
+    
+        jQuery(function() {
+            var $module = jQuery('#m-1588676072515').children('.module');
+        
+            var token_test = '2269641474.1677ed0.63eaaf968720481a866e9263fc8639e1';
+            var token = $module.data('token') != '' ? $module.data('token') : token_test;
+            var num_photos = parseInt($module.data('photos')) > 1 ? parseInt($module.data('photos')) : 1;
+            var num_columns = parseInt($module.data('columns')) > 1 ? parseInt($module.data('columns')) : num_photos;
+            var padding = parseInt($module.data('padding')) > 0 ? parseInt($module.data('padding')) : 0;
+
+            var instaTag = jQuery.trim($module.data('hashtag')) != '' ? jQuery.trim($module.data('hashtag')) : '';
+
+            if(instaTag != '') {
+                var instaUrl = 'https://api.instagram.com/v1/tags/' + instaTag + '/media/recent';
+            } else {
+                var instaUrl = 'https://api.instagram.com/v1/users/self/media/recent';
+            }
+
+            jQuery.ajax({
+                url: instaUrl,
+                dataType: 'jsonp',
+                type: 'GET',
+                data: {
+                    access_token: token, 
+                    count: num_photos
+                },
+                success: function(data) {
+                    var html = '';
+                    if(data.data != undefined) {
+                        for(var i = 0; i < data.data.length; i++) {
+                            if(i % num_columns == 0) {
+                                html += '<div class="gf_clearfix"></div>';
+                            }
+                            html += '<li><a href="' + data.data[i].link + '" target="_blank" style="padding: ' + padding + 'px;">';
+                                html+= '<img src="'+ data.data[i]['images'].standard_resolution.url + '" alt="' + data.data[i].caption + '" />';
+                            html += '</a></li>';
+                        }
+                        $module.html(html).hide();
+                        $module.find('li').css('width', (100/num_columns)+'%');
+
+                        $module.closest('.module-wrap').css('marginLeft', padding * -1);
+                        $module.closest('.module-wrap').css('marginRight', padding * -1);
+                    }
+                    $module.fadeIn();
+                },
+                error: function(data){  
+                    console.log(data);
+                }
+            });
+        });
+    

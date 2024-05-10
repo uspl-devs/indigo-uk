@@ -1,0 +1,30 @@
+{% comment %}
+  @param product {Object}
+    The product object
+
+  @param label {String}
+    The button label
+
+  @param type {String}
+    Anchor tag or button element
+    In some cases like the Shoppable image section, an anchor tag is needed because the hotspot is already a <button> element
+{% endcomment %}
+
+<{% if type == 'anchor-tag' %}a{% else %}button{% endif %}
+  class="
+    quick_shop
+    ss-icon
+    js-quick-shop-link
+    thumbnail-overlay__button
+    global-button
+    global-button--product-grid-text-hover
+  "
+  data-id="{{ product.id }}"
+  data-url="{{ product.url }}"
+>
+  {% if label != blank %}
+    {{ label | escape }}
+  {% else %}
+    {{ 'collections.general.quick_shop' | t }}
+  {% endif %}
+</{% if type == 'anchor-tag' %}a{% else %}button{% endif %}>

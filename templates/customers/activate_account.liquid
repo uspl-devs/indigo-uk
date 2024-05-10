@@ -1,0 +1,81 @@
+<section class="section">
+  <div class="container content">
+    <div
+      class="
+        one-whole
+        column
+        collection_nav
+      "
+    >
+      <h1>{{ 'customer.activate_account.title' | t }}</h1>
+      <div class="feature-divider"></div>
+    </div>
+
+    <div
+      class="
+        one-half
+        column
+        medium-down--one-whole
+        offset-by-four
+        is-hidden-offset-mobile-only
+      "
+    >
+      <p><em>{{ 'customer.activate_account.subtext' | t }}</em></p>
+
+      {% form 'activate_customer_password' %}
+        {{ form.errors | default_errors }}
+
+        <div id="password">
+          <label for="password">
+            {{ 'customer.activate_account.password' | t }}
+          </label>
+          <input
+            class="password"
+            id="customer_password"
+            name="customer[password]"
+            type="password"
+            value=""
+            size="16"
+          >
+        </div>
+
+        <div id="password_confirm">
+          <label for="password_confirmation">
+            {{ 'customer.activate_account.password_confirm' | t }}
+          </label>
+          <input
+            class="password"
+            id="customer_password_confirmation"
+            name="customer[password_confirmation]"
+            type="password"
+            value=""
+            size="16"
+          >
+        </div>
+
+        <input
+          class="
+            global-button
+            global-button--primary
+          "
+          type="submit"
+          value="{{ 'customer.activate_account.submit' | t }}"
+        >
+        <input
+          class="
+            cancel
+            button
+          "
+          id="customer_decline"
+          name="decline"
+          type="submit"
+          value="{{ 'customer.activate_account.cancel' | t }}"
+        >
+      {% endform %}
+    </div>
+    <br />
+    <br />
+  </div>
+</section>
+
+{% section 'newsletter' %}

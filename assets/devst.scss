@@ -1,0 +1,27 @@
+#description_hidden {
+	display: none!important;
+  text-align: center!important;
+  &.show {
+  display: block!important;    
+  }
+}
+
+.read_more {
+  cursor: pointer;
+  margin: 0 auto; 
+  text-align: center;
+  color: #03a196;
+  font-weight: bold;
+  font-size: 18px;
+	&.hid {
+      display: none!important;
+      
+    }
+}
+
+.read_less {
+  cursor: pointer;
+  text-align: center;
+  font-weight: bold;
+  font-size: 18px;
+}

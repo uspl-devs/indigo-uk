@@ -1,0 +1,27 @@
+{% comment %}
+	GEMPAGE BUILDER (https://apps.shopify.com/gempage)
+
+	You SHOULD NOT modify source code in this page because
+	It is automatically generated from GEMPAGE BUILDER
+	Try to edit page with the live editor.
+{% endcomment %}
+<!--GEM_HEADER-->
+
+<link data-instant-track rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" class="gf-style" />
+<link data-instant-track rel="stylesheet" type="text/css" href="https://d1um8515vdn9kb.cloudfront.net/files/vendor.css?refresh=1" class="gf-style" />
+<link data-instant-track rel="stylesheet" type="text/css" href="{{ 'gem-page-product-1583113257.css' | asset_url }}" class="gf_page_style">
+<!--GEM_HEADER_END-->
+<!--Gem_Page_Main_Editor--><div class="clearfix"></div><div class="gryffeditor">
+<script type="application/ld+json">{"@context": "http://schema.org/", "@type": "Product", "name":{{product.title | json}}, "url":{{shop.url | append: product.url | json}},{%- if product.featured_image -%}{%- assign image_size=product.featured_image.width | append: 'x' -%}"image": [{{product.featured_image.src | img_url: image_size | prepend: "https:" | json}}],{%- endif -%}"description":{{product.description | strip_html | json}},{%- if current_variant.sku != blank -%}"sku":{{current_variant.sku | json}},{%- endif -%}"brand":{"@type": "Thing", "name":{{product.vendor | json}}}, "offers": [{%- for variant in product.variants -%}{"@type" : "Offer",{%- if variant.sku != blank -%}"sku":{{variant.sku | json}},{%- endif -%}"availability" : "http://schema.org/{% if product.available %}InStock{% else %}OutOfStock{% endif %}", "price" :{{variant.price | divided_by: 100.00 | json}}, "priceCurrency" :{{cart.currency.iso_code | json}}, "url" :{{shop.url | append: variant.url | json}}}{% unless forloop.last %},{% endunless %}{%- endfor -%}]}</script>
+</div><div id="divContentBk"></div><!--End_Gem_Page_Main_Editor-->
+<!--GEM_FOOTER-->
+{% capture GEM_FOOTER_SCRIPT %}
+<script data-instant-track type="text/javascript">
+if(typeof pageLibs === 'undefined' || pageLibs === null){	var pageLibs = [		'{{ 'gem-page-product-1583113257.js' | asset_url }}',	];
+}
+</script>
+<script data-instant-track type="text/javascript">
+	var GEMVENDOR = GEMVENDOR || (function(){		var _js = {};		return {			init: function(Args) {				_js = Args;			},			getLibs: function() {				return _js;			}		};	}());	GEMVENDOR.init(pageLibs);</script>
+<script data-instant-track type="text/javascript" src="https://d1um8515vdn9kb.cloudfront.net/files/gempagev2.js?v=1.0" class="gf-script" defer></script>
+{% endcapture %}
+<!--GEM_FOOTER_END-->

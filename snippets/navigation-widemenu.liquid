@@ -1,0 +1,32 @@
+{% comment %}
+
+  @param menu {Linklist} [Optional] Linklist for which to render nav items.
+
+{% endcomment %}
+
+<ul class="widemenu">
+  {% for menu_item in menu.links %}
+    {% if linklists[menu_item.handle].links.size > 0 %}
+      <li class="widemenu__submenu">
+        <a href="{{ menu_item.url }}" class="widemenu__submenu-heading widemenu__link">
+          {{ menu_item.title | escape }}
+        </a>
+        <ul class="widemenu__submenu-items">
+        {% for sub_item in linklists[menu_item.handle].links %}
+          <li class="widemenu__submenu-item">
+            <a href="{{ sub_item.url }}" class="widemenu__submenu-item-link widemenu__link">
+              {{ sub_item.title | escape }}
+            </a>
+          </li>
+        {% endfor %}
+        </ul>
+      </li>
+    {% else %}
+      <li class="widemenu__item">
+        <a href="{{ menu_item.url }}" class="widemenu__item-heading widemenu__link">
+          {{ menu_item.title | escape }}
+        </a>
+      </li>
+    {% endif %}
+  {% endfor %}
+</ul>

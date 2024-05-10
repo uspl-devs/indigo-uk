@@ -1,0 +1,88 @@
+{% comment %}
+  @param context {String}
+    The search form context
+{% endcomment %}
+
+{% liquid
+  assign context = context | default: 'default'
+
+  if section.settings.search_term
+    assign placeholder = section.settings.search_term
+  elsif context == 'blog'
+    assign placeholder = 'general.search.placeholder_with_blog_name' | t: blog_title: blog.title
+  else
+    assign placeholder = 'general.search.placeholder' | t
+  endif
+%}
+
+<div class="search-form-container">
+  <form
+    class="
+      search-form
+      search-form--{{ context }}
+    "
+    action="{{ routes.search_url }}"
+    data-autocomplete-{{ settings.enable_autocomplete }}
+  >
+    <div class="search-form__input-wrapper">
+      <input
+        class="search-form__input"
+        type="text"
+        name="q"
+        placeholder="{{ placeholder | escape }}"
+        aria-label="{{ placeholder | escape }}"
+        value="{{ search.terms | escape }}"
+        autocorrect="off"
+        autocomplete="off"
+        autocapitalize="off"
+        spellcheck="false"
+        data-search-input
+      >
+
+      {% if context == 'blog' %}
+        <input
+          type="hidden"
+          name="type"
+          value="article"
+        >
+      {% endif %}
+
+      <button
+        class="
+          search-form__submit-button
+          global-button
+        "
+        type="submit"
+        aria-label="{{ 'general.search.submit' | t }}"
+      >
+        <span class="icon-search"></span>
+      </button>
+    </div>
+
+    {% if settings.enable_autocomplete %}
+      <div
+        class="predictive-search"
+        data-predictive-search
+        data-loading="false"
+      >
+        {%-
+          render 'loading-icon',
+          class_names: 'predictive-search__loading-state-spinner',
+          size: 24,
+        -%}
+        <div class="predictive-search__results" data-predictive-search-results></div>
+      </div>
+    {% endif %}
+  </form>
+
+  {% if context == 'mobile' %}
+    <button
+      class="mobile-search-close"
+      type="button"
+      aria-label="{{ 'general.search.close' | t }}"
+      data-mobile-search-close
+    >
+      <span class="icon-cross"></span>
+    </button>
+  {% endif %}
+</div>

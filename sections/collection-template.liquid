@@ -1,0 +1,511 @@
+<script
+  type="application/json"
+  data-section-type="collection-template"
+  data-section-id="{{ section.id }}"
+>
+</script>
+
+{%- if collection.products.size > 0 -%}
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "ItemList",
+      "itemListElement": [
+        {%- for product in collection.products limit: section.settings.pagination_limit -%}
+          {
+            "@type": "ListItem",
+            "position": "{{ forloop.index | json }}",
+            "url": "{{ shop.url }}{{ product.url }}",
+            "name": "{{ product.title | strip_html | escape }}"
+          } {%- unless forloop.last -%},{%- endunless -%}
+        {%- endfor -%}
+      ]
+    }
+  </script>
+{%- endif -%}
+
+{% liquid
+  if collection.image
+    assign image = collection.image
+  elsif section.settings.image
+    assign image = section.settings.image
+  else
+    assign image = collection.products.first.featured_image
+  endif
+
+  assign has_faceted_filtering_block = false
+  assign faceted_filtering_blocks_count = section.blocks | where: "type", "faceted_filtering" | size
+  if faceted_filtering_blocks_count > 0
+    assign has_faceted_filtering_block = true
+  endif
+%}
+
+{% if section.settings.featured_collection_image %}
+  {%
+    render 'template-banner',
+    image: image,
+    mobile_image: section.settings.mobile_image,
+    background_style: section.settings.caption_content_background,
+    wide_display: section.settings.wide_display,
+    banner_title: collection.title,
+    show_caption: section.settings.display_collection_title,
+  %}
+{% endif %}
+
+<section class="section">
+  <div class="container content">
+    {% paginate collection.products by section.settings.pagination_limit %}
+
+    <div class="one-whole column">
+
+      <div class="breadcrumb-collection">
+        {% if section.settings.collection_breadcrumb %}
+          <script type="application/ld+json">
+            {
+              "@context": "https://schema.org",
+              "@type": "BreadcrumbList",
+              "itemListElement": [
+                {
+                  "@type": "ListItem",
+                  "position": 1,
+                  "item": {
+                    "@id": "{{ shop.url }}",
+                    "name": "{{ 'general.breadcrumbs.home' | t }}"
+                  }
+                },
+                {
+                  "@type": "ListItem",
+                  "position": 2,
+                  "item": {
+                    "@id": "{{ routes.collections_url }}/{% if collection.handle != blank %}{{ collection.handle }}{% else %}all{% endif %}",
+                    "name": "{{ collection.title }}"
+                  }
+                }
+                {% if current_tags %}
+                  {% for tag in current_tags %}
+                    {% unless tag contains 'meta-' %}
+                      ,
+                      {
+                        "@type": "ListItem",
+                        "position": {{ forloop.index | plus: 2 }},
+                        "item": {
+                          "@id": "{{ routes.collections_url }}/{% if collection.handle != blank %}{{ collection.handle }}{% else %}all{% endif %}/{{ tag | handleize }}",
+                          "name": "{{ tag }}"
+                        }
+                      }
+                    {% endunless %}
+                  {% endfor %}
+                {% endif %}
+              ]
+            }
+          </script>
+
+          <div class="breadcrumb_text">
+            <a href="{{ routes.root_url }}" title="{{ shop.name | escape }}">
+              <span>{{ 'general.breadcrumbs.home' | t }}</span>
+            </a>
+
+            <span class="breadcrumb-divider">/</span>
+
+            <a href="{{ collection.url }}" title="{{ collection.title | escape }}" class="breadcrumb_link">
+              <span>{{ collection.title }}</span>
+            </a>
+
+            {% if current_tags %}
+              {% for tag in current_tags %}
+                {% unless tag contains 'meta-' %}
+                  <span class="breadcrumb-divider">/</span>
+
+                  <a href="{{ collection.url }}/{{ tag | handleize }}" title="{{ tag | escape }}">
+                    <span>{{ tag }}</span>
+                  </a>
+                {% endunless %}
+              {% endfor %}
+            {% endif %}
+
+            {% if paginate.pages != 0 and settings.pagination_type != 'load_more' and settings.pagination_type != 'infinite_scroll' %}
+              <span class="breadcrumb-divider">/</span> {{ 'general.breadcrumbs.page' | t: current_page: paginate.current_page, pages: paginate.pages }}
+            {% endif %}
+          </div>
+        {% endif %}
+      </div>
+    </div>
+
+    {% if section.settings.display_collection_title and section.settings.featured_collection_image == false %}
+      <div class="one-half column medium-down--one-whole">
+        <h1>{{ collection.title }}</h1>
+      </div>
+    {% endif %}
+
+    <div class="{% if section.settings.display_collection_title and section.settings.featured_collection_image == false %}one-half column medium-down--one-whole{% else %}one-whole column{% endif %} section_select">
+      {% if collection.handle != blank and collection.products_count > 0 %}
+        {% if section.settings.collection_tags and has_faceted_filtering_block == false %}
+          {% for tag in collection.all_tags %}
+            {% if forloop.first %}
+              <select name="tag_filter" id="tag_filter" class="tag_filter" data-default-collection="{% if collection.handle == 'all' %}{{ routes.all_products_collection_url }}{% else %}{{ collection.url }}{% endif %}">
+                <option {% unless current_tags %}selected="selected"{% endunless %} value="{% if collection.handle == "all" %}{{ routes.all_products_collection_url }}{% else %}{{ collection.url }}{% endif %}">{{ 'collections.general.all_collection_title' | t: title: collection.title }}</option>
+            {% endif %}
+
+            {% unless tag contains 'meta-' %}
+              <option {% if current_tags contains tag %}selected="selected"{% endif %} value="{{ routes.collections_url }}/{% if collection.handle != blank %}{{ collection.handle }}{% else %}all{% endif %}/{{ tag | handleize }}">{{ tag }}</option>
+            {% endunless %}
+
+            {% if forloop.last %}
+              </select>
+            {% endif %}
+          {% endfor %}
+        {% endif %}
+
+        {% if section.settings.collection_sort %}
+          <select
+            class="sort_by"
+            id="sort-by"
+            data-sort-by
+          >
+            {%- for option in collection.sort_options -%}
+              {% assign sort_active = false %}
+              {% if collection.sort_by == blank and collection.default_sort_by == option.value %}
+                {% assign sort_active = true %}
+              {% elsif collection.sort_by == option.value %}
+                {% assign sort_active = true %}
+              {% endif %}
+              <option value="{{ option.value }}" {% if sort_active %}selected="selected"{% endif %}>
+                {{ option.name }}
+              </option>
+            {%- endfor -%}
+          </select>
+        {% endif %}
+      {% endif %}
+    </div>
+
+    <div class="one-whole column">
+      <div class="feature-divider"></div>
+    </div>
+
+    {% comment %} Check to see if sidebar should be enabled {% endcomment %}
+    {% if section.blocks.size > 0 and collection.handle != 'types' and collection.handle != 'vendors' %}
+      {% assign sidebar = true %}
+    {% else %}
+      {% assign sidebar = false %}
+    {% endif %}
+
+    <div
+      class="
+        content-wrapper
+        is-flex
+        is-flex-wrap
+      "
+    >
+      {%
+        render 'sidebar',
+        results: collection,
+        has_faceted_filtering_block: has_faceted_filtering_block,
+      %}
+
+      <div class="has-sidebar-option sidebar-enabled--{{ sidebar }}">
+        {% if collection.description != blank %}
+          <div class="container">
+            <div class="one-whole column">
+              <div class="collection_description rte">
+                {{ collection.description }}
+              </div>
+            </div>
+          </div>
+        {% endif %}
+
+        <div class="container">
+          <div class="one-whole column">
+            {% if collection.products.size == 0 %}
+              <div class="product-list product-list--collection">
+                <p class="quote">{{ 'collections.general.no_matches' | t }}</p>
+              </div>
+            {% else %}
+              {%
+                render 'product-loop',
+                paginate: paginate,
+                products: products,
+                skip_product: product,
+                products_per_row: section.settings.products_per_row,
+                sidebar: sidebar,
+              %}
+            {% endif %}
+          </div>
+        </div>
+
+        {% if settings.pagination_type == 'basic_pagination' %}
+          {%
+            render 'pagination',
+            paginate: paginate
+          %}
+        {% endif %}
+      </div>
+    </div>
+  {% endpaginate %}
+  </div>
+</section>
+
+{% comment %} Shopify-XR {% endcomment %}
+{% if product.media %}
+  <script>
+    window.ShopifyXR=window.ShopifyXR||function(){(ShopifyXR.q=ShopifyXR.q||[]).push(arguments)}
+    {% assign models = product.media | where: 'media_type', 'model' | json %}
+    ShopifyXR('addModels', {{ models }});
+  </script>
+{% endif %}
+
+<script defer src="https://cdn.shopify.com/shopifycloud/shopify-xr-js/assets/v1.0/shopify-xr.en.js"></script>
+<script defer src="https://cdn.shopify.com/shopifycloud/model-viewer-ui/assets/v1.0/model-viewer-ui.en.js"></script>
+
+{% schema %}
+{
+  "name": "Collection",
+  "class": "shopify-section--collection-template under-menu",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Banner"
+    },
+    {
+      "type": "checkbox",
+      "id": "featured_collection_image",
+      "label": "Show banner",
+      "info": "[Learn more](https://help.outofthesandbox.com/hc/en-us/articles/115009455768-How-to-add-a-Collection-Banner)",
+      "default": false
+    },
+    {
+      "type": "checkbox",
+      "id": "wide_display",
+      "label": "Wide display",
+      "default": true
+    },
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Banner image",
+      "info": "This only appears on collections that do not have a collection image. 1800 x 1000px recommended."
+    },
+    {
+      "type": "image_picker",
+      "id": "mobile_image",
+      "label": "Mobile banner image",
+      "info": "Display a different image on mobile screens."
+    },
+    {
+      "type": "select",
+      "id": "caption_content_background",
+      "label": "Text contrast technique",
+      "default": "original",
+      "info": "Improve legibility by applying a contrast technique to your banner’s text.",
+      "options": [
+        {
+          "value": "original",
+          "label": "None"
+        },
+        {
+          "value": "darken_bg",
+          "label": "Darken banner image"
+        },
+        {
+          "value": "text_box",
+          "label": "Solid box"
+        },
+        {
+          "value": "translucent_text_box",
+          "label": "Translucent box"
+        }
+      ]
+    },
+    {
+      "type": "checkbox",
+      "id": "display_collection_title",
+      "label": "Show collection title"
+    },
+    {
+      "type": "checkbox",
+      "id": "collection_breadcrumb",
+      "label": "Show breadcrumb links",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "collection_tags",
+      "label": "Enable filtering by product tag",
+      "info": "When using a Faceted filtering block, the tag filter will be hidden."
+    },
+    {
+      "type": "checkbox",
+      "id": "collection_sort",
+      "label": "Enable collection sorting"
+    },
+    {
+      "type": "header",
+      "content": "Products"
+    },
+    {
+      "type": "range",
+      "id": "products_per_row",
+      "label": "Products per row",
+      "min": 2,
+      "max": 5,
+      "step": 1,
+      "default": 3
+    },
+    {
+      "type": "range",
+      "id": "pagination_limit",
+      "label": "Products per page",
+      "min": 2,
+      "max": 50,
+      "step": 1,
+      "default": 48
+    },
+    {
+      "type": "header",
+      "content": "Sidebar"
+    },
+    {
+      "type": "paragraph",
+      "content": "Create a sidebar by adding content blocks."
+    },
+    {
+      "type": "checkbox",
+      "id": "toggle",
+      "label": "Collapse sidebar content",
+      "default": false
+    }
+  ],
+  "blocks": [
+    {
+      "type": "filter_by_collection",
+      "name": "Collection list",
+      "limit": 1
+    },
+    {
+      "type": "faceted_filtering",
+      "name": "Faceted filtering",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "paragraph",
+          "content": "[Learn how](https://help.shopify.com/en/manual/online-store/themes/os20/customize/filters) to configure filters."
+        },
+        {
+          "type": "paragraph",
+          "content": "Using this block will hide any tag filter, tag list, type list, and vendor list blocks."
+        },
+        {
+          "type": "checkbox",
+          "id": "show_filter_product_count",
+          "label": "Show product counts",
+          "default": true
+        }
+      ]
+    },
+    {
+      "type": "menu",
+      "name": "Menu",
+      "settings": [
+        {
+          "type": "link_list",
+          "id": "custom_menu_linklist",
+          "label": "Menu"
+        }
+      ]
+    },
+    {
+      "type": "page",
+      "name": "Page",
+      "settings": [
+        {
+          "type": "page",
+          "id": "content_page",
+          "label": "Page"
+        }
+      ]
+    },
+    {
+      "type": "recently_viewed",
+      "name": "Recently viewed products",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "paragraph",
+          "content": "To test the recently viewed products, view your online store outside of the Editor and visit multiple product pages. [Learn more](https:\/\/help.outofthesandbox.com\/hc\/en-us\/articles\/115008765228)"
+        },
+        {
+          "type": "text",
+          "id": "sidebar_rv_title",
+          "label": "Title",
+          "default": "Recently Viewed"
+        },
+        {
+          "type": "range",
+          "id": "sidebar_rv_per",
+          "label": "Products limit",
+          "min": 1,
+          "max": 4,
+          "step": 1,
+          "default": 3
+        }
+      ]
+    },
+    {
+      "type": "filter",
+      "name": "Tag filter",
+      "limit": 5,
+      "settings": [
+        {
+          "type": "text",
+          "id": "filter_name",
+          "label": "Title"
+        },
+        {
+          "type": "textarea",
+          "id": "filter_tags",
+          "label": "Filter tags",
+          "info": "Add a comma-separated list of product tags. Only the tags found in the collection will be displayed as filters. [Learn more](https://help.outofthesandbox.com/hc/en-us/articles/115008642047)"
+        },
+        {
+          "type": "checkbox",
+          "id": "enable_filter_swatches",
+          "label": "Display color swatches"
+        }
+      ]
+    },
+    {
+      "type": "filter_by_tag",
+      "name": "Tag list",
+      "limit": 1
+    },
+    {
+      "type": "text",
+      "name": "Text",
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Heading",
+          "default": "Heading"
+        },
+        {
+          "type": "richtext",
+          "id": "text",
+          "label": "Text",
+          "default": "<p>Text area can be used for special announcements or general information.</p>"
+        }
+      ]
+    },
+    {
+      "type": "filter_by_type",
+      "name": "Type list",
+      "limit": 1
+    },
+    {
+      "type": "filter_by_vendor",
+      "name": "Vendor list",
+      "limit": 1
+    }
+  ]
+}
+
+{% endschema %}

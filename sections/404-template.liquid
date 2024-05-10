@@ -1,0 +1,48 @@
+<section class="section">
+  <div class="container content">
+    <div
+      class="
+        one-whole
+        column
+        collection_nav
+      "
+    >
+      <h1 class="collection_title">
+        {{ 'general.404.title' | t }}
+      </h1>
+    </div>
+
+    <div class="one-whole column">
+      <p class="quote">
+        {{ 'general.404.subtext' | t }}
+      </p>
+    </div>
+
+    <div
+      class="
+        one-whole
+        column
+        center
+      "
+    >
+      <p class="extra_padding">
+        {{ 'general.404.continue_shopping_html' | t }}
+      </p>
+    </div>
+
+    <div
+      class="
+        three-eighths
+        columns
+        medium-down--one-whole
+        offset-by-five
+        is-hidden-offset-mobile-only
+      "
+    >
+      {%
+        render 'search-form',
+        context: '404',
+      %}
+    </div>
+  </div>
+</section>

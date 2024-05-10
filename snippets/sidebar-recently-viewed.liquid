@@ -1,0 +1,26 @@
+{%- assign products_limit = products_limit | minus: 1 -%}
+
+<div class="recently-viewed__title">
+  <h4 class="toggle">{{ block.settings.sidebar_rv_title }}</h4>
+</div>
+
+<div class="rv-container">
+  <div class="product-list recently-viewed-list">
+    {% for rvProducts in (0..products_limit) %}
+      <div
+        class="
+          rv-element
+          rv-sidebar-element
+          rv-box-{{ rvProducts }}
+          thumbnail
+          thumbnail-hover-enabled--{{ settings.thumbnail_hover_enabled }}
+          {% if settings.quick_shop_enabled %}
+            quick-shop-style--{{ settings.quick_shop_style }}
+            product__details
+          {% endif %}
+        "
+      >
+      </div>
+    {% endfor %}
+  </div>
+</div>

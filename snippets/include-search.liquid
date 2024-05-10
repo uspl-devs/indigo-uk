@@ -1,0 +1,57 @@
+{% comment %}
+** Search - dynamic **
+- Draggable section
+{% endcomment %}
+
+{% comment %} Assign object as block or section {% endcomment %}
+{% if type == 'block' %}
+  {%- assign object = block -%}
+{% else %}
+  {%- assign object = section -%}
+{% endif %}
+
+{%- assign id = object.id -%}
+
+{% comment %} Content settings {% endcomment %}
+{%- assign search_title = object.settings.search_title -%}
+{%- assign search_text = object.settings.search_text -%}
+{%- assign image = object.settings.image -%}
+{%- assign mobile_image = object.settings.mobile_image -%}
+{% comment %} End content settings {% endcomment %}
+
+{% comment %} Advanced {% endcomment %}
+{%- assign css_class = object.settings.css_class -%}
+{%- assign custom_css = object.settings.custom_css -%}
+
+{% comment %} Section specific CSS {% endcomment %}
+{% style %}
+  {% render 'css-loop',
+          css: custom_css,
+          id: id
+  %}
+{% endstyle %}
+
+<section class="section {{ css_class }} is-width-wide has-no-side-gutter">
+  <div class="search__section {% if image != blank %}search-bgr-true{% endif %} text-align--{{ object.settings.search_section_text_align }} lazyload"
+      {% if image != blank %}
+        data-bg="{{ image | img_url: '1600x' }}"
+        {% if mobile_image != blank %}
+        data-mobile-bg="{{ mobile_image | img_url: '800x' }}"
+        {% endif %}
+        data-sizes="100vw"
+      {% endif %}>
+    <div class="section_form">
+      {% if search_title != blank %}
+        <h2 class="title">{{ search_title }}</h2>
+      {% endif %}
+
+      {% if search_text != blank %}
+        <div class="search-text">
+          {{ search_text }}
+        </div>
+      {% endif %}
+
+      {% render 'search-form' %}
+    </div>
+  </div>
+</section>

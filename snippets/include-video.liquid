@@ -1,0 +1,166 @@
+{% comment %}
+** Video - dynamic **
+- Draggable section
+{% endcomment %}
+
+{% comment %} Assign object as block or section {% endcomment %}
+{% if type == 'block' %}
+  {%- assign object = block -%}
+  {%- assign object_selector = '.block__' | append: object.id -%}
+{% else %}
+  {%- assign object = section -%}
+  {%- assign object_selector = '#shopify-section-' | append: object.id -%}
+{% endif %}
+
+{%- assign id = object.id -%}
+
+{% comment %} Content settings {% endcomment %}
+{%- assign iframe_video = object.settings.iframe_video -%}
+{%- assign image = object.settings.image -%}
+{%- assign mobile_image = object.settings.mobile_image -%}
+{%- assign preheading = object.settings.preheading -%}
+{%- assign heading = object.settings.heading -%}
+{%- assign subheading = object.settings.subheading -%}
+{%- assign background_style = object.settings.caption_content_background -%}
+{%- assign button1_label = object.settings.button1_label -%}
+{%- assign button1_link = object.settings.button1_link -%}
+{%- assign button1_style = object.settings.button1_style -%}
+{%- assign button2_label = object.settings.button2_label -%}
+{%- assign button2_link = object.settings.button2_link -%}
+{%- assign button2_style = object.settings.button2_style -%}
+{%- assign html5_video = object.settings.html5_video -%}
+{% comment %} End content settings {% endcomment %}
+
+{% comment %} Mobile crop {% endcomment %}
+{%- assign mobile_crop = 'mobile-banner--crop-' | append: object.settings.mobile_image_crop -%}
+
+{% comment %} Is the color set to transparent? {% endcomment %}
+{%- assign mobile_text_alpha = object.settings.mobile_text_color | default: 'rgba(0,0,0,0)' | color_extract: 'alpha' -%}
+
+{% comment %} Advanced {% endcomment %}
+{%- assign css_class = object.settings.css_class -%}
+{%- assign custom_css = object.settings.custom_css -%}
+
+{% comment %} Section specific CSS {% endcomment %}
+<style>
+  {% render 'css-loop',
+          css: custom_css,
+          id: id
+  %}
+
+  {% if object.settings.mobile_text_below_image and mobile_text_alpha != 0 %}
+    @media only screen and (max-width: 480px) {
+      {{ object_selector }} .pretext,
+      {{ object_selector }} .headline,
+      {{ object_selector }} .subtitle {
+        color: {{ object.settings.mobile_text_color }};
+      }
+    }
+  {% endif %}
+</style>
+
+<section class="section {{ css_class }} {% if object.settings.wide_display == true %}is-width-wide has-no-side-gutter{% endif %}">
+  <div class="container">
+    <div class="one-whole column">
+      <div class="video-section full-width--{{ object.settings.wide_display }}">
+        <div class="video-wrapper video-controls-enabled--{{ object.settings.show_controls }} darken-video--{{ object.settings.video_dark_overlay }} caption-background-{{ background_style }} caption--below-{{ object.settings.mobile_text_below_image }}" id="video-{{ object.id }}"
+             data-autoplay="{{ object.settings.autoplay }}"
+             data-autoloop="{{ object.settings.autoloop }}"
+             data-mute-video="{{ object.settings.mute_video }}"
+             data-video-src="{{ iframe_video.id }}"
+             data-aspect-ratio="{{ object.settings.aspect_ratio }}"
+             data-poster-image-uploaded="{% if image != blank %}true{% else %}false{% endif%}">
+          <div class="video__overlay"></div>
+            {% comment %} Add div for placeholder / poster image {% endcomment %}
+            {% if image != blank %}
+              <div class="video-wrapper__image {% if mobile_image %}is-hidden-mobile-only{% endif %}">
+                {% render 'image-element',
+                        image: image,
+                        alt: image.alt,
+                        stretch_width: true,
+                        additional_classes: mobile_crop
+                %}
+                {% if background_style == 'darken_bg' %}
+                  <div class="darken-bg"></div>
+                {% endif %}
+              </div>
+            {% else %}
+              {% unless html5_video != blank or iframe_video != blank %}
+                <div class="video-wrapper__image {% if mobile_image %}is-hidden-mobile-only{% endif %}">
+                  {{ 'lifestyle-1' | placeholder_svg_tag: 'placeholder-svg placeholder-svg--video' }}
+                </div>
+              {% endunless %}
+            {% endif %}
+            {% if mobile_image and image %}
+              <div class="video-wrapper__image is-hidden-desktop-only">
+                {% render 'image-element',
+                        image: mobile_image,
+                        alt: mobile_image.alt,
+                        stretch_width: true,
+                        additional_classes: mobile_crop
+                %}
+                {% if background_style == 'darken_bg' %}
+                  <div class="darken-bg"></div>
+                {% endif %}
+              </div>
+            {% endif %}
+
+            {% comment %} Checks there is an iframe video (YouTube or Vimeo) {% endcomment %}
+            {% if iframe_video != blank %}
+              {% if iframe_video.type == 'vimeo' %}
+                <div class="plyr__video-embed" id="video-{{ object.id }}" data-video-element data-external-video>
+                  <iframe src="https://player.vimeo.com/video/{{ iframe_video.id }}?loop=false&amp;byline=false&amp;portrait=false&amp;title=false&amp;speed=true&amp;transparent=0&amp;gesture=media" allowfullscreen allowtransparency allow="autoplay"></iframe>
+                </div>
+              {% elsif iframe_video.type == 'youtube' %}
+                <div class="plyr__video-embed" id="video-{{ object.id }}" data-video-element data-external-video>
+                  <iframe src="https://www.youtube.com/embed/{{ iframe_video.id }}?origin=https://plyr.io&amp;iv_load_policy=3&amp;modestbranding=1&amp;playsinline=1&amp;showinfo=0&amp;rel=0&amp;enablejsapi=1" allowfullscreen allowtransparency allow="autoplay"></iframe>
+                </div>
+              {% endif %}
+              {% comment %} Checks there is an HTML5 video {% endcomment %}
+            {% elsif html5_video != blank %}
+              <video class="video-{{ object.id }}" data-video-element data-html5-video>
+                <source src="{{ html5_video }}">
+              </video>
+            {% endif %}
+
+            <div class="video__text-container display-text-over-video--{{ object.settings.display_text_over_video }} caption js-caption position-{{ object.settings.text_position }}" data-video-text-container>
+              <div class="video__text-wrapper caption-content align-{{ object.settings.text_align }}">
+                {% if preheading != blank %}
+                  <div class="pretext" data-video-text>
+                    {{ preheading }}
+                  </div>
+                {% endif %}
+
+                {% if heading != blank %}
+                  <h1 class="headline" data-video-text>{{ heading | escape }}</h1>
+                {% endif %}
+
+                {% if subheading != blank %}
+                  <div class="subtitle" data-video-text>
+                    {{ subheading }}
+                  </div>
+                {% endif %}
+
+                {% if button1_link == blank %}
+                  {% assign button1_attrs = 'data-play-button' %}
+                {% endif %}
+                {%
+                  render 'banner-buttons',
+                  button1_text: button1_label,
+                  button1_style: button1_style,
+                  button1_link: button1_link,
+                  button1_attrs: button1_attrs,
+                  button2_text: button2_label,
+                  button2_style: button2_style,
+                  button2_link: button2_link,
+                  mobile_text_below_image: object.settings.mobile_text_below_image,
+                  mobile_text_color: object.settings.mobile_text_color,
+                  object_selector: object_selector,
+                %}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

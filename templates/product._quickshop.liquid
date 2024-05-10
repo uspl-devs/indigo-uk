@@ -1,0 +1,51 @@
+{% layout none %}
+
+<template data-data>
+  {
+    "gallery_arrows": {{ settings.gallery_arrows | json }},
+    "thumbnail_arrows": {{ settings.gallery_arrows | json }},
+    "enable_zoom": {{ settings.activate_zoom | json }},
+    "enable_thumbnail_slider": {{ settings.enable_thumbnail_slider | json }},
+    "slideshow_speed": {{ settings.slideshow_speed | json }},
+    "slideshow_transition": {{ settings.slideshow_animation | json }},
+    "thumbnails_enabled": {{ settings.display_thumbnails | json }},
+    "thumbnail_position": {{ settings.thumbnail_position | json }},
+    "product_media_amount": {{ product.media.size }}
+  }
+</template>
+
+<template data-html="content">
+  {%
+    render 'product',
+    product: product,
+    variant: product.selected_or_first_available_variant,
+    display_sku: nil,
+    display_tags: nil,
+    display_social_buttons: nil,
+    display_thumbnails: settings.product_thumbs,
+    display_type: nil,
+    display_vendor: settings.quick_shop_display_vendor,
+    display_collections: nil,
+    enable_product_lightbox: nil,
+    enable_shopify_review_comments: settings.enable_shopify_review_comments
+    enable_shopify_product_badges: settings.enable_shopify_collection_badges,
+    review_position: nil,
+    enable_reviews_in_description: nil,
+    enable_thumbnail_slider: settings.enable_thumbnail_slider,
+    enable_zoom: settings.activate_zoom,
+    size_chart: nil,
+    gallery_arrows: settings.gallery_arrows,
+    display_savings: settings.quick_shop_display_savings,
+    product_description_position: settings.quick_shop_product_description_position,
+    product_description_words: settings.description_words,
+    product_images_position: settings.product_images_position,
+    set_product_height: nil,
+    product_height: nil,
+    show_payment_button: settings.show_payment_button,
+    slideshow_transition: settings.slideshow_animation,
+    slideshow_speed: settings.slideshow_speed,
+    thumbnail_position: settings.thumbnail_position,
+    video_looping: settings.video_looping,
+    template: 'quickshop',
+  %}
+</template>

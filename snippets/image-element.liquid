@@ -140,7 +140,7 @@
     {%- if image == nil or lazyload -%}
       <img
         class="
-          lazyload
+          lazyloaded
           transition--{{ settings.image_loading_style }}
           {{ additional_classes }}
         "
@@ -148,7 +148,9 @@
         {% if low_quality_image %}
           src="{{ low_quality_image }}"
         {% endif %}
-        data-src="{{ image | img_url: '1600x' }}"
+        src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=" data-class="LazyLoad"
+        data-mob-src="{{ image | img_url: '460x' }}"
+        data-src="{{ image | img_url: '1000x' }}"
         data-sizes="auto"
         data-aspectratio="{{ image.width }}/{{ image.height }}"
         data-srcset="{{ srcset }}"
@@ -169,6 +171,7 @@
           width: image.width,
           height: image.height,
           srcset: srcset
+      | replace: ' src="' , ' src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=" data-class="LazyLoad" data-src="' | replace: ' srcset="' , ' data-srcset="'
       }}
     {%- endif -%}
   </div>

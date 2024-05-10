@@ -178,7 +178,7 @@
         <div class="footer-credits__top">
           {%- if shop.features.follow_on_shop? and section.settings.enable_follow_on_shop -%}
             <div class="footer__follow-on-shop">
-              {{ shop | login_button: action: 'follow' }}
+              {{ shop | login_button: action: 'follow' | replace: '<script defer="defer" async type="module" src="' , '<script type="lazyload_int" data-w3-type="module" data-src="' | replace: '<script type="module"' ,'<script type="lazyload_int" data-w3-type="module"'}}
             </div>
           {%- endif -%}
           {% if locale_selector or currency_selector or settings.show_multiple_currencies == true %}

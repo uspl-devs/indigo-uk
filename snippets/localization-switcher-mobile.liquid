@@ -110,12 +110,12 @@ additional_classes: <string>
   {{ localization.country.name }} ({{ localization.country.currency.iso_code }}{% if localization.country.currency.symbol %} {{ localization.country.currency.symbol }}{%- endif -%})<span class="right icon-down-arrow"></span>
   </a>
 
-    <ul
+    <ul id="mobile_country"
       class="
         {{ additional_classes }}
         disclosure-text-style-{{ settings.nav_font_style }}
       "
-    >
+    >{% comment %}
       {%- form 'localization', class: 'selectors-form disclosure__mobile-menu' -%}
         <input
           type="hidden"
@@ -142,7 +142,7 @@ additional_classes: <string>
             </button>
           </li>
         {%- endfor -%}
-      {%- endform -%}
+      {%- endform -%}{% endcomment %}
     </ul>
   </li>
 {%- endif -%}

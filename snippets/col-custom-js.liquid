@@ -1,0 +1,47 @@
+<script>
+      document.addEventListener("DOMContentLoaded", function() {
+        const elements = document.querySelectorAll('[data-label="Hero Banner"]');
+        elements.forEach(element => {
+          if (isElementInViewport(element)) { 
+            element.style.backgroundImage = '';
+          }
+        });
+      function isElementInViewport(el) {
+      const rect = el.getBoundingClientRect();
+      return (
+        rect.top >= 0 &&
+        rect.top <= (window.innerHeight || document.documentElement.clientHeight)
+      );
+    }
+    function addCSSRule(selector, property, value) {
+          const styleEl = document.createElement('style');
+          document.head.appendChild(styleEl);
+          const styleSheet = styleEl.sheet;
+          styleSheet.insertRule(`${selector} { ${property}: ${value}; }`, 0);
+        }
+      });
+</script>
+<script type="lazyload_int">
+  document.addEventListener("DOMContentLoaded", function() {
+    const elements = document.querySelectorAll('[data-label="Hero Banner"]');
+    elements.forEach(element => {
+        element.style.backgroundImage = '';
+    });
+  });
+</script>
+<script>
+  if (window.innerWidth <= 767) {
+            var detailsElement = document.querySelector('.faceted-filter-form .faceted-filter-group');
+            detailsElement.removeAttribute('open');
+        }
+</script>
+<script type="lazyload_int">
+    document.addEventListener('DOMContentLoaded', function () {
+        var images = document.querySelectorAll('.gf_product-image-hover[data-src]');
+        images.forEach(function (img) {
+            var dataSrcsetValue = img.getAttribute('data-src');
+            img.setAttribute('src', dataSrcsetValue);
+            img.removeAttribute('data-src');
+        });
+    });
+</script>

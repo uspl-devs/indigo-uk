@@ -2281,9 +2281,9 @@ select.currencies {
   padding-bottom: 0;
   cursor: pointer;
   @if (lightness(#182945) > 50) {
-    background-image: url(//www.indigo-uk.com/cdn/shop/t/81/assets/select.png?27021); // Lighter background
+    background-image: url(//www.indigo-uk.com/cdn/shop/t/81/assets/select.png?27790); // Lighter background
   } @else {
-    background-image: url(//www.indigo-uk.com/cdn/shop/t/81/assets/select_light.png?27021); // Darker background
+    background-image: url(//www.indigo-uk.com/cdn/shop/t/81/assets/select_light.png?27790); // Darker background
   }
   @include respond-to('medium-down'){
     font-size: 16px;
@@ -4423,7 +4423,7 @@ select::-ms-expand {
 }
 
 select {
-  background: #fff url(//www.indigo-uk.com/cdn/shop/t/81/assets/select.png?27021) no-repeat 96% 50%;
+  background: #fff url(//www.indigo-uk.com/cdn/shop/t/81/assets/select.png?27790) no-repeat 96% 50%;
   background-size: 18px 12px;
   
     padding: 8px 14px 8px;
@@ -9513,11 +9513,11 @@ html.remodal-is-locked {
 
 @font-face {
   font-family: 'meno-banner';
-  src: url('//www.indigo-uk.com/cdn/shop/t/81/assets/meno-banner.eot?27021');
-  src: url('//www.indigo-uk.com/cdn/shop/t/81/assets/meno-banner.eot?27021') format('embedded-opentype'),
-       url('//www.indigo-uk.com/cdn/shop/t/81/assets/meno-banner.woff?27021') format('woff'),
-       url('//www.indigo-uk.com/cdn/shop/t/81/assets/meno-banner.ttf?27021') format('truetype'),
-       url('//www.indigo-uk.com/cdn/shop/t/81/assets/meno-banner.svg?27021') format('svg');
+  src: url('//www.indigo-uk.com/cdn/shop/t/81/assets/meno-banner.eot?27790');
+  src: url('//www.indigo-uk.com/cdn/shop/t/81/assets/meno-banner.eot?27790') format('embedded-opentype'),
+       url('//www.indigo-uk.com/cdn/shop/t/81/assets/meno-banner.woff?27790') format('woff'),
+       url('//www.indigo-uk.com/cdn/shop/t/81/assets/meno-banner.ttf?27790') format('truetype'),
+       url('//www.indigo-uk.com/cdn/shop/t/81/assets/meno-banner.svg?27790') format('svg');
   font-weight: normal;
   font-style: normal;
 }

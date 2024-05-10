@@ -1,4 +1,7 @@
 
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://d2ls1pfffhvy22.cloudfront.net">
     {%-liquid
       assign gpTemplateSuffix = template.suffix
       assign arrSplitSuffix = gpTemplateSuffix | split: "-"
@@ -15,24 +18,35 @@
       if gpShopMeta and gpShopMeta['index-default'] and request.page_type == 'index'
         assign isV7GpTemplate = true
       endif
-       if gpShopMeta and gpShopMeta['collection-default'] and request.page_type == 'collection'
+      if gpShopMeta and gpShopMeta['collection-default'] and request.page_type == 'collection'
         assign isV7GpTemplate = true
       endif
       if isPreview
-       assign isV7GpTemplate = true
+        assign isV7GpTemplate = true
       endif
     %}
 
-    {% if isV7GpTemplate or isThemeSection %}
-      
-        <script src="https://d2ls1pfffhvy22.cloudfront.net/assets-v2/gp-lazyload.v2.js?v={{ shop.metafields.GEMPAGES.ASSETS_VERSION }}" async></script>
-        <script src="https://d2ls1pfffhvy22.cloudfront.net/assets-v2/gp-global.js?v={{ shop.metafields.GEMPAGES.ASSETS_VERSION }}" defer></script>
-        
+    {%-liquid
+      assign isV7GpNotThemeSection = false
+      if isV7GpTemplate and isThemeSection != true
+        assign isV7GpNotThemeSection = true
+      endif
+      assign isNotV7GpButThemeSection = false
+      if isV7GpTemplate != true and isThemeSection
+        assign isNotV7GpButThemeSection = true
+      endif
+    %}
+
+    {% if isV7GpNotThemeSection or isNotV7GpButThemeSection %}
+      {{ 'gp-global.css' | asset_url | preload_tag: as: 'style' }}
+      {{ 'gp-style.css' | asset_url | preload_tag: as: 'style' }}
+
       {{ 'gp-global.css' | asset_url | stylesheet_tag }}
       {{ 'gp-style.css' | asset_url | stylesheet_tag }}
+      {{ 'gp-custom-font.css' | asset_url | stylesheet_tag }}
     {% endif %}
 
-    {% if isV7GpTemplate %}
+    {% if isV7GpNotThemeSection %}
       {%-liquid
         if request.page_type == 'page'
           assign GEMPAGES = page.metafields.GEMPAGES
@@ -66,9 +80,16 @@
       {% endif %}
     {% endif %}
 
-    {% if isV6GpTemplate or isV7GpTemplate %}
+    {% if isV6GpTemplate or isV7GpNotThemeSection %}
       {% assign isGpTemplate = true %}
       {% render 'gp-rich-snippets', GEMPAGES: GEMPAGES, isGpTemplate: isGpTemplate %}
       {% render 'gp-header-custom-code', GEMPAGES: GEMPAGES, isGpTemplate: isGpTemplate %}
+    {% endif %}
+
+    {% if isV7GpNotThemeSection or isNotV7GpButThemeSection %}
+      
+        <script src="https://d2ls1pfffhvy22.cloudfront.net/assets-v2/gp-lazyload.v2.js?v={{ shop.metafields.GEMPAGES.ASSETS_VERSION }}" defer></script>
+        <script src="https://d2ls1pfffhvy22.cloudfront.net/assets-v2/gp-global.js?v={{ shop.metafields.GEMPAGES.ASSETS_VERSION }}" defer></script>
+        
     {% endif %}
   

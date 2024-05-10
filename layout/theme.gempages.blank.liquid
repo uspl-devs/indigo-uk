@@ -1,218 +1,249 @@
 <!DOCTYPE html>
 <html class="no-js no-touch" lang="{{ request.locale.iso_code }}">
-  <head>
-  <script>
-    window.Store = window.Store || {};
-    window.Store.id = {{ shop.id }};
-  </script>
-    <meta charset="utf-8">
-    <meta http-equiv="cleartype" content="on">
-    <meta name="robots" content="index,follow">
-
-    <!-- Mobile Specific Metas -->
-    <meta name="HandheldFriendly" content="True">
-    <meta name="MobileOptimized" content="320">
-    <meta name="viewport" content="width=device-width,initial-scale=1">
-    <meta name="theme-color" content="{{ settings.shop_bg_color }}">
-
-    {% if current_tags %}{% assign meta_tags = current_tags | join: ', ' %}{% endif %}
-    <title>
-      {% if template contains "index" %}{{ page_title }}{% else %}{{ page_title }}{% if current_tags %} {{ 'general.meta.tagged_html' | t: tags: meta_tags }}{% endif %}{% if current_page != 1 %} {{ 'general.meta.page' | t: page_number: current_page }}{% endif %}{% unless page_title contains shop.name %} - {{ shop.name }}{% endunless %}{% endif %}
-    </title>
-
-    {% if page_description %}
-      <meta name="description" content="{% if template contains 'search' %} {{ page_title }} - {{ shop.name }} {% else %}{{ page_description | escape }}{% if current_tags %} {{ 'general.meta.tagged_html' | t: tags: meta_tags | escape }}.{% endif %}{% if current_page != 1 %} {{ 'general.meta.page' | t: page_number: current_page }}.{% endif %}{% endif %}"/>
-    {% endif %}
-
-    <link rel="preconnect" href="https://fonts.shopifycdn.com" />
-    <link rel="preconnect" href="https://cdn.shopify.com" />
-    <link rel="preconnect" href="https://cdn.shopifycloud.com" />
-
-    <link rel="dns-prefetch" href="https://v.shopify.com" />
-    <link rel="dns-prefetch" href="https://www.youtube.com" />
-    <link rel="dns-prefetch" href="https://vimeo.com" />
-
-    {{ 'jquery.min.js' | asset_url | preload_tag: as: 'script' }}
-
-    <!-- Stylesheet for Fancybox library -->
-    <link rel="stylesheet" href="{{ 'fancybox.css' | asset_url }}" type="text/css" media="all" defer>
-
-    <!-- Stylesheets for Turbo -->
-    {{ 'styles.css' | asset_url | stylesheet_tag }}
-
-    <!-- Icons -->
-    {% if settings.favicon != nil %}
-      <link rel="shortcut icon" type="image/x-icon" href="{{ settings.favicon | img_url: '180x180' }}">
-      <link rel="apple-touch-icon" href="{{ settings.favicon | img_url: '180x180' }}"/>
-      <link rel="apple-touch-icon" sizes="57x57" href="{{ settings.favicon | img_url: '57x57' }}"/>
-      <link rel="apple-touch-icon" sizes="60x60" href="{{ settings.favicon | img_url: '60x60' }}"/>
-      <link rel="apple-touch-icon" sizes="72x72" href="{{ settings.favicon | img_url: '72x72' }}"/>
-      <link rel="apple-touch-icon" sizes="76x76" href="{{ settings.favicon | img_url: '76x76' }}"/>
-      <link rel="apple-touch-icon" sizes="114x114" href="{{ settings.favicon | img_url: '114x114' }}"/>
-      <link rel="apple-touch-icon" sizes="180x180" href="{{ settings.favicon | img_url: '180x180' }}"/>
-      <link rel="apple-touch-icon" sizes="228x228" href="{{ settings.favicon | img_url: '228x228' }}"/>
+    <head>  
+      
+        {%  render 'wnw-header' %} 
+        <!-- Google Tag Manager 15.07.2021-->
+        <script type="lazyload_int">(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+        new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+        j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+        'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+        })(window,document,'script','dataLayer','GTM-NBNZPG7');</script>
+        <!-- End Google Tag Manager -->
+        <!----Custom Fonts---->
+        <link rel="stylesheet" data-href="https://use.typekit.net/hfl5atn.css">
+        <!---End Custom Fonts---->    
+        <script>
+            window.Store = window.Store || {};
+            window.Store.id = {{ shop.id }};
+        </script>
+        <meta charset="utf-8">
+        <meta http-equiv="cleartype" content="on">
+        <meta name="robots" content="index,follow">
+        <!-- Mobile Specific Metas -->
+        <meta name="HandheldFriendly" content="True">
+        <meta name="MobileOptimized" content="320">
+        <meta name="viewport" content="width=device-width,initial-scale=1">
+        <meta name="theme-color" content="{{ settings.shop_bg_color }}">
+        {% if current_tags %}{% assign meta_tags = current_tags | join: ', ' %}{% endif %}
+        <title>
+            {% if template contains "index" %}{{ page_title }}{% else %}{{ page_title }}{% if current_tags %} {{ 'general.meta.tagged_html' | t: tags: meta_tags }}{% endif %}{% if current_page != 1 %} {{ 'general.meta.page' | t: page_number: current_page }}{% endif %}{% unless page_title contains shop.name %} - {{ shop.name }}{% endunless %}{% endif %}
+        </title>
+        {% if page_description %}
+            <meta name="description" content="{% if template contains 'search' %} {{ page_title }} - {{ shop.name }} {% else %}{{ page_description | escape }}{% if current_tags %} {{ 'general.meta.tagged_html' | t: tags: meta_tags | escape }}.{% endif %}{% if current_page != 1 %} {{ 'general.meta.page' | t: page_number: current_page }}.{% endif %}{% endif %}"/>
+        {% endif %}
+        <link rel="preconnect" href="https://fonts.shopifycdn.com" />
+        <link rel="preconnect" href="https://cdn.shopify.com" />
+        <link rel="preconnect" href="https://cdn.shopifycloud.com" />
+        <link rel="dns-prefetch" href="https://v.shopify.com" />
+        <link rel="dns-prefetch" href="https://www.youtube.com" />
+        <link rel="dns-prefetch" href="https://vimeo.com" />
+        {% comment %}
+            {{ 'jquery.min.js' | asset_url | preload_tag: as: 'script' }}
+        {% endcomment %}
+        {% if template contains "index" %}
+            {% render "index-css" %}
+        {% elsif template contains "collection" %}
+            {% render "collection-css" %}
+        {% elsif template contains "product" %}
+            {% render "product-css" %}
+        {% else %}
+            {% render "all-css" %}
+        {% endif %}
+        <!-- Stylesheet for Fancybox library -->
+        <!-- Stylesheets for Turbo -->
+        <link rel="stylesheet" data-href="{{ 'fancybox.css' | asset_url }}" type="text/css" media="all" >    
+        <link rel="stylesheet" data-href="{{ 'styles.css' | asset_url }}" type="text/css" media="all" >
+        <!-- Icons -->
+        {% if settings.favicon != nil %}
+            <link rel="shortcut icon" type="image/x-icon" href="{{ settings.favicon | img_url: '180x180' }}">
+            <link rel="apple-touch-icon" href="{{ settings.favicon | img_url: '180x180' }}"/>
+            <link rel="apple-touch-icon" sizes="57x57" href="{{ settings.favicon | img_url: '57x57' }}"/>
+            <link rel="apple-touch-icon" sizes="60x60" href="{{ settings.favicon | img_url: '60x60' }}"/>
+            <link rel="apple-touch-icon" sizes="72x72" href="{{ settings.favicon | img_url: '72x72' }}"/>
+            <link rel="apple-touch-icon" sizes="76x76" href="{{ settings.favicon | img_url: '76x76' }}"/>
+            <link rel="apple-touch-icon" sizes="114x114" href="{{ settings.favicon | img_url: '114x114' }}"/>
+            <link rel="apple-touch-icon" sizes="180x180" href="{{ settings.favicon | img_url: '180x180' }}"/>
+            <link rel="apple-touch-icon" sizes="228x228" href="{{ settings.favicon | img_url: '228x228' }}"/>
+        {% else %}
+        <link rel="shortcut icon" type="image/x-icon" href="{{ 'favicon.png' | asset_url }}">
+        {% endif %}
+        {% if template contains 'collection' and current_tags %}
+            <link rel="canonical" href="{{ shop.url }}{{ collection.url }}" />
+        {% else %}
+            <link rel="canonical" href="{{ canonical_url }}" />
+        {% endif %}
+        {% if template contains 'customer' %}
+            <script src="{{ 'shopify_common.js' | shopify_asset_url }}" defer></script>
+            <script src="{{ 'customer_area.js' | shopify_asset_url }}" defer></script>
+        {% endif %}
+        {% if settings.show_multiple_currencies or settings.show_shipping_calculator %}
+            <script type="lazyload_int" data-src="/services/javascripts/currencies.js" data-no-instant></script>
+        {% endif %}
+        {% if settings.show_multiple_currencies or shop.enabled_currencies.size > 1 %}
+            <script type="lazyload_int" data-src="{{ 'currencies.js' | asset_url }}" ></script>
+        {% endif %}
+        {% comment %}Inject theme-object begin{% endcomment %}
+        <script>
+            window.PXUTheme = window.PXUTheme || {};
+            window.PXUTheme.version = '9.3.0';
+            window.PXUTheme.name = 'Turbo';
+        </script>
+        {% comment %}Inject theme-object end{% endcomment %}
+        {% comment %}Inject @pixelunion/shopify-price-ui/price-ui-globals begin{% endcomment %}
+        {%- capture price -%}{%- render 'price-ui-templates', template: 'price' -%}{%- endcapture -%}
+        {%- capture price_percent -%}{%- render 'price-ui-templates', template: 'price-percent' -%}{%- endcapture -%}
+        {%- capture price_min -%}{%- render 'price-ui-templates', template: 'price-min' -%}{%- endcapture -%}
+        {%- capture price_max -%}{%- render 'price-ui-templates', template: 'price-max' -%}{%- endcapture -%}
+        {%- capture unit_quantity -%}{%- render 'price-ui-templates', template: 'unit-quantity' -%}{%- endcapture -%}
+        {%- capture unit_price -%}{%- render 'price-ui-templates', template: 'unit-price' -%}{%- endcapture -%}
+        {%- capture unit_measurement -%}{%- render 'price-ui-templates', template: 'unit-measurement' -%}{%- endcapture -%}    
+        <template id="price-ui">{%- render 'price-ui-templates', template: 'price-ui' -%}</template>
+        <template id="price-ui-badge">{%- render 'price-ui-templates', template: 'price-ui-badge' -%}</template>
+        <template id="price-ui__price">{{ price }}</template>
+        <template id="price-ui__price-range">{{- 'product.price.range_html' | t: price_min: price_min, price_max: price_max -}}</template>
+        <template id="price-ui__unit-pricing">{{- 'product.price.unit_pricing_html' | t: unit_quantity: unit_quantity, unit_price: unit_price, unit_measurement: unit_measurement -}}</template>
+        <template id="price-ui-badge__percent-savings-range">{{- 'product.badge.sale_percentage_range_html' | t: price_percent: price_percent -}}</template>
+        <template id="price-ui-badge__percent-savings">{{- 'product.badge.sale_percentage_single_html' | t: price_percent: price_percent -}}</template>
+        <template id="price-ui-badge__price-savings-range">{{- 'product.badge.sale_money_range_html' | t: price: price -}}</template>
+        <template id="price-ui-badge__price-savings">{{- 'product.badge.sale_money_single_html' | t: price: price -}}</template>
+        <template id="price-ui-badge__on-sale">{{- 'product.badge.sale' | t -}}</template>
+        <template id="price-ui-badge__sold-out">{{- 'product.badge.sold_out' | t -}}</template>
+        <template id="price-ui-badge__in-stock">{{- 'product.badge.in_stock' | t -}}</template>
+        {% comment %}Inject @pixelunion/shopify-price-ui/price-ui-globals end{% endcomment %}
+        <script>
+            {% render 'js-variables' %}
+        </script>
+        {% if settings.disqus_enabled %}
+            {% if template contains "blog" or template contains "article" or template contains "index" %}
+                <script id="dsq-count-scr" src="//{{ settings.disqus_shortname }}.disqus.com/count.js" async></script>
+            {% endif %}
+        {% endif %}
+        {% unless settings.performance == "sport" or template contains "customer" %}
+            <script type="lazyload_int" data-src="{{ 'instantclick.min.js' | asset_url }}" data-no-instant ></script>
+            <script data-no-instant type="lazyload_int">
+                window.addEventListener('DOMContentLoaded', function() {
+                    function inIframe() {
+                        try {
+                            return window.self !== window.top;
+                        } catch (e) {
+                            return true;
+                        }
+                    }
+                    if (!inIframe()){
+                        InstantClick.on('change', function() {
+                            $('head script[src*="shopify"]').each(function() {
+                                var script = document.createElement('script');
+                                script.type = 'text/javascript';
+                                script.src = $(this).attr('src');
+                                $('body').append(script);
+                            });
+                            $('body').removeClass('fancybox-active');
+                            $.fancybox.destroy();
+                            InstantClick.init();
+                        });
+                    }
+                });
+            </script>
+        {% endunless %}
+        <script>
+            {{ settings.custom_scripts }}
+        </script>
+        {%- if request.design_mode or template contains 'cart' or template contains 'checkout' -%}
+            {{ content_for_header }}
+        {%- else -%}
+            {% capture content_for_header2 %}{{ content_for_header }}{% endcapture %}
+            {{ content_for_header2 | replace: ' async="async" ', ' type="lazyload_int" ' | replace: ' defer="defer" ', ' type="lazyload_int" ' | replace: " src=", " data-src="| replace: "DOMContentLoaded", "w3-DOMContentLoaded" | replace: "window.addEventListener('load', asyncLoad, false);", "window.addEventListener('w3-DOMContentLoaded', asyncLoad, false);" | replace: "addEventListener('load', prefetchAssets);", "addEventListener('w3-DOMContentLoaded', prefetchAssets);"
+          | replace: "<script type='text/javascript' async=''" , "<script type='lazyload_int' "}}
+            <script>var trekkie=[];trekkie.integrations=!0;window.BOOMR={},window.BOOMR.version=true;</script>
+        {%- endif -%}
+        {% render 'social-meta-info' %}
+        {% if collection.previous_product %}<link rel="prev" href="{{ collection.previous_product }}">{% endif %}
+        {% if collection.next_product %}<link rel="next" href="{{ collection.next_product }}">{% endif %}
+        {% render 'gp-head' %}
+        <!--Gem_Page_Header_Script-->
+      
+        {% capture gem-app-header-scripts-2 %}{% render 'gem-app-header-scripts' %}{% endcapture %}
+          {{ gem-app-header-scripts-2  }}
+      
+        <!--End_Gem_Page_Header_Script-->
+        {% render 'font-load' %}
+        {% render 'custom-css'%}
+        {% render 'app-block' %}
+      
+    </head>
+    {% if template contains "index" %}
+        {% assign feature_image = true %}
+    {% elsif template contains "collection" %}
+        {% assign feature_image = true %}
+    {% elsif template contains "blog" %}
+        {% assign feature_image = true %}
+    {% elsif template contains "article" %}
+        {% assign feature_image = true %}
+    {% elsif template contains "contact" %}
+        {% assign feature_image = true %}
+    {% elsif template contains "product" %}
+        {% assign feature_image = true %}
+    {% elsif template contains "gallery" %}
+        {% assign feature_image = true %}
+    {% elsif template contains "banner" %}
+        {% assign feature_image = true %}
+    {% elsif template contains "faq" %}
+        {% assign feature_image = true %}
+    {% elsif template contains "search" %}
+        {% assign feature_image = true %}
+    {% elsif template contains "cart" %}
+        {% assign feature_image = true %}
     {% else %}
-      <link rel="shortcut icon" type="image/x-icon" href="{{ 'favicon.png' | asset_url }}">
+        {% assign feature_image = false %}
     {% endif %}
-    <link rel="canonical" href="{{ canonical_url }}"/>
-
-    {% if template contains 'customer' %}
-      <script src="{{ 'shopify_common.js' | shopify_asset_url }}" defer></script>
-      <script src="{{ 'customer_area.js' | shopify_asset_url }}" defer></script>
-    {% endif %}
-
-    {% if settings.show_multiple_currencies or settings.show_shipping_calculator %}
-      <script type="text/javascript" src="/services/javascripts/currencies.js" data-no-instant></script>
-    {% endif %}
-
-    {% if settings.show_multiple_currencies or shop.enabled_currencies.size > 1 %}
-      <script src="{{ 'currencies.js' | asset_url }}" defer></script>
-    {% endif %}
-
-    {% comment %}Inject theme-object begin{% endcomment %}
-    <script>
-      window.PXUTheme = window.PXUTheme || {};
-      window.PXUTheme.version = '9.3.0';
-      window.PXUTheme.name = 'Turbo';
-    </script>
-    {% comment %}Inject theme-object end{% endcomment %}
-
-
-    {% comment %}Inject @pixelunion/shopify-price-ui/price-ui-globals begin{% endcomment %}
-    {%- capture price -%}{%- render 'price-ui-templates', template: 'price' -%}{%- endcapture -%}
-    {%- capture price_percent -%}{%- render 'price-ui-templates', template: 'price-percent' -%}{%- endcapture -%}
-    {%- capture price_min -%}{%- render 'price-ui-templates', template: 'price-min' -%}{%- endcapture -%}
-    {%- capture price_max -%}{%- render 'price-ui-templates', template: 'price-max' -%}{%- endcapture -%}
-    {%- capture unit_quantity -%}{%- render 'price-ui-templates', template: 'unit-quantity' -%}{%- endcapture -%}
-    {%- capture unit_price -%}{%- render 'price-ui-templates', template: 'unit-price' -%}{%- endcapture -%}
-    {%- capture unit_measurement -%}{%- render 'price-ui-templates', template: 'unit-measurement' -%}{%- endcapture -%}
-    
-    <template id="price-ui">{%- render 'price-ui-templates', template: 'price-ui' -%}</template>
-    <template id="price-ui-badge">{%- render 'price-ui-templates', template: 'price-ui-badge' -%}</template>
-    
-    <template id="price-ui__price">{{ price }}</template>
-    <template id="price-ui__price-range">{{- 'product.price.range_html' | t: price_min: price_min, price_max: price_max -}}</template>
-    <template id="price-ui__unit-pricing">{{- 'product.price.unit_pricing_html' | t: unit_quantity: unit_quantity, unit_price: unit_price, unit_measurement: unit_measurement -}}</template>
-    <template id="price-ui-badge__percent-savings-range">{{- 'product.badge.sale_percentage_range_html' | t: price_percent: price_percent -}}</template>
-    <template id="price-ui-badge__percent-savings">{{- 'product.badge.sale_percentage_single_html' | t: price_percent: price_percent -}}</template>
-    <template id="price-ui-badge__price-savings-range">{{- 'product.badge.sale_money_range_html' | t: price: price -}}</template>
-    <template id="price-ui-badge__price-savings">{{- 'product.badge.sale_money_single_html' | t: price: price -}}</template>
-    <template id="price-ui-badge__on-sale">{{- 'product.badge.sale' | t -}}</template>
-    <template id="price-ui-badge__sold-out">{{- 'product.badge.sold_out' | t -}}</template>
-    <template id="price-ui-badge__in-stock">{{- 'product.badge.in_stock' | t -}}</template>
-    {% comment %}Inject @pixelunion/shopify-price-ui/price-ui-globals end{% endcomment %}
-
-
-    <script>
-      {% render 'js-variables' %}
-    </script>
-
-    {% if settings.disqus_enabled %}
-      {% if template contains "blog" or template contains "article" or template contains "index" %}
-        <script id="dsq-count-scr" src="//{{ settings.disqus_shortname }}.disqus.com/count.js" async></script>
-      {% endif %}
-    {% endif %}
-
-    {% unless settings.performance == "sport" or template contains "customer" %}
-      <script src="{{ 'instantclick.min.js' | asset_url }}" data-no-instant defer></script>
-
-      <script data-no-instant>
-        window.addEventListener('DOMContentLoaded', function() {
-
-          function inIframe() {
-            try {
-              return window.self !== window.top;
-            } catch (e) {
-              return true;
+    <noscript>
+        <style>
+            .product_section .product_form,
+            .product_gallery {
+                opacity: 1;
             }
-          }
-
-          if (!inIframe()){
-            InstantClick.on('change', function() {
-
-              $('head script[src*="shopify"]').each(function() {
-                var script = document.createElement('script');
-                script.type = 'text/javascript';
-                script.src = $(this).attr('src');
-
-                $('body').append(script);
-              });
-
-              $('body').removeClass('fancybox-active');
-              $.fancybox.destroy();
-
-              InstantClick.init();
-
-            });
-          }
-        });
-      </script>
-    {% endunless %}
-
-    <script>
-      {{ settings.custom_scripts }}
-    </script>
-
-    {{ content_for_header }}
-
-    {% render 'social-meta-info' %}
-
-    {% if collection.previous_product %}<link rel="prev" href="{{ collection.previous_product }}">{% endif %}
-    {% if collection.next_product %}<link rel="next" href="{{ collection.next_product }}">{% endif %}
-  {% render 'gp-head' %}
-</head>
-
-  {% if template contains "index" %}
-    {% assign feature_image = true %}
-  {% elsif template contains "collection" %}
-    {% assign feature_image = true %}
-  {% elsif template contains "blog" %}
-    {% assign feature_image = true %}
-  {% elsif template contains "article" %}
-    {% assign feature_image = true %}
-  {% elsif template contains "contact" %}
-    {% assign feature_image = true %}
-  {% elsif template contains "product" %}
-    {% assign feature_image = true %}
-  {% elsif template contains "gallery" %}
-    {% assign feature_image = true %}
-  {% elsif template contains "banner" %}
-    {% assign feature_image = true %}
-  {% elsif template contains "faq" %}
-    {% assign feature_image = true %}
-  {% elsif template contains "search" %}
-    {% assign feature_image = true %}
-  {% elsif template contains "cart" %}
-    {% assign feature_image = true %}
-  {% else %}
-    {% assign feature_image = false %}
-  {% endif %}
-
-  <noscript>
-    <style>
-      .product_section .product_form,
-      .product_gallery {
-        opacity: 1;
-      }
-
-      .multi_select,
-      form .select {
-        display: block !important;
-      }
-
-      .image-element__wrap {
-        display: none;
-      }
-    </style>
-  </noscript>
-
-  <body class="{% if template == '404' %}error-404{% else %}{{ template | replace: '.', '-' | handle }}{% endif %}"
+            .multi_select,
+            form .select {
+                display: block !important;
+            }
+            .image-element__wrap {
+                display: none;
+            }
+        </style>
+    </noscript>
+    <body class="{% if template == '404' %}error-404{% else %}{{ template | replace: '.', '-' | handle }}{% endif %}"
         data-money-format="
-          {%- if settings.currency_format == 'money_with_currency_format' -%}
-            {{- shop.money_with_currency_format | strip_html -}}
-          {%- else -%}
-            {{- shop.money_format | strip_html -}}
-          {%- endif -%}"
+            {%- if settings.currency_format == 'money_with_currency_format' -%}
+                {{- shop.money_with_currency_format | strip_html -}}
+            {%- else -%}
+                {{- shop.money_format | strip_html -}}
+            {%- endif -%}"
         data-shop-currency="{{ shop.currency }}"
-        data-shop-url="{{ shop.url }}">{{ content_for_layout }}</body>
+        data-shop-url="{{ shop.url }}">{%- if request.design_mode or template contains 'cart' or template contains 'checkout' -%}
+            	{{ content_for_layout }}
+      {%- else -%}
+          {% capture content_for_layout2 %}{{ content_for_layout }}{% endcapture %}
+          {{ content_for_layout2 | replace: '<img src="https://ucarecdn.com' , '<img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=" data-class="LazyLoad" data-src="https://ucarecdn.com' 
+              | replace: ' gf_lazyload" src="//' , ' gf_lazyload" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=" data-class="LazyLoad" data-src="//'
+              | replace: ' src="//www.indigo-uk.com/cdn/shop/' , ' src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=" data-class="LazyLoad" data-src="//www.indigo-uk.com/cdn/shop/'
+              | replace: '<img class="gf_product-image gf_featured-image" src="//' ,'<img class="gf_product-image gf_featured-image" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=" data-class="LazyLoad" data-src="//'
+              | replace: '<img class="gf_product-image gf_product-image-hover" src="//' , '<img class="gf_product-image gf_product-image-hover" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=" data-class="LazyLoad" data-src="//'
+              | replace: '<img class="gf_product-image gf_featured-image gf_lazyload" src="//' , '<img class="gf_product-image gf_featured-image gf_lazyload" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=" data-class="LazyLoad" data-src="//'
+              | replace: '<img class="gf_product-image-thumb gf_lazyload" src="//' , '<img class="gf_product-image-thumb gf_lazyload" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=" data-class="LazyLoad" data-src="//'
+              | replace: '<script type="text/javascript" src="//s3.amazonaws.com/' ,'<script type="lazyload_int" data-src="//s3.amazonaws.com/' 
+              | replace: '<script data-instant-track type="text/javascript">' , '<script data-instant-track type="lazyload_int">'
+              | replace: 'rel="preload"' , ''
+              | replace: 'as="style"' , 'rel="stylesheet"'
+              | replace: ' href="//fonts.googleapis.com' , ' data-href="//fonts.googleapis.com'
+              | replace: ' href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome' ,'  data-href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome'
+              
+              | replace: '/120x120/', '/750x750/'
+             
+              | replace: '_1024x1024.jpg', '_450x450.jpg'
+              | replace: '/mc-validate.js"></script><script type="text/javascript">', '/mc-validate.js"></script><script type="lazyload_int">'
+              |  replace: 'data-label="Hero Banner"', 'data-label="Hero Banner" style="background-image: none !important;"'
+              | replace: 'iframe', 'iframelazy' | replace: 'src="https://www.google.com/maps/', 'data-class="LazyLoad" data-src="https://www.google.com/maps/' 
+              }} 
+      {%- endif -%}</body>
 </html>

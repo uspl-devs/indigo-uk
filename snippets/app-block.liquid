@@ -1,0 +1,41 @@
+<!-- BEGIN app block: shopify://apps/klaviyo-email-marketing-sms/blocks/klaviyo-onsite-embed/2632fe16-c075-4321-a88b-50b567f42507 -->
+  <script type="lazyload_int" data-src="https://static.klaviyo.com/onsite/js/klaviyo.js?company_id=Rbg4LP"></script>
+  <script type="lazyload_int">!function(){if(!window.klaviyo){window._klOnsite=window._klOnsite||[];try{window.klaviyo=new Proxy({},{get:function(n,i){return"push"===i?function(){var n;(n=window._klOnsite).push.apply(n,arguments)}:function(){for(var n=arguments.length,o=new Array(n),w=0;w<n;w++)o[w]=arguments[w];var t="function"==typeof o[o.length-1]?o.pop():void 0,e=new Promise((function(n){window._klOnsite.push([i].concat(o,[function(i){t&&t(i),n(i)}]))}));return e}}})}catch(n){window.klaviyo=window.klaviyo||[],window.klaviyo.push=function(){var n;(n=window._klOnsite).push.apply(n,arguments)}}}}();</script>
+ {% if template contains 'product' %}
+  <script id="viewed_product" type="lazyload_int">
+    if (item == null) {
+        var learnq = learnq || [];
+        var item = {
+            Name: {{ product.title | json }},
+            ProductID: {{ product.id | json }},            
+            Categories: {{ product.collections | map: 'title' | json }},
+            ImageURL: "https:{{ product.featured_image.src | img_url: 'grande' }}",
+            URL: "{{ shop.secure_url }}{{ product.url }}",
+            Brand: {{ product.vendor | json }},
+            Price: {{ product.price | money | json }},
+            CompareAtPrice: {{ product.compare_at_price_max | money | json }}
+        };
+        _learnq.push(['track', 'Viewed Product', item]);
+        _learnq.push(['trackViewedItem', {
+            Title: item.Name,
+            ItemId: item.ProductID,
+            Categories: item.Categories,
+            ImageUrl: item.ImageURL,
+            Url: item.URL,
+            Metadata: {
+                Brand: item.Brand,
+                Price: item.Price,
+                CompareAtPrice: item.CompareAtPrice
+            }
+        }]);
+    }
+  </script>
+{% endif %}
+  <script>
+    window.klaviyoReviewsProductDesignMode = false
+  </script>
+<!-- END app app block -->
+<!-- BEGIN app block: shopify://apps/minifier-image-optimization/blocks/minifier-link-prefetch/03c90e8c-35fd-47b1-9305-7ee305ca4ce2 --><!-- END app app block -->
+<!-- BEGIN app block: shopify://apps/minifier-image-optimization/blocks/minifier-lazyload/03c90e8c-35fd-47b1-9305-7ee305ca4ce2 --><!-- END app app block -->
+<script type="lazyload_int" data-src="https://cdn.shopify.com/extensions/3303872d-248c-418d-bf4c-ac5684ad5492/3.7.0/assets/minifier-link-prefetch.js" ></script>
+<script type="lazyload_int" data-src="https://cdn.shopify.com/extensions/3303872d-248c-418d-bf4c-ac5684ad5492/3.7.0/assets/minifier-lazyload.js"></script>

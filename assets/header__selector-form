@@ -1,0 +1,2916 @@
+<form
+  method="post"
+  action="/localization"
+  id="header__selector-form"
+  accept-charset="UTF-8"
+  class="selectors-form"
+  enctype="multipart/form-data"><input
+    type="hidden"
+    name="form_type"
+    value="localization" /><input
+    type="hidden"
+    name="utf8"
+    value="✓" /><input
+    type="hidden"
+    name="_method"
+    value="put" /><input
+    type="hidden"
+    name="return_to"
+    value="/?_ab=0&_fd=0&_sc=1" /><div class="
+    localization
+    header-menu__disclosure
+  ">
+    <div class="selectors-form__wrap">
+      <div class="
+          selectors-form__item
+          selectors-form__currency
+        ">
+        <h2 class="hidden" id="currency-heading">
+          Currency
+        </h2>
+
+        <input
+          type="hidden"
+          name="country_code"
+          id="CountrySelector"
+          value="IN"
+          data-disclosure-input />
+
+        <div
+          class="
+            disclosure
+            disclosure--country
+            disclosure-text-style-none
+          "
+          data-disclosure
+          data-disclosure-country>
+          <button
+            type="button"
+            class="
+              disclosure__toggle
+              disclosure__toggle--country
+            "
+            aria-expanded="false"
+            aria-controls="country-list"
+            aria-describedby="country-heading"
+            data-disclosure-toggle>
+            India (INR ₹)
+            <span class="icon-down-arrow"></span>
+          </button>
+          <div class="disclosure__list-wrap">
+            <ul
+              id="currency-list"
+              class="disclosure-list"
+              data-disclosure-list>
+
+              <li class="
+                    disclosure-list__item
+                    
+                  ">
+                <button
+                  type="submit"
+                  class="disclosure__button"
+                  name="country_code"
+                  value="AF">
+                  Afghanistan (AFN ؋)
+                </button>
+              </li>
+              <li class="
+                    disclosure-list__item
+                    
+                  ">
+                <button
+                  type="submit"
+                  class="disclosure__button"
+                  name="country_code"
+                  value="AX">
+                  Åland Islands (EUR €)
+                </button>
+              </li>
+              <li class="
+                    disclosure-list__item
+                    
+                  ">
+                <button
+                  type="submit"
+                  class="disclosure__button"
+                  name="country_code"
+                  value="AL">
+                  Albania (ALL L)
+                </button>
+              </li>
+              <li class="
+                    disclosure-list__item
+                    
+                  ">
+                <button
+                  type="submit"
+                  class="disclosure__button"
+                  name="country_code"
+                  value="DZ">
+                  Algeria (DZD د.ج)
+                </button>
+              </li>
+              <li class="
+                    disclosure-list__item
+                    
+                  ">
+                <button
+                  type="submit"
+                  class="disclosure__button"
+                  name="country_code"
+                  value="AD">
+                  Andorra (EUR €)
+                </button>
+              </li>
+              <li class="
+                    disclosure-list__item
+                    
+                  ">
+                <button
+                  type="submit"
+                  class="disclosure__button"
+                  name="country_code"
+                  value="AO">
+                  Angola (GBP £)
+                </button>
+              </li>
+              <li class="
+                    disclosure-list__item
+                    
+                  ">
+                <button
+                  type="submit"
+                  class="disclosure__button"
+                  name="country_code"
+                  value="AI">
+                  Anguilla (XCD $)
+                </button>
+              </li>
+              <li class="
+                    disclosure-list__item
+                    
+                  ">
+                <button
+                  type="submit"
+                  class="disclosure__button"
+                  name="country_code"
+                  value="AG">
+                  Antigua &amp; Barbuda (XCD $)
+                </button>
+              </li>
+              <li class="
+                    disclosure-list__item
+                    
+                  ">
+                <button
+                  type="submit"
+                  class="disclosure__button"
+                  name="country_code"
+                  value="AR">
+                  Argentina (GBP £)
+                </button>
+              </li>
+              <li class="
+                    disclosure-list__item
+                    
+                  ">
+                <button
+                  type="submit"
+                  class="disclosure__button"
+                  name="country_code"
+                  value="AM">
+                  Armenia (AMD դր.)
+                </button>
+              </li>
+              <li class="
+                    disclosure-list__item
+                    
+                  ">
+                <button
+                  type="submit"
+                  class="disclosure__button"
+                  name="country_code"
+                  value="AW">
+                  Aruba (AWG ƒ)
+                </button>
+              </li>
+              <li class="
+                    disclosure-list__item
+                    
+                  ">
+                <button
+                  type="submit"
+                  class="disclosure__button"
+                  name="country_code"
+                  value="AC">
+                  Ascension Island (SHP £)
+                </button>
+              </li>
+              <li class="
+                    disclosure-list__item
+                    
+                  ">
+                <button
+                  type="submit"
+                  class="disclosure__button"
+                  name="country_code"
+                  value="AU">
+                  Australia (AUD $)
+                </button>
+              </li>
+              <li class="
+                    disclosure-list__item
+                    
+                  ">
+                <button
+                  type="submit"
+                  class="disclosure__button"
+                  name="country_code"
+                  value="AT">
+                  Austria (EUR €)
+                </button>
+              </li>
+              <li class="
+                    disclosure-list__item
+                    
+                  ">
+                <button
+                  type="submit"
+                  class="disclosure__button"
+                  name="country_code"
+                  value="AZ">
+                  Azerbaijan (AZN ₼)
+                </button>
+              </li>
+              <li class="
+                    disclosure-list__item
+                    
+                  ">
+                <button
+                  type="submit"
+                  class="disclosure__button"
+                  name="country_code"
+                  value="BS">
+                  Bahamas (BSD $)
+                </button>
+              </li>
+              <li class="
+                    disclosure-list__item
+                    
+                  ">
+                <button
+                  type="submit"
+                  class="disclosure__button"
+                  name="country_code"
+                  value="BH">
+                  Bahrain (GBP £)
+                </button>
+              </li>
+              <li class="
+                    disclosure-list__item
+                    
+                  ">
+                <button
+                  type="submit"
+                  class="disclosure__button"
+                  name="country_code"
+                  value="BD">
+                  Bangladesh (BDT ৳)
+                </button>
+              </li>
+              <li class="
+                    disclosure-list__item
+                    
+                  ">
+                <button
+                  type="submit"
+                  class="disclosure__button"
+                  name="country_code"
+                  value="BB">
+                  Barbados (BBD $)
+                </button>
+              </li>
+              <li class="
+                    disclosure-list__item
+                    
+                  ">
+                <button
+                  type="submit"
+                  class="disclosure__button"
+                  name="country_code"
+                  value="BY">
+                  Belarus (GBP £)
+                </button>
+              </li>
+              <li class="
+                    disclosure-list__item
+                    
+                  ">
+                <button
+                  type="submit"
+                  class="disclosure__button"
+                  name="country_code"
+                  value="BE">
+                  Belgium (EUR €)
+                </button>
+              </li>
+              <li class="
+                    disclosure-list__item
+                    
+                  ">
+                <button
+                  type="submit"
+                  class="disclosure__button"
+                  name="country_code"
+                  value="BZ">
+                  Belize (BZD $)
+                </button>
+              </li>
+              <li class="
+                    disclosure-list__item
+                    
+                  ">
+                <button
+                  type="submit"
+                  class="disclosure__button"
+                  name="country_code"
+                  value="BJ">
+                  Benin (XOF Fr)
+                </button>
+              </li>
+              <li class="
+                    disclosure-list__item
+                    
+                  ">
+                <button
+                  type="submit"
+                  class="disclosure__button"
+                  name="country_code"
+                  value="BM">
+                  Bermuda (USD $)
+                </button>
+              </li>
+              <li class="
+                    disclosure-list__item
+                    
+                  ">
+                <button
+                  type="submit"
+                  class="disclosure__button"
+                  name="country_code"
+                  value="BT">
+                  Bhutan (GBP £)
+                </button>
+              </li>
+              <li class="
+                    disclosure-list__item
+                    
+                  ">
+                <button
+                  type="submit"
+                  class="disclosure__button"
+                  name="country_code"
+                  value="BO">
+                  Bolivia (BOB Bs.)
+                </button>
+              </li>
+              <li class="
+                    disclosure-list__item
+                    
+                  ">
+                <button
+                  type="submit"
+                  class="disclosure__button"
+                  name="country_code"
+                  value="BA">
+                  Bosnia &amp; Herzegovina (BAM КМ)
+                </button>
+              </li>
+              <li class="
+                    disclosure-list__item
+                    
+                  ">
+                <button
+                  type="submit"
+                  class="disclosure__button"
+                  name="country_code"
+                  value="BW">
+                  Botswana (BWP P)
+                </button>
+              </li>
+              <li class="
+                    disclosure-list__item
+                    
+                  ">
+                <button
+                  type="submit"
+                  class="disclosure__button"
+                  name="country_code"
+                  value="BR">
+                  Brazil (GBP £)
+                </button>
+              </li>
+              <li class="
+                    disclosure-list__item
+                    
+                  ">
+                <button
+                  type="submit"
+                  class="disclosure__button"
+                  name="country_code"
+                  value="IO">
+                  British Indian Ocean Territory (USD $)
+                </button>
+              </li>
+              <li class="
+                    disclosure-list__item
+                    
+                  ">
+                <button
+                  type="submit"
+                  class="disclosure__button"
+                  name="country_code"
+                  value="VG">
+                  British Virgin Islands (USD $)
+                </button>
+              </li>
+              <li class="
+                    disclosure-list__item
+                    
+                  ">
+                <button
+                  type="submit"
+                  class="disclosure__button"
+                  name="country_code"
+                  value="BN">
+                  Brunei (BND $)
+                </button>
+              </li>
+              <li class="
+                    disclosure-list__item
+                    
+                  ">
+                <button
+                  type="submit"
+                  class="disclosure__button"
+                  name="country_code"
+                  value="BG">
+                  Bulgaria (BGN лв.)
+                </button>
+              </li>
+              <li class="
+                    disclosure-list__item
+                    
+                  ">
+                <button
+                  type="submit"
+                  class="disclosure__button"
+                  name="country_code"
+                  value="BF">
+                  Burkina Faso (XOF Fr)
+                </button>
+              </li>
+              <li class="
+                    disclosure-list__item
+                    
+                  ">
+                <button
+                  type="submit"
+                  class="disclosure__button"
+                  name="country_code"
+                  value="BI">
+                  Burundi (BIF Fr)
+                </button>
+              </li>
+              <li class="
+                    disclosure-list__item
+                    
+                  ">
+                <button
+                  type="submit"
+                  class="disclosure__button"
+                  name="country_code"
+                  value="KH">
+                  Cambodia (KHR ៛)
+                </button>
+              </li>
+              <li class="
+                    disclosure-list__item
+                    
+                  ">
+                <button
+                  type="submit"
+                  class="disclosure__button"
+                  name="country_code"
+                  value="CM">
+                  Cameroon (XAF Fr)
+                </button>
+              </li>
+              <li class="
+                    disclosure-list__item
+                    
+                  ">
+                <button
+                  type="submit"
+                  class="disclosure__button"
+                  name="country_code"
+                  value="CA">
+                  Canada (CAD $)
+                </button>
+              </li>
+              <li class="
+                    disclosure-list__item
+                    
+                  ">
+                <button
+                  type="submit"
+                  class="disclosure__button"
+                  name="country_code"
+                  value="CV">
+                  Cape Verde (CVE $)
+                </button>
+              </li>
+              <li class="
+                    disclosure-list__item
+                    
+                  ">
+                <button
+                  type="submit"
+                  class="disclosure__button"
+                  name="country_code"
+                  value="BQ">
+                  Caribbean Netherlands (USD $)
+                </button>
+              </li>
+              <li class="
+                    disclosure-list__item
+                    
+                  ">
+                <button
+                  type="submit"
+                  class="disclosure__button"
+                  name="country_code"
+                  value="KY">
+                  Cayman Islands (KYD $)
+                </button>
+              </li>
+              <li class="
+                    disclosure-list__item
+                    
+                  ">
+                <button
+                  type="submit"
+                  class="disclosure__button"
+                  name="country_code"
+                  value="CF">
+                  Central African Republic (XAF Fr)
+                </button>
+              </li>
+              <li class="
+                    disclosure-list__item
+                    
+                  ">
+                <button
+                  type="submit"
+                  class="disclosure__button"
+                  name="country_code"
+                  value="TD">
+                  Chad (XAF Fr)
+                </button>
+              </li>
+              <li class="
+                    disclosure-list__item
+                    
+                  ">
+                <button
+                  type="submit"
+                  class="disclosure__button"
+                  name="country_code"
+                  value="CL">
+                  Chile (GBP £)
+                </button>
+              </li>
+              <li class="
+                    disclosure-list__item
+                    
+                  ">
+                <button
+                  type="submit"
+                  class="disclosure__button"
+                  name="country_code"
+                  value="CN">
+                  China (CNY ¥)
+                </button>
+              </li>
+              <li class="
+                    disclosure-list__item
+                    
+                  ">
+                <button
+                  type="submit"
+                  class="disclosure__button"
+                  name="country_code"
+                  value="CX">
+                  Christmas Island (AUD $)
+                </button>
+              </li>
+              <li class="
+                    disclosure-list__item
+                    
+                  ">
+                <button
+                  type="submit"
+                  class="disclosure__button"
+                  name="country_code"
+                  value="CC">
+                  Cocos (Keeling) Islands (AUD $)
+                </button>
+              </li>
+              <li class="
+                    disclosure-list__item
+                    
+                  ">
+                <button
+                  type="submit"
+                  class="disclosure__button"
+                  name="country_code"
+                  value="CO">
+                  Colombia (GBP £)
+                </button>
+              </li>
+              <li class="
+                    disclosure-list__item
+                    
+                  ">
+                <button
+                  type="submit"
+                  class="disclosure__button"
+                  name="country_code"
+                  value="KM">
+                  Comoros (KMF Fr)
+                </button>
+              </li>
+              <li class="
+                    disclosure-list__item
+                    
+                  ">
+                <button
+                  type="submit"
+                  class="disclosure__button"
+                  name="country_code"
+                  value="CG">
+                  Congo - Brazzaville (XAF Fr)
+                </button>
+              </li>
+              <li class="
+                    disclosure-list__item
+                    
+                  ">
+                <button
+                  type="submit"
+                  class="disclosure__button"
+                  name="country_code"
+                  value="CD">
+                  Congo - Kinshasa (CDF Fr)
+                </button>
+              </li>
+              <li class="
+                    disclosure-list__item
+                    
+                  ">
+                <button
+                  type="submit"
+                  class="disclosure__button"
+                  name="country_code"
+                  value="CK">
+                  Cook Islands (NZD $)
+                </button>
+              </li>
+              <li class="
+                    disclosure-list__item
+                    
+                  ">
+                <button
+                  type="submit"
+                  class="disclosure__button"
+                  name="country_code"
+                  value="CR">
+                  Costa Rica (CRC ₡)
+                </button>
+              </li>
+              <li class="
+                    disclosure-list__item
+                    
+                  ">
+                <button
+                  type="submit"
+                  class="disclosure__button"
+                  name="country_code"
+                  value="CI">
+                  Côte d’Ivoire (XOF Fr)
+                </button>
+              </li>
+              <li class="
+                    disclosure-list__item
+                    
+                  ">
+                <button
+                  type="submit"
+                  class="disclosure__button"
+                  name="country_code"
+                  value="HR">
+                  Croatia (EUR €)
+                </button>
+              </li>
+              <li class="
+                    disclosure-list__item
+                    
+                  ">
+                <button
+                  type="submit"
+                  class="disclosure__button"
+                  name="country_code"
+                  value="CW">
+                  Curaçao (ANG ƒ)
+                </button>
+              </li>
+              <li class="
+                    disclosure-list__item
+                    
+                  ">
+                <button
+                  type="submit"
+                  class="disclosure__button"
+                  name="country_code"
+                  value="CY">
+                  Cyprus (EUR €)
+                </button>
+              </li>
+              <li class="
+                    disclosure-list__item
+                    
+                  ">
+                <button
+                  type="submit"
+                  class="disclosure__button"
+                  name="country_code"
+                  value="CZ">
+                  Czechia (CZK Kč)
+                </button>
+              </li>
+              <li class="
+                    disclosure-list__item
+                    
+                  ">
+                <button
+                  type="submit"
+                  class="disclosure__button"
+                  name="country_code"
+                  value="DK">
+                  Denmark (DKK kr.)
+                </button>
+              </li>
+              <li class="
+                    disclosure-list__item
+                    
+                  ">
+                <button
+                  type="submit"
+                  class="disclosure__button"
+                  name="country_code"
+                  value="DJ">
+                  Djibouti (DJF Fdj)
+                </button>
+              </li>
+              <li class="
+                    disclosure-list__item
+                    
+                  ">
+                <button
+                  type="submit"
+                  class="disclosure__button"
+                  name="country_code"
+                  value="DM">
+                  Dominica (XCD $)
+                </button>
+              </li>
+              <li class="
+                    disclosure-list__item
+                    
+                  ">
+                <button
+                  type="submit"
+                  class="disclosure__button"
+                  name="country_code"
+                  value="DO">
+                  Dominican Republic (DOP $)
+                </button>
+              </li>
+              <li class="
+                    disclosure-list__item
+                    
+                  ">
+                <button
+                  type="submit"
+                  class="disclosure__button"
+                  name="country_code"
+                  value="EC">
+                  Ecuador (USD $)
+                </button>
+              </li>
+              <li class="
+                    disclosure-list__item
+                    
+                  ">
+                <button
+                  type="submit"
+                  class="disclosure__button"
+                  name="country_code"
+                  value="EG">
+                  Egypt (EGP ج.م)
+                </button>
+              </li>
+              <li class="
+                    disclosure-list__item
+                    
+                  ">
+                <button
+                  type="submit"
+                  class="disclosure__button"
+                  name="country_code"
+                  value="SV">
+                  El Salvador (USD $)
+                </button>
+              </li>
+              <li class="
+                    disclosure-list__item
+                    
+                  ">
+                <button
+                  type="submit"
+                  class="disclosure__button"
+                  name="country_code"
+                  value="GQ">
+                  Equatorial Guinea (XAF Fr)
+                </button>
+              </li>
+              <li class="
+                    disclosure-list__item
+                    
+                  ">
+                <button
+                  type="submit"
+                  class="disclosure__button"
+                  name="country_code"
+                  value="ER">
+                  Eritrea (GBP £)
+                </button>
+              </li>
+              <li class="
+                    disclosure-list__item
+                    
+                  ">
+                <button
+                  type="submit"
+                  class="disclosure__button"
+                  name="country_code"
+                  value="EE">
+                  Estonia (EUR €)
+                </button>
+              </li>
+              <li class="
+                    disclosure-list__item
+                    
+                  ">
+                <button
+                  type="submit"
+                  class="disclosure__button"
+                  name="country_code"
+                  value="SZ">
+                  Eswatini (GBP £)
+                </button>
+              </li>
+              <li class="
+                    disclosure-list__item
+                    
+                  ">
+                <button
+                  type="submit"
+                  class="disclosure__button"
+                  name="country_code"
+                  value="ET">
+                  Ethiopia (ETB Br)
+                </button>
+              </li>
+              <li class="
+                    disclosure-list__item
+                    
+                  ">
+                <button
+                  type="submit"
+                  class="disclosure__button"
+                  name="country_code"
+                  value="FK">
+                  Falkland Islands (FKP £)
+                </button>
+              </li>
+              <li class="
+                    disclosure-list__item
+                    
+                  ">
+                <button
+                  type="submit"
+                  class="disclosure__button"
+                  name="country_code"
+                  value="FO">
+                  Faroe Islands (DKK kr.)
+                </button>
+              </li>
+              <li class="
+                    disclosure-list__item
+                    
+                  ">
+                <button
+                  type="submit"
+                  class="disclosure__button"
+                  name="country_code"
+                  value="FJ">
+                  Fiji (FJD $)
+                </button>
+              </li>
+              <li class="
+                    disclosure-list__item
+                    
+                  ">
+                <button
+                  type="submit"
+                  class="disclosure__button"
+                  name="country_code"
+                  value="FI">
+                  Finland (EUR €)
+                </button>
+              </li>
+              <li class="
+                    disclosure-list__item
+                    
+                  ">
+                <button
+                  type="submit"
+                  class="disclosure__button"
+                  name="country_code"
+                  value="FR">
+                  France (EUR €)
+                </button>
+              </li>
+              <li class="
+                    disclosure-list__item
+                    
+                  ">
+                <button
+                  type="submit"
+                  class="disclosure__button"
+                  name="country_code"
+                  value="GF">
+                  French Guiana (EUR €)
+                </button>
+              </li>
+              <li class="
+                    disclosure-list__item
+                    
+                  ">
+                <button
+                  type="submit"
+                  class="disclosure__button"
+                  name="country_code"
+                  value="PF">
+                  French Polynesia (XPF Fr)
+                </button>
+              </li>
+              <li class="
+                    disclosure-list__item
+                    
+                  ">
+                <button
+                  type="submit"
+                  class="disclosure__button"
+                  name="country_code"
+                  value="TF">
+                  French Southern Territories (EUR €)
+                </button>
+              </li>
+              <li class="
+                    disclosure-list__item
+                    
+                  ">
+                <button
+                  type="submit"
+                  class="disclosure__button"
+                  name="country_code"
+                  value="GA">
+                  Gabon (XOF Fr)
+                </button>
+              </li>
+              <li class="
+                    disclosure-list__item
+                    
+                  ">
+                <button
+                  type="submit"
+                  class="disclosure__button"
+                  name="country_code"
+                  value="GM">
+                  Gambia (GMD D)
+                </button>
+              </li>
+              <li class="
+                    disclosure-list__item
+                    
+                  ">
+                <button
+                  type="submit"
+                  class="disclosure__button"
+                  name="country_code"
+                  value="GE">
+                  Georgia (GBP £)
+                </button>
+              </li>
+              <li class="
+                    disclosure-list__item
+                    
+                  ">
+                <button
+                  type="submit"
+                  class="disclosure__button"
+                  name="country_code"
+                  value="DE">
+                  Germany (EUR €)
+                </button>
+              </li>
+              <li class="
+                    disclosure-list__item
+                    
+                  ">
+                <button
+                  type="submit"
+                  class="disclosure__button"
+                  name="country_code"
+                  value="GH">
+                  Ghana (GBP £)
+                </button>
+              </li>
+              <li class="
+                    disclosure-list__item
+                    
+                  ">
+                <button
+                  type="submit"
+                  class="disclosure__button"
+                  name="country_code"
+                  value="GI">
+                  Gibraltar (GBP £)
+                </button>
+              </li>
+              <li class="
+                    disclosure-list__item
+                    
+                  ">
+                <button
+                  type="submit"
+                  class="disclosure__button"
+                  name="country_code"
+                  value="GR">
+                  Greece (EUR €)
+                </button>
+              </li>
+              <li class="
+                    disclosure-list__item
+                    
+                  ">
+                <button
+                  type="submit"
+                  class="disclosure__button"
+                  name="country_code"
+                  value="GL">
+                  Greenland (DKK kr.)
+                </button>
+              </li>
+              <li class="
+                    disclosure-list__item
+                    
+                  ">
+                <button
+                  type="submit"
+                  class="disclosure__button"
+                  name="country_code"
+                  value="GD">
+                  Grenada (XCD $)
+                </button>
+              </li>
+              <li class="
+                    disclosure-list__item
+                    
+                  ">
+                <button
+                  type="submit"
+                  class="disclosure__button"
+                  name="country_code"
+                  value="GP">
+                  Guadeloupe (EUR €)
+                </button>
+              </li>
+              <li class="
+                    disclosure-list__item
+                    
+                  ">
+                <button
+                  type="submit"
+                  class="disclosure__button"
+                  name="country_code"
+                  value="GT">
+                  Guatemala (GTQ Q)
+                </button>
+              </li>
+              <li class="
+                    disclosure-list__item
+                    
+                  ">
+                <button
+                  type="submit"
+                  class="disclosure__button"
+                  name="country_code"
+                  value="GG">
+                  Guernsey (GBP £)
+                </button>
+              </li>
+              <li class="
+                    disclosure-list__item
+                    
+                  ">
+                <button
+                  type="submit"
+                  class="disclosure__button"
+                  name="country_code"
+                  value="GN">
+                  Guinea (GNF Fr)
+                </button>
+              </li>
+              <li class="
+                    disclosure-list__item
+                    
+                  ">
+                <button
+                  type="submit"
+                  class="disclosure__button"
+                  name="country_code"
+                  value="GW">
+                  Guinea-Bissau (XOF Fr)
+                </button>
+              </li>
+              <li class="
+                    disclosure-list__item
+                    
+                  ">
+                <button
+                  type="submit"
+                  class="disclosure__button"
+                  name="country_code"
+                  value="GY">
+                  Guyana (GYD $)
+                </button>
+              </li>
+              <li class="
+                    disclosure-list__item
+                    
+                  ">
+                <button
+                  type="submit"
+                  class="disclosure__button"
+                  name="country_code"
+                  value="HT">
+                  Haiti (GBP £)
+                </button>
+              </li>
+              <li class="
+                    disclosure-list__item
+                    
+                  ">
+                <button
+                  type="submit"
+                  class="disclosure__button"
+                  name="country_code"
+                  value="HN">
+                  Honduras (HNL L)
+                </button>
+              </li>
+              <li class="
+                    disclosure-list__item
+                    
+                  ">
+                <button
+                  type="submit"
+                  class="disclosure__button"
+                  name="country_code"
+                  value="HK">
+                  Hong Kong SAR (HKD $)
+                </button>
+              </li>
+              <li class="
+                    disclosure-list__item
+                    
+                  ">
+                <button
+                  type="submit"
+                  class="disclosure__button"
+                  name="country_code"
+                  value="HU">
+                  Hungary (HUF Ft)
+                </button>
+              </li>
+              <li class="
+                    disclosure-list__item
+                    
+                  ">
+                <button
+                  type="submit"
+                  class="disclosure__button"
+                  name="country_code"
+                  value="IS">
+                  Iceland (ISK kr)
+                </button>
+              </li>
+              <li class="
+                    disclosure-list__item
+                    disclosure-list__item--current
+                  ">
+                <button
+                  type="submit"
+                  class="disclosure__button"
+                  name="country_code"
+                  value="IN">
+                  India (INR ₹)
+                </button>
+              </li>
+              <li class="
+                    disclosure-list__item
+                    
+                  ">
+                <button
+                  type="submit"
+                  class="disclosure__button"
+                  name="country_code"
+                  value="ID">
+                  Indonesia (IDR Rp)
+                </button>
+              </li>
+              <li class="
+                    disclosure-list__item
+                    
+                  ">
+                <button
+                  type="submit"
+                  class="disclosure__button"
+                  name="country_code"
+                  value="IQ">
+                  Iraq (GBP £)
+                </button>
+              </li>
+              <li class="
+                    disclosure-list__item
+                    
+                  ">
+                <button
+                  type="submit"
+                  class="disclosure__button"
+                  name="country_code"
+                  value="IE">
+                  Ireland (EUR €)
+                </button>
+              </li>
+              <li class="
+                    disclosure-list__item
+                    
+                  ">
+                <button
+                  type="submit"
+                  class="disclosure__button"
+                  name="country_code"
+                  value="IM">
+                  Isle of Man (GBP £)
+                </button>
+              </li>
+              <li class="
+                    disclosure-list__item
+                    
+                  ">
+                <button
+                  type="submit"
+                  class="disclosure__button"
+                  name="country_code"
+                  value="IL">
+                  Israel (ILS ₪)
+                </button>
+              </li>
+              <li class="
+                    disclosure-list__item
+                    
+                  ">
+                <button
+                  type="submit"
+                  class="disclosure__button"
+                  name="country_code"
+                  value="IT">
+                  Italy (EUR €)
+                </button>
+              </li>
+              <li class="
+                    disclosure-list__item
+                    
+                  ">
+                <button
+                  type="submit"
+                  class="disclosure__button"
+                  name="country_code"
+                  value="JM">
+                  Jamaica (JMD $)
+                </button>
+              </li>
+              <li class="
+                    disclosure-list__item
+                    
+                  ">
+                <button
+                  type="submit"
+                  class="disclosure__button"
+                  name="country_code"
+                  value="JP">
+                  Japan (JPY ¥)
+                </button>
+              </li>
+              <li class="
+                    disclosure-list__item
+                    
+                  ">
+                <button
+                  type="submit"
+                  class="disclosure__button"
+                  name="country_code"
+                  value="JE">
+                  Jersey (GBP £)
+                </button>
+              </li>
+              <li class="
+                    disclosure-list__item
+                    
+                  ">
+                <button
+                  type="submit"
+                  class="disclosure__button"
+                  name="country_code"
+                  value="JO">
+                  Jordan (GBP £)
+                </button>
+              </li>
+              <li class="
+                    disclosure-list__item
+                    
+                  ">
+                <button
+                  type="submit"
+                  class="disclosure__button"
+                  name="country_code"
+                  value="KZ">
+                  Kazakhstan (KZT 〒)
+                </button>
+              </li>
+              <li class="
+                    disclosure-list__item
+                    
+                  ">
+                <button
+                  type="submit"
+                  class="disclosure__button"
+                  name="country_code"
+                  value="KE">
+                  Kenya (KES KSh)
+                </button>
+              </li>
+              <li class="
+                    disclosure-list__item
+                    
+                  ">
+                <button
+                  type="submit"
+                  class="disclosure__button"
+                  name="country_code"
+                  value="KI">
+                  Kiribati (GBP £)
+                </button>
+              </li>
+              <li class="
+                    disclosure-list__item
+                    
+                  ">
+                <button
+                  type="submit"
+                  class="disclosure__button"
+                  name="country_code"
+                  value="XK">
+                  Kosovo (EUR €)
+                </button>
+              </li>
+              <li class="
+                    disclosure-list__item
+                    
+                  ">
+                <button
+                  type="submit"
+                  class="disclosure__button"
+                  name="country_code"
+                  value="KW">
+                  Kuwait (GBP £)
+                </button>
+              </li>
+              <li class="
+                    disclosure-list__item
+                    
+                  ">
+                <button
+                  type="submit"
+                  class="disclosure__button"
+                  name="country_code"
+                  value="KG">
+                  Kyrgyzstan (KGS som)
+                </button>
+              </li>
+              <li class="
+                    disclosure-list__item
+                    
+                  ">
+                <button
+                  type="submit"
+                  class="disclosure__button"
+                  name="country_code"
+                  value="LA">
+                  Laos (LAK ₭)
+                </button>
+              </li>
+              <li class="
+                    disclosure-list__item
+                    
+                  ">
+                <button
+                  type="submit"
+                  class="disclosure__button"
+                  name="country_code"
+                  value="LV">
+                  Latvia (EUR €)
+                </button>
+              </li>
+              <li class="
+                    disclosure-list__item
+                    
+                  ">
+                <button
+                  type="submit"
+                  class="disclosure__button"
+                  name="country_code"
+                  value="LB">
+                  Lebanon (LBP ل.ل)
+                </button>
+              </li>
+              <li class="
+                    disclosure-list__item
+                    
+                  ">
+                <button
+                  type="submit"
+                  class="disclosure__button"
+                  name="country_code"
+                  value="LS">
+                  Lesotho (GBP £)
+                </button>
+              </li>
+              <li class="
+                    disclosure-list__item
+                    
+                  ">
+                <button
+                  type="submit"
+                  class="disclosure__button"
+                  name="country_code"
+                  value="LR">
+                  Liberia (GBP £)
+                </button>
+              </li>
+              <li class="
+                    disclosure-list__item
+                    
+                  ">
+                <button
+                  type="submit"
+                  class="disclosure__button"
+                  name="country_code"
+                  value="LY">
+                  Libya (GBP £)
+                </button>
+              </li>
+              <li class="
+                    disclosure-list__item
+                    
+                  ">
+                <button
+                  type="submit"
+                  class="disclosure__button"
+                  name="country_code"
+                  value="LI">
+                  Liechtenstein (CHF CHF)
+                </button>
+              </li>
+              <li class="
+                    disclosure-list__item
+                    
+                  ">
+                <button
+                  type="submit"
+                  class="disclosure__button"
+                  name="country_code"
+                  value="LT">
+                  Lithuania (EUR €)
+                </button>
+              </li>
+              <li class="
+                    disclosure-list__item
+                    
+                  ">
+                <button
+                  type="submit"
+                  class="disclosure__button"
+                  name="country_code"
+                  value="LU">
+                  Luxembourg (EUR €)
+                </button>
+              </li>
+              <li class="
+                    disclosure-list__item
+                    
+                  ">
+                <button
+                  type="submit"
+                  class="disclosure__button"
+                  name="country_code"
+                  value="MO">
+                  Macao SAR (MOP P)
+                </button>
+              </li>
+              <li class="
+                    disclosure-list__item
+                    
+                  ">
+                <button
+                  type="submit"
+                  class="disclosure__button"
+                  name="country_code"
+                  value="MG">
+                  Madagascar (GBP £)
+                </button>
+              </li>
+              <li class="
+                    disclosure-list__item
+                    
+                  ">
+                <button
+                  type="submit"
+                  class="disclosure__button"
+                  name="country_code"
+                  value="MW">
+                  Malawi (MWK MK)
+                </button>
+              </li>
+              <li class="
+                    disclosure-list__item
+                    
+                  ">
+                <button
+                  type="submit"
+                  class="disclosure__button"
+                  name="country_code"
+                  value="MY">
+                  Malaysia (MYR RM)
+                </button>
+              </li>
+              <li class="
+                    disclosure-list__item
+                    
+                  ">
+                <button
+                  type="submit"
+                  class="disclosure__button"
+                  name="country_code"
+                  value="MV">
+                  Maldives (MVR MVR)
+                </button>
+              </li>
+              <li class="
+                    disclosure-list__item
+                    
+                  ">
+                <button
+                  type="submit"
+                  class="disclosure__button"
+                  name="country_code"
+                  value="ML">
+                  Mali (XOF Fr)
+                </button>
+              </li>
+              <li class="
+                    disclosure-list__item
+                    
+                  ">
+                <button
+                  type="submit"
+                  class="disclosure__button"
+                  name="country_code"
+                  value="MT">
+                  Malta (EUR €)
+                </button>
+              </li>
+              <li class="
+                    disclosure-list__item
+                    
+                  ">
+                <button
+                  type="submit"
+                  class="disclosure__button"
+                  name="country_code"
+                  value="MQ">
+                  Martinique (EUR €)
+                </button>
+              </li>
+              <li class="
+                    disclosure-list__item
+                    
+                  ">
+                <button
+                  type="submit"
+                  class="disclosure__button"
+                  name="country_code"
+                  value="MR">
+                  Mauritania (GBP £)
+                </button>
+              </li>
+              <li class="
+                    disclosure-list__item
+                    
+                  ">
+                <button
+                  type="submit"
+                  class="disclosure__button"
+                  name="country_code"
+                  value="MU">
+                  Mauritius (MUR ₨)
+                </button>
+              </li>
+              <li class="
+                    disclosure-list__item
+                    
+                  ">
+                <button
+                  type="submit"
+                  class="disclosure__button"
+                  name="country_code"
+                  value="YT">
+                  Mayotte (EUR €)
+                </button>
+              </li>
+              <li class="
+                    disclosure-list__item
+                    
+                  ">
+                <button
+                  type="submit"
+                  class="disclosure__button"
+                  name="country_code"
+                  value="MX">
+                  Mexico (GBP £)
+                </button>
+              </li>
+              <li class="
+                    disclosure-list__item
+                    
+                  ">
+                <button
+                  type="submit"
+                  class="disclosure__button"
+                  name="country_code"
+                  value="MD">
+                  Moldova (MDL L)
+                </button>
+              </li>
+              <li class="
+                    disclosure-list__item
+                    
+                  ">
+                <button
+                  type="submit"
+                  class="disclosure__button"
+                  name="country_code"
+                  value="MC">
+                  Monaco (EUR €)
+                </button>
+              </li>
+              <li class="
+                    disclosure-list__item
+                    
+                  ">
+                <button
+                  type="submit"
+                  class="disclosure__button"
+                  name="country_code"
+                  value="MN">
+                  Mongolia (MNT ₮)
+                </button>
+              </li>
+              <li class="
+                    disclosure-list__item
+                    
+                  ">
+                <button
+                  type="submit"
+                  class="disclosure__button"
+                  name="country_code"
+                  value="ME">
+                  Montenegro (EUR €)
+                </button>
+              </li>
+              <li class="
+                    disclosure-list__item
+                    
+                  ">
+                <button
+                  type="submit"
+                  class="disclosure__button"
+                  name="country_code"
+                  value="MS">
+                  Montserrat (XCD $)
+                </button>
+              </li>
+              <li class="
+                    disclosure-list__item
+                    
+                  ">
+                <button
+                  type="submit"
+                  class="disclosure__button"
+                  name="country_code"
+                  value="MA">
+                  Morocco (MAD د.م.)
+                </button>
+              </li>
+              <li class="
+                    disclosure-list__item
+                    
+                  ">
+                <button
+                  type="submit"
+                  class="disclosure__button"
+                  name="country_code"
+                  value="MZ">
+                  Mozambique (GBP £)
+                </button>
+              </li>
+              <li class="
+                    disclosure-list__item
+                    
+                  ">
+                <button
+                  type="submit"
+                  class="disclosure__button"
+                  name="country_code"
+                  value="MM">
+                  Myanmar (Burma) (MMK K)
+                </button>
+              </li>
+              <li class="
+                    disclosure-list__item
+                    
+                  ">
+                <button
+                  type="submit"
+                  class="disclosure__button"
+                  name="country_code"
+                  value="NA">
+                  Namibia (GBP £)
+                </button>
+              </li>
+              <li class="
+                    disclosure-list__item
+                    
+                  ">
+                <button
+                  type="submit"
+                  class="disclosure__button"
+                  name="country_code"
+                  value="NR">
+                  Nauru (AUD $)
+                </button>
+              </li>
+              <li class="
+                    disclosure-list__item
+                    
+                  ">
+                <button
+                  type="submit"
+                  class="disclosure__button"
+                  name="country_code"
+                  value="NP">
+                  Nepal (NPR ₨)
+                </button>
+              </li>
+              <li class="
+                    disclosure-list__item
+                    
+                  ">
+                <button
+                  type="submit"
+                  class="disclosure__button"
+                  name="country_code"
+                  value="NL">
+                  Netherlands (EUR €)
+                </button>
+              </li>
+              <li class="
+                    disclosure-list__item
+                    
+                  ">
+                <button
+                  type="submit"
+                  class="disclosure__button"
+                  name="country_code"
+                  value="NC">
+                  New Caledonia (XPF Fr)
+                </button>
+              </li>
+              <li class="
+                    disclosure-list__item
+                    
+                  ">
+                <button
+                  type="submit"
+                  class="disclosure__button"
+                  name="country_code"
+                  value="NZ">
+                  New Zealand (NZD $)
+                </button>
+              </li>
+              <li class="
+                    disclosure-list__item
+                    
+                  ">
+                <button
+                  type="submit"
+                  class="disclosure__button"
+                  name="country_code"
+                  value="NI">
+                  Nicaragua (NIO C$)
+                </button>
+              </li>
+              <li class="
+                    disclosure-list__item
+                    
+                  ">
+                <button
+                  type="submit"
+                  class="disclosure__button"
+                  name="country_code"
+                  value="NE">
+                  Niger (XOF Fr)
+                </button>
+              </li>
+              <li class="
+                    disclosure-list__item
+                    
+                  ">
+                <button
+                  type="submit"
+                  class="disclosure__button"
+                  name="country_code"
+                  value="NG">
+                  Nigeria (NGN ₦)
+                </button>
+              </li>
+              <li class="
+                    disclosure-list__item
+                    
+                  ">
+                <button
+                  type="submit"
+                  class="disclosure__button"
+                  name="country_code"
+                  value="NU">
+                  Niue (NZD $)
+                </button>
+              </li>
+              <li class="
+                    disclosure-list__item
+                    
+                  ">
+                <button
+                  type="submit"
+                  class="disclosure__button"
+                  name="country_code"
+                  value="NF">
+                  Norfolk Island (AUD $)
+                </button>
+              </li>
+              <li class="
+                    disclosure-list__item
+                    
+                  ">
+                <button
+                  type="submit"
+                  class="disclosure__button"
+                  name="country_code"
+                  value="MK">
+                  North Macedonia (MKD ден)
+                </button>
+              </li>
+              <li class="
+                    disclosure-list__item
+                    
+                  ">
+                <button
+                  type="submit"
+                  class="disclosure__button"
+                  name="country_code"
+                  value="NO">
+                  Norway (GBP £)
+                </button>
+              </li>
+              <li class="
+                    disclosure-list__item
+                    
+                  ">
+                <button
+                  type="submit"
+                  class="disclosure__button"
+                  name="country_code"
+                  value="OM">
+                  Oman (GBP £)
+                </button>
+              </li>
+              <li class="
+                    disclosure-list__item
+                    
+                  ">
+                <button
+                  type="submit"
+                  class="disclosure__button"
+                  name="country_code"
+                  value="PK">
+                  Pakistan (PKR ₨)
+                </button>
+              </li>
+              <li class="
+                    disclosure-list__item
+                    
+                  ">
+                <button
+                  type="submit"
+                  class="disclosure__button"
+                  name="country_code"
+                  value="PS">
+                  Palestinian Territories (ILS ₪)
+                </button>
+              </li>
+              <li class="
+                    disclosure-list__item
+                    
+                  ">
+                <button
+                  type="submit"
+                  class="disclosure__button"
+                  name="country_code"
+                  value="PA">
+                  Panama (USD $)
+                </button>
+              </li>
+              <li class="
+                    disclosure-list__item
+                    
+                  ">
+                <button
+                  type="submit"
+                  class="disclosure__button"
+                  name="country_code"
+                  value="PG">
+                  Papua New Guinea (PGK K)
+                </button>
+              </li>
+              <li class="
+                    disclosure-list__item
+                    
+                  ">
+                <button
+                  type="submit"
+                  class="disclosure__button"
+                  name="country_code"
+                  value="PY">
+                  Paraguay (PYG ₲)
+                </button>
+              </li>
+              <li class="
+                    disclosure-list__item
+                    
+                  ">
+                <button
+                  type="submit"
+                  class="disclosure__button"
+                  name="country_code"
+                  value="PE">
+                  Peru (PEN S/.)
+                </button>
+              </li>
+              <li class="
+                    disclosure-list__item
+                    
+                  ">
+                <button
+                  type="submit"
+                  class="disclosure__button"
+                  name="country_code"
+                  value="PH">
+                  Philippines (PHP ₱)
+                </button>
+              </li>
+              <li class="
+                    disclosure-list__item
+                    
+                  ">
+                <button
+                  type="submit"
+                  class="disclosure__button"
+                  name="country_code"
+                  value="PN">
+                  Pitcairn Islands (NZD $)
+                </button>
+              </li>
+              <li class="
+                    disclosure-list__item
+                    
+                  ">
+                <button
+                  type="submit"
+                  class="disclosure__button"
+                  name="country_code"
+                  value="PL">
+                  Poland (PLN zł)
+                </button>
+              </li>
+              <li class="
+                    disclosure-list__item
+                    
+                  ">
+                <button
+                  type="submit"
+                  class="disclosure__button"
+                  name="country_code"
+                  value="PT">
+                  Portugal (EUR €)
+                </button>
+              </li>
+              <li class="
+                    disclosure-list__item
+                    
+                  ">
+                <button
+                  type="submit"
+                  class="disclosure__button"
+                  name="country_code"
+                  value="QA">
+                  Qatar (QAR ر.ق)
+                </button>
+              </li>
+              <li class="
+                    disclosure-list__item
+                    
+                  ">
+                <button
+                  type="submit"
+                  class="disclosure__button"
+                  name="country_code"
+                  value="RE">
+                  Réunion (EUR €)
+                </button>
+              </li>
+              <li class="
+                    disclosure-list__item
+                    
+                  ">
+                <button
+                  type="submit"
+                  class="disclosure__button"
+                  name="country_code"
+                  value="RO">
+                  Romania (RON Lei)
+                </button>
+              </li>
+              <li class="
+                    disclosure-list__item
+                    
+                  ">
+                <button
+                  type="submit"
+                  class="disclosure__button"
+                  name="country_code"
+                  value="RU">
+                  Russia (GBP £)
+                </button>
+              </li>
+              <li class="
+                    disclosure-list__item
+                    
+                  ">
+                <button
+                  type="submit"
+                  class="disclosure__button"
+                  name="country_code"
+                  value="RW">
+                  Rwanda (RWF FRw)
+                </button>
+              </li>
+              <li class="
+                    disclosure-list__item
+                    
+                  ">
+                <button
+                  type="submit"
+                  class="disclosure__button"
+                  name="country_code"
+                  value="WS">
+                  Samoa (WST T)
+                </button>
+              </li>
+              <li class="
+                    disclosure-list__item
+                    
+                  ">
+                <button
+                  type="submit"
+                  class="disclosure__button"
+                  name="country_code"
+                  value="SM">
+                  San Marino (EUR €)
+                </button>
+              </li>
+              <li class="
+                    disclosure-list__item
+                    
+                  ">
+                <button
+                  type="submit"
+                  class="disclosure__button"
+                  name="country_code"
+                  value="ST">
+                  São Tomé &amp; Príncipe (STD Db)
+                </button>
+              </li>
+              <li class="
+                    disclosure-list__item
+                    
+                  ">
+                <button
+                  type="submit"
+                  class="disclosure__button"
+                  name="country_code"
+                  value="SA">
+                  Saudi Arabia (SAR ر.س)
+                </button>
+              </li>
+              <li class="
+                    disclosure-list__item
+                    
+                  ">
+                <button
+                  type="submit"
+                  class="disclosure__button"
+                  name="country_code"
+                  value="SN">
+                  Senegal (XOF Fr)
+                </button>
+              </li>
+              <li class="
+                    disclosure-list__item
+                    
+                  ">
+                <button
+                  type="submit"
+                  class="disclosure__button"
+                  name="country_code"
+                  value="RS">
+                  Serbia (RSD РСД)
+                </button>
+              </li>
+              <li class="
+                    disclosure-list__item
+                    
+                  ">
+                <button
+                  type="submit"
+                  class="disclosure__button"
+                  name="country_code"
+                  value="SC">
+                  Seychelles (GBP £)
+                </button>
+              </li>
+              <li class="
+                    disclosure-list__item
+                    
+                  ">
+                <button
+                  type="submit"
+                  class="disclosure__button"
+                  name="country_code"
+                  value="SL">
+                  Sierra Leone (SLL Le)
+                </button>
+              </li>
+              <li class="
+                    disclosure-list__item
+                    
+                  ">
+                <button
+                  type="submit"
+                  class="disclosure__button"
+                  name="country_code"
+                  value="SG">
+                  Singapore (SGD $)
+                </button>
+              </li>
+              <li class="
+                    disclosure-list__item
+                    
+                  ">
+                <button
+                  type="submit"
+                  class="disclosure__button"
+                  name="country_code"
+                  value="SX">
+                  Sint Maarten (ANG ƒ)
+                </button>
+              </li>
+              <li class="
+                    disclosure-list__item
+                    
+                  ">
+                <button
+                  type="submit"
+                  class="disclosure__button"
+                  name="country_code"
+                  value="SK">
+                  Slovakia (EUR €)
+                </button>
+              </li>
+              <li class="
+                    disclosure-list__item
+                    
+                  ">
+                <button
+                  type="submit"
+                  class="disclosure__button"
+                  name="country_code"
+                  value="SI">
+                  Slovenia (EUR €)
+                </button>
+              </li>
+              <li class="
+                    disclosure-list__item
+                    
+                  ">
+                <button
+                  type="submit"
+                  class="disclosure__button"
+                  name="country_code"
+                  value="SB">
+                  Solomon Islands (SBD $)
+                </button>
+              </li>
+              <li class="
+                    disclosure-list__item
+                    
+                  ">
+                <button
+                  type="submit"
+                  class="disclosure__button"
+                  name="country_code"
+                  value="SO">
+                  Somalia (GBP £)
+                </button>
+              </li>
+              <li class="
+                    disclosure-list__item
+                    
+                  ">
+                <button
+                  type="submit"
+                  class="disclosure__button"
+                  name="country_code"
+                  value="ZA">
+                  South Africa (GBP £)
+                </button>
+              </li>
+              <li class="
+                    disclosure-list__item
+                    
+                  ">
+                <button
+                  type="submit"
+                  class="disclosure__button"
+                  name="country_code"
+                  value="GS">
+                  South Georgia &amp; South Sandwich Islands (GBP £)
+                </button>
+              </li>
+              <li class="
+                    disclosure-list__item
+                    
+                  ">
+                <button
+                  type="submit"
+                  class="disclosure__button"
+                  name="country_code"
+                  value="KR">
+                  South Korea (KRW ₩)
+                </button>
+              </li>
+              <li class="
+                    disclosure-list__item
+                    
+                  ">
+                <button
+                  type="submit"
+                  class="disclosure__button"
+                  name="country_code"
+                  value="SS">
+                  South Sudan (GBP £)
+                </button>
+              </li>
+              <li class="
+                    disclosure-list__item
+                    
+                  ">
+                <button
+                  type="submit"
+                  class="disclosure__button"
+                  name="country_code"
+                  value="ES">
+                  Spain (EUR €)
+                </button>
+              </li>
+              <li class="
+                    disclosure-list__item
+                    
+                  ">
+                <button
+                  type="submit"
+                  class="disclosure__button"
+                  name="country_code"
+                  value="LK">
+                  Sri Lanka (LKR ₨)
+                </button>
+              </li>
+              <li class="
+                    disclosure-list__item
+                    
+                  ">
+                <button
+                  type="submit"
+                  class="disclosure__button"
+                  name="country_code"
+                  value="BL">
+                  St. Barthélemy (EUR €)
+                </button>
+              </li>
+              <li class="
+                    disclosure-list__item
+                    
+                  ">
+                <button
+                  type="submit"
+                  class="disclosure__button"
+                  name="country_code"
+                  value="SH">
+                  St. Helena (SHP £)
+                </button>
+              </li>
+              <li class="
+                    disclosure-list__item
+                    
+                  ">
+                <button
+                  type="submit"
+                  class="disclosure__button"
+                  name="country_code"
+                  value="KN">
+                  St. Kitts &amp; Nevis (XCD $)
+                </button>
+              </li>
+              <li class="
+                    disclosure-list__item
+                    
+                  ">
+                <button
+                  type="submit"
+                  class="disclosure__button"
+                  name="country_code"
+                  value="LC">
+                  St. Lucia (XCD $)
+                </button>
+              </li>
+              <li class="
+                    disclosure-list__item
+                    
+                  ">
+                <button
+                  type="submit"
+                  class="disclosure__button"
+                  name="country_code"
+                  value="MF">
+                  St. Martin (EUR €)
+                </button>
+              </li>
+              <li class="
+                    disclosure-list__item
+                    
+                  ">
+                <button
+                  type="submit"
+                  class="disclosure__button"
+                  name="country_code"
+                  value="PM">
+                  St. Pierre &amp; Miquelon (EUR €)
+                </button>
+              </li>
+              <li class="
+                    disclosure-list__item
+                    
+                  ">
+                <button
+                  type="submit"
+                  class="disclosure__button"
+                  name="country_code"
+                  value="VC">
+                  St. Vincent &amp; Grenadines (XCD $)
+                </button>
+              </li>
+              <li class="
+                    disclosure-list__item
+                    
+                  ">
+                <button
+                  type="submit"
+                  class="disclosure__button"
+                  name="country_code"
+                  value="SD">
+                  Sudan (GBP £)
+                </button>
+              </li>
+              <li class="
+                    disclosure-list__item
+                    
+                  ">
+                <button
+                  type="submit"
+                  class="disclosure__button"
+                  name="country_code"
+                  value="SR">
+                  Suriname (GBP £)
+                </button>
+              </li>
+              <li class="
+                    disclosure-list__item
+                    
+                  ">
+                <button
+                  type="submit"
+                  class="disclosure__button"
+                  name="country_code"
+                  value="SJ">
+                  Svalbard &amp; Jan Mayen (GBP £)
+                </button>
+              </li>
+              <li class="
+                    disclosure-list__item
+                    
+                  ">
+                <button
+                  type="submit"
+                  class="disclosure__button"
+                  name="country_code"
+                  value="SE">
+                  Sweden (SEK kr)
+                </button>
+              </li>
+              <li class="
+                    disclosure-list__item
+                    
+                  ">
+                <button
+                  type="submit"
+                  class="disclosure__button"
+                  name="country_code"
+                  value="CH">
+                  Switzerland (CHF CHF)
+                </button>
+              </li>
+              <li class="
+                    disclosure-list__item
+                    
+                  ">
+                <button
+                  type="submit"
+                  class="disclosure__button"
+                  name="country_code"
+                  value="TW">
+                  Taiwan (TWD $)
+                </button>
+              </li>
+              <li class="
+                    disclosure-list__item
+                    
+                  ">
+                <button
+                  type="submit"
+                  class="disclosure__button"
+                  name="country_code"
+                  value="TJ">
+                  Tajikistan (TJS ЅМ)
+                </button>
+              </li>
+              <li class="
+                    disclosure-list__item
+                    
+                  ">
+                <button
+                  type="submit"
+                  class="disclosure__button"
+                  name="country_code"
+                  value="TZ">
+                  Tanzania (TZS Sh)
+                </button>
+              </li>
+              <li class="
+                    disclosure-list__item
+                    
+                  ">
+                <button
+                  type="submit"
+                  class="disclosure__button"
+                  name="country_code"
+                  value="TH">
+                  Thailand (THB ฿)
+                </button>
+              </li>
+              <li class="
+                    disclosure-list__item
+                    
+                  ">
+                <button
+                  type="submit"
+                  class="disclosure__button"
+                  name="country_code"
+                  value="TL">
+                  Timor-Leste (USD $)
+                </button>
+              </li>
+              <li class="
+                    disclosure-list__item
+                    
+                  ">
+                <button
+                  type="submit"
+                  class="disclosure__button"
+                  name="country_code"
+                  value="TG">
+                  Togo (XOF Fr)
+                </button>
+              </li>
+              <li class="
+                    disclosure-list__item
+                    
+                  ">
+                <button
+                  type="submit"
+                  class="disclosure__button"
+                  name="country_code"
+                  value="TK">
+                  Tokelau (NZD $)
+                </button>
+              </li>
+              <li class="
+                    disclosure-list__item
+                    
+                  ">
+                <button
+                  type="submit"
+                  class="disclosure__button"
+                  name="country_code"
+                  value="TO">
+                  Tonga (TOP T$)
+                </button>
+              </li>
+              <li class="
+                    disclosure-list__item
+                    
+                  ">
+                <button
+                  type="submit"
+                  class="disclosure__button"
+                  name="country_code"
+                  value="TT">
+                  Trinidad &amp; Tobago (TTD $)
+                </button>
+              </li>
+              <li class="
+                    disclosure-list__item
+                    
+                  ">
+                <button
+                  type="submit"
+                  class="disclosure__button"
+                  name="country_code"
+                  value="TA">
+                  Tristan da Cunha (GBP £)
+                </button>
+              </li>
+              <li class="
+                    disclosure-list__item
+                    
+                  ">
+                <button
+                  type="submit"
+                  class="disclosure__button"
+                  name="country_code"
+                  value="TN">
+                  Tunisia (GBP £)
+                </button>
+              </li>
+              <li class="
+                    disclosure-list__item
+                    
+                  ">
+                <button
+                  type="submit"
+                  class="disclosure__button"
+                  name="country_code"
+                  value="TR">
+                  Türkiye (GBP £)
+                </button>
+              </li>
+              <li class="
+                    disclosure-list__item
+                    
+                  ">
+                <button
+                  type="submit"
+                  class="disclosure__button"
+                  name="country_code"
+                  value="TM">
+                  Turkmenistan (GBP £)
+                </button>
+              </li>
+              <li class="
+                    disclosure-list__item
+                    
+                  ">
+                <button
+                  type="submit"
+                  class="disclosure__button"
+                  name="country_code"
+                  value="TC">
+                  Turks &amp; Caicos Islands (USD $)
+                </button>
+              </li>
+              <li class="
+                    disclosure-list__item
+                    
+                  ">
+                <button
+                  type="submit"
+                  class="disclosure__button"
+                  name="country_code"
+                  value="TV">
+                  Tuvalu (AUD $)
+                </button>
+              </li>
+              <li class="
+                    disclosure-list__item
+                    
+                  ">
+                <button
+                  type="submit"
+                  class="disclosure__button"
+                  name="country_code"
+                  value="UM">
+                  U.S. Outlying Islands (USD $)
+                </button>
+              </li>
+              <li class="
+                    disclosure-list__item
+                    
+                  ">
+                <button
+                  type="submit"
+                  class="disclosure__button"
+                  name="country_code"
+                  value="UG">
+                  Uganda (UGX USh)
+                </button>
+              </li>
+              <li class="
+                    disclosure-list__item
+                    
+                  ">
+                <button
+                  type="submit"
+                  class="disclosure__button"
+                  name="country_code"
+                  value="UA">
+                  Ukraine (UAH ₴)
+                </button>
+              </li>
+              <li class="
+                    disclosure-list__item
+                    
+                  ">
+                <button
+                  type="submit"
+                  class="disclosure__button"
+                  name="country_code"
+                  value="AE">
+                  United Arab Emirates (AED د.إ)
+                </button>
+              </li>
+              <li class="
+                    disclosure-list__item
+                    
+                  ">
+                <button
+                  type="submit"
+                  class="disclosure__button"
+                  name="country_code"
+                  value="GB">
+                  United Kingdom (GBP £)
+                </button>
+              </li>
+              <li class="
+                    disclosure-list__item
+                    
+                  ">
+                <button
+                  type="submit"
+                  class="disclosure__button"
+                  name="country_code"
+                  value="US">
+                  United States (USD $)
+                </button>
+              </li>
+              <li class="
+                    disclosure-list__item
+                    
+                  ">
+                <button
+                  type="submit"
+                  class="disclosure__button"
+                  name="country_code"
+                  value="UY">
+                  Uruguay (UYU $)
+                </button>
+              </li>
+              <li class="
+                    disclosure-list__item
+                    
+                  ">
+                <button
+                  type="submit"
+                  class="disclosure__button"
+                  name="country_code"
+                  value="UZ">
+                  Uzbekistan (UZS )
+                </button>
+              </li>
+              <li class="
+                    disclosure-list__item
+                    
+                  ">
+                <button
+                  type="submit"
+                  class="disclosure__button"
+                  name="country_code"
+                  value="VU">
+                  Vanuatu (VUV Vt)
+                </button>
+              </li>
+              <li class="
+                    disclosure-list__item
+                    
+                  ">
+                <button
+                  type="submit"
+                  class="disclosure__button"
+                  name="country_code"
+                  value="VA">
+                  Vatican City (EUR €)
+                </button>
+              </li>
+              <li class="
+                    disclosure-list__item
+                    
+                  ">
+                <button
+                  type="submit"
+                  class="disclosure__button"
+                  name="country_code"
+                  value="VE">
+                  Venezuela (USD $)
+                </button>
+              </li>
+              <li class="
+                    disclosure-list__item
+                    
+                  ">
+                <button
+                  type="submit"
+                  class="disclosure__button"
+                  name="country_code"
+                  value="VN">
+                  Vietnam (VND ₫)
+                </button>
+              </li>
+              <li class="
+                    disclosure-list__item
+                    
+                  ">
+                <button
+                  type="submit"
+                  class="disclosure__button"
+                  name="country_code"
+                  value="WF">
+                  Wallis &amp; Futuna (XPF Fr)
+                </button>
+              </li>
+              <li class="
+                    disclosure-list__item
+                    
+                  ">
+                <button
+                  type="submit"
+                  class="disclosure__button"
+                  name="country_code"
+                  value="EH">
+                  Western Sahara (MAD د.م.)
+                </button>
+              </li>
+              <li class="
+                    disclosure-list__item
+                    
+                  ">
+                <button
+                  type="submit"
+                  class="disclosure__button"
+                  name="country_code"
+                  value="YE">
+                  Yemen (YER ﷼)
+                </button>
+              </li>
+              <li class="
+                    disclosure-list__item
+                    
+                  ">
+                <button
+                  type="submit"
+                  class="disclosure__button"
+                  name="country_code"
+                  value="ZM">
+                  Zambia (GBP £)
+                </button>
+              </li>
+              <li class="
+                    disclosure-list__item
+                    
+                  ">
+                <button
+                  type="submit"
+                  class="disclosure__button"
+                  name="country_code"
+                  value="ZW">
+                  Zimbabwe (USD $)
+                </button>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</form>
